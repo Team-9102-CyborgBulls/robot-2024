@@ -45,12 +45,12 @@ public class DriveCmd extends Command{
 
     if( forwardSpeed == 0 && turnSpeed == 0){
       
-      DriveSubsystem.m_drive.arcadeDrive(0, 0);
+      driveSubsystem.arcadeDrive(0, 0);
      
     }
     else{
       
-      DriveSubsystem.m_drive.arcadeDrive(-forwardSpeed, -turnSpeed);
+      driveSubsystem.arcadeDrive(-forwardSpeed, -turnSpeed);
   }
   
  
