@@ -87,14 +87,22 @@ public class DriveSubsystem extends SubsystemBase {
     
   }
 
-  /*public void setDriveMotors(double forward, double turn){
-
+  public void setDriveMotors(double forward, double turn){
+    
+    WPI_TalonSRX m_MotorRight = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightID);
+    WPI_TalonSRX m_MotorRightFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightFollowID);
+    WPI_TalonSRX m_MotorLeft = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftID);
+    WPI_TalonSRX m_MotorLeftFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftFollowID);
+   
+    m_MotorRightFollow.follow(m_MotorRight);  
+    m_MotorLeftFollow.follow(m_MotorRight); 
+     
     double left = forward - turn;
     double right = forward + turn;
 
     m_MotorRight.set(TalonSRXControlMode.PercentOutput, left);
     m_MotorLeft.set(TalonSRXControlMode.PercentOutput, right);
-  }*/
+  }
 
   public void initDefaultCommand(){
     

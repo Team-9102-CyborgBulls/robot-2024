@@ -3,7 +3,7 @@ package frc.robot.commands.All_DriveCmd;
 import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 //import java.util.function.DoubleSupplier;
@@ -30,7 +30,7 @@ public class DriveCmd extends Command{
     @Override
   public void initialize() {
 
-    DriveSubsystem.m_drive.feed();
+    //DriveSubsystem.m_drive.feed();
   }
 
  
@@ -45,12 +45,12 @@ public class DriveCmd extends Command{
 
     if( forwardSpeed == 0 && turnSpeed == 0){
       
-      DriveSubsystem.m_drive.arcadeDrive(0, 0);
+      driveSubsystem.arcadeDrive(0, 0);
      
     }
     else{
       
-      DriveSubsystem.m_drive.arcadeDrive(-forwardSpeed, -turnSpeed);
+      driveSubsystem.arcadeDrive(-forwardSpeed, -turnSpeed);
   }
   
  
