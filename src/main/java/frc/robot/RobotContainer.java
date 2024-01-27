@@ -9,9 +9,7 @@ package frc.robot;
 
 
 import frc.robot.commands.All_DriveCmd.DriveCmd;
-
-
-
+import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
 import frc.robot.subsystems.DriveSubsystem;
 //import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,6 +34,7 @@ public class RobotContainer {
 
   private final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
 
+  private final DriveForward2sCmd driveForward2sCmd = new DriveForward2sCmd(driveSubsystem);
 
   
 
@@ -57,7 +56,8 @@ public class RobotContainer {
 
    public Command getAutonomousCommand() {
 
-    return null;
+    return 
+      new DriveForward2sCmd(driveSubsystem) ;
    }
     
   

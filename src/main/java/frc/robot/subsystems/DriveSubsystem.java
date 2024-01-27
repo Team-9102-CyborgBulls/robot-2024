@@ -20,11 +20,15 @@ import frc.robot.Constants;
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
      public static DifferentialDrive m_drive;
+  
 
     
     
  
-
+    WPI_TalonSRX m_MotorRight = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightID);
+    WPI_TalonSRX m_MotorRightFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightFollowID);
+    WPI_TalonSRX m_MotorLeft = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftID);
+    WPI_TalonSRX m_MotorLeftFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftFollowID);
     
 
   
@@ -32,10 +36,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     public DriveSubsystem() {
     
-    WPI_TalonSRX m_MotorRight = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightID);
-    WPI_TalonSRX m_MotorRightFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightFollowID);
-    WPI_TalonSRX m_MotorLeft = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftID);
-    WPI_TalonSRX m_MotorLeftFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftFollowID);
+    
    
     m_MotorRightFollow.follow(m_MotorRight);  
     m_MotorLeftFollow.follow(m_MotorRight);  
@@ -89,13 +90,21 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void setDriveMotors(double forward, double turn){
     
-    WPI_TalonSRX m_MotorRight = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightID);
-    WPI_TalonSRX m_MotorRightFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightFollowID);
-    WPI_TalonSRX m_MotorLeft = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftID);
-    WPI_TalonSRX m_MotorLeftFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftFollowID);
-   
+    
+    
+    m_MotorRight.setInverted(true);
+    m_MotorRightFollow.setInverted(true);
+    m_MotorLeft.setInverted(false);
+    m_MotorLeftFollow.setInverted(false);
+    m_MotorRight.configVoltageCompSaturation(11.0);
+    m_MotorRightFollow.configVoltageCompSaturation(11.0);
+    m_MotorLeft.configVoltageCompSaturation(11.0);
+    m_MotorLeftFollow.configVoltageCompSaturation(11.0);
+    
+    
+
     m_MotorRightFollow.follow(m_MotorRight);  
-    m_MotorLeftFollow.follow(m_MotorRight); 
+    m_MotorLeftFollow.follow(m_MotorLeft); 
      
     double left = forward - turn;
     double right = forward + turn;

@@ -28,6 +28,7 @@ public class DriveForward2sCmd extends Command{
     RobotContainer.m_timer.start(); 
 
     System.out.println("a");
+    driveSubsystem.setDriveMotors(0.5,0.0);
   }
 
  
@@ -37,19 +38,15 @@ public class DriveForward2sCmd extends Command{
     System.out.println("b");
     System.out.println(RobotContainer.m_timer.get());
 
-   double speed = 0.3;
-  
-
-        driveSubsystem.setDriveMotors(speed, 0); 
     
-    
-  
- 
+   double speed = 0.5;
+    driveSubsystem.setDriveMotors(speed,0.0);
   }
 
   @Override
   public void end(boolean interrupted) {
-    driveSubsystem.arcadeDrive(0, 0);
+    driveSubsystem.setDriveMotors(0, 0);
+    System.out.println("arrêt");
   }
 
  
@@ -58,7 +55,7 @@ public class DriveForward2sCmd extends Command{
     
     System.out.println("c");
 
-      return RobotContainer.m_timer.get() >= 2;
+      return  RobotContainer.m_timer.get() >= 2;
       
      
    
