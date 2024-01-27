@@ -1,5 +1,6 @@
 package frc.robot.commands.All_DriveCmd;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -11,6 +12,7 @@ import frc.robot.subsystems.DriveSubsystem;
 public class DriveCmd extends Command{
     
      final DriveSubsystem driveSubsystem;
+     
   
     
    
@@ -36,9 +38,10 @@ public class DriveCmd extends Command{
  
   @Override
   public void execute() {
+    SmartDashboard.putNumber("speed changer value", driveSubsystem.speed_changer);
+    SmartDashboard.putNumber("direction value", driveSubsystem.direction);
     
-    
-
+    //driveSubsystem.setMaxOutput(speed_changer);
     double forwardSpeed = RobotContainer.manette.getLeftY() ;
     double turnSpeed =  RobotContainer.manette.getRightX();
     driveSubsystem.arcadeDrive(forwardSpeed, turnSpeed);
@@ -48,10 +51,6 @@ public class DriveCmd extends Command{
       driveSubsystem.arcadeDrive(0, 0);
      
     }
-    else{
-      
-      driveSubsystem.arcadeDrive(-forwardSpeed, -turnSpeed);
-  }
   
  
 
