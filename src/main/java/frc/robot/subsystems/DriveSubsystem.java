@@ -16,11 +16,14 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 //import frc.robot.commands.DriveCmd;
+import frc.robot.RobotContainer;
  
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
      public static DifferentialDrive m_drive;
-  
+     public double direction = 1.0;
+     public double speed_changer = 0.6;
+
 
     
     
@@ -43,10 +46,10 @@ public class DriveSubsystem extends SubsystemBase {
 
     m_drive = new DifferentialDrive(m_MotorLeft,m_MotorRight);
     
-    m_MotorRight.setInverted(true);
-    m_MotorRightFollow.setInverted(true);
-    m_MotorLeft.setInverted(false);
-    m_MotorLeftFollow.setInverted(false);
+    m_MotorRight.setInverted(false);
+    m_MotorRightFollow.setInverted(false);
+    m_MotorLeft.setInverted(true);
+    m_MotorLeftFollow.setInverted(true);
 
     m_MotorRightFollow.follow(m_MotorRight);
     m_MotorLeftFollow.follow(m_MotorLeft);
@@ -72,6 +75,23 @@ public class DriveSubsystem extends SubsystemBase {
     }
     public void arcadeDrive(double fwd, double rot) {
       m_drive.arcadeDrive(fwd, rot);
+      m_drive.setMaxOutput(speed_changer*direction);
+    }
+    public void setMaxOutput(double speed_changer) {
+      m_drive.setMaxOutput(speed_changer);
+    }
+    public void reverse(){
+      direction = -direction;
+    }
+    public void speedUp(){
+      if(speed_changer <= 0.8){
+      speed_changer = speed_changer + 0.3;
+      }
+    }
+    public void speedDown(){
+      if(speed_changer >= 0.1){
+      speed_changer = speed_changer - 0.3;
+      }
     }
 
     /*public CommandBase ExAuto(double speed){

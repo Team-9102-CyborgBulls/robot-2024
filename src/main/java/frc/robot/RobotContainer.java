@@ -15,9 +15,11 @@ import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 //import edu.wpi.first.wpilibj.PS4Controller.Button;
@@ -33,6 +35,7 @@ public class RobotContainer {
 
 
   private final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
+  
 
   private final DriveForward2sCmd driveForward2sCmd = new DriveForward2sCmd(driveSubsystem);
 
@@ -91,9 +94,15 @@ public class RobotContainer {
    
 
     private void configureButtonBindings() {
-    
+      //mouvement inversée
+      new Trigger(() -> manette.getYButtonPressed()).onTrue(new InstantCommand(() -> driveSubsystem.reverse()));
+      //changement de vitesse
+          new Trigger(() -> manette.getRightBumperPressed()).onTrue(new InstantCommand(() -> driveSubsystem.speedUp()));
+          new Trigger(() -> manette.getLeftBumperPressed()).onTrue(new InstantCommand(() -> driveSubsystem.speedDown()));
+      }
 
-    
+      //Trigger yButton = new JoystickButton(manette, XboxController.Button.kY.value);
+     //yButton.whileTrue(reverseCmd);
 
     /*JoystickButton button6 = new JoystickButton(m_joystick, 6);
     JoystickButton button5 = new JoystickButton(m_joystick, 5);
@@ -109,4 +118,3 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-}
