@@ -20,6 +20,7 @@ import frc.robot.Constants;
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
      public static DifferentialDrive m_drive;
+     public double speed_changer;
 
     
     
