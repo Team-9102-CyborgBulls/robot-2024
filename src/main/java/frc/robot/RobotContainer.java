@@ -8,9 +8,16 @@ package frc.robot;
 
 
 
+import frc.robot.commands.GettingInRangeCmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
+
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
+
+import edu.wpi.first.math.util.Units;
 //import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
@@ -18,6 +25,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 //import edu.wpi.first.wpilibj.PS4Controller.Button;
@@ -30,19 +38,20 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   final static DriveSubsystem driveSubsystem = new DriveSubsystem();
-
+  final static VisionSubsystem visionSubsystem = new VisionSubsystem();
 
   private final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
 
   private final DriveForward2sCmd driveForward2sCmd = new DriveForward2sCmd(driveSubsystem);
+  private final GettingInRangeCmd gettingInRangeCmd = new GettingInRangeCmd(driveSubsystem);
 
   
 
-
+  public static PhotonCamera camera = new PhotonCamera("Caméra 1");
   
 
 
-  public static XboxController manette = new XboxController(0);
+  public static CommandXboxController manette = new CommandXboxController(0);
   //public static final Joystick m_joystick = new Joystick(0);
 
   public static Timer m_timer = new Timer();
@@ -92,8 +101,14 @@ public class RobotContainer {
 
     private void configureButtonBindings() {
     
+      
+      manette 
+        .a()
+        .whileTrue(
+            new GettingInRangeCmd(driveSubsystem)
+          );
 
-    
+      
 
     /*JoystickButton button6 = new JoystickButton(m_joystick, 6);
     JoystickButton button5 = new JoystickButton(m_joystick, 5);
@@ -101,7 +116,7 @@ public class RobotContainer {
     JoystickButton button3 = new JoystickButton(m_joystick, 3);
     JoystickButton button4 = new JoystickButton(m_joystick, 4);
     */  
-  }
+  
     
   
  /**
@@ -109,4 +124,5 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+}
 }
