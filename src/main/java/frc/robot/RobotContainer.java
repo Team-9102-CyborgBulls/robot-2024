@@ -8,6 +8,7 @@ package frc.robot;
 
 
 
+import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
 import frc.robot.commands.GettingInRangeCmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
@@ -22,9 +23,12 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -42,8 +46,15 @@ public class RobotContainer {
 
   private final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
 
-  private final DriveForward2sCmd driveForward2sCmd = new DriveForward2sCmd(driveSubsystem);
-  private final GettingInRangeCmd gettingInRangeCmd = new GettingInRangeCmd(driveSubsystem);
+  private final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
+  private final DriveForward2sCmd forward = new DriveForward2sCmd(driveSubsystem);
+
+  public SendableChooser<Command> m_Chooser = new SendableChooser<Command>();
+
+  
+
+
+
 
   
 
@@ -60,13 +71,10 @@ public class RobotContainer {
 
 
 
-// A chooser for autonomous commands
-   public static SendableChooser<Command> m_chooser = new SendableChooser<>();
 
    public Command getAutonomousCommand() {
 
-    return 
-      new DriveForward2sCmd(driveSubsystem) ;
+    return m_Chooser.getSelected();
    }
     
   
@@ -80,10 +88,14 @@ public class RobotContainer {
     
 
     // Add commands to the autonomous command chooser
-   
-
+    m_Chooser.setDefaultOption("backward", backward);
+    m_Chooser.addOption("forward", forward);
+  
     // Put the chooser on the dashboard
-    SmartDashboard.putData(m_chooser);
+    SmartDashboard.putData(m_Chooser);
+
+    
+    
 
     
   }
@@ -100,14 +112,17 @@ public class RobotContainer {
    
 
     private void configureButtonBindings() {
-    
-      
-      manette 
-        .a()
-        .whileTrue(
-            new GettingInRangeCmd(driveSubsystem)
-          );
+      //mouvement inversée
+      new Trigger(() -> manette.getYButtonPressed()).onTrue(new InstantCommand(() -> driveSubsystem.reverse()));
+      //changement de vitesse
+          new Trigger(() -> manette.getRightBumperPressed()).onTrue(new InstantCommand(() -> driveSubsystem.speedUp()));
+          new Trigger(() -> manette.getLeftBumperPressed()).onTrue(new InstantCommand(() -> driveSubsystem.speedDown()));
+      }
 
+      //Trigger yButton = new JoystickButton(manette, XboxController.Button.kY.value);
+     //yButton.whileTrue(reverseCmd);
+    
+     
       
 
     /*JoystickButton button6 = new JoystickButton(m_joystick, 6);
@@ -124,5 +139,3 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-}
-}
