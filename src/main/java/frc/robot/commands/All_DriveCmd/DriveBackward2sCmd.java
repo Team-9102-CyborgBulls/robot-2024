@@ -23,7 +23,7 @@ public class DriveBackward2sCmd extends Command{
       RobotContainer.m_timer.start(); 
   
       System.out.println("a");
-      driveSubsystem.setDriveMotors(-0.5,0.0);
+      driveSubsystem.setDriveMotors(-0.3,0.0);
     }
   
    
@@ -34,7 +34,7 @@ public class DriveBackward2sCmd extends Command{
       System.out.println(RobotContainer.m_timer.get());
   
       
-     double speed = -0.5;
+     double speed = -0.2;
      
       driveSubsystem.setDriveMotors(speed,0.0);
     }
@@ -51,7 +51,7 @@ public class DriveBackward2sCmd extends Command{
       
       System.out.println("c");
   
-        return  RobotContainer.m_timer.get() >= 2;
+        return  RobotContainer.m_timer.get() >= 1.95;
         
        
      

@@ -23,9 +23,24 @@ public final class Constants {
 
     public static final int m_joystickPort = 0;
   }
-  
-  
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
+  public static final class ShooterConstants {
+
+    public static final int m_launchWheelID = 5;
+    public static final int m_feedWheelID = 7;
+    public static final int kLauncherCurrentLimit = 80;
+    public static final int kFeedCurrentLimit = 80;
+    public static final double kLauncherSpeed = 1.0;
+    public static final double kLaunchFeederSpeed = 1.0;
+  }
+  public static final class IntakeConstants {
+
+    public static final int m_intakeMotorID = 8;
+  }
+  public static final class AngleElevatorConstants {
+
+    public static final int m_angleMotorID = 9;
+  }
+  public static class ElevatorConstants {
+    public static final int kElevatorMotorID = 6;
   }
 }
