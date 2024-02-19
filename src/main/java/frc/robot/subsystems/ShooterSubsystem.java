@@ -19,6 +19,9 @@ public class ShooterSubsystem extends SubsystemBase{
 
     m_launchWheel.setSmartCurrentLimit(Constants.ShooterConstants.kLauncherCurrentLimit);
     m_feedWheel.setSmartCurrentLimit(Constants.ShooterConstants.kFeedCurrentLimit);
+
+    m_launchWheel.setInverted(true);
+    m_feedWheel.setInverted(true);
   }
 
   /**

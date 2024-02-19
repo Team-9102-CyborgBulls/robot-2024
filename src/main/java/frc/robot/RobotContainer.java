@@ -9,14 +9,19 @@ package frc.robot;
 
 
 import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
-
 import frc.robot.commands.TurnToAngle13Cmd;
 import frc.robot.commands.TurnToAngle90Cmd;
+import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
+import frc.robot.commands.All_AngleCmd.AngleUpManualCmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
+import frc.robot.commands.All_IntakeCmd.IntakeCmd;
 import frc.robot.commands.All_ShooterCmd.LaunchNote;
 import frc.robot.commands.All_ShooterCmd.PrepareLaunch;
+import frc.robot.subsystems.AngleSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
@@ -46,8 +51,11 @@ public class RobotContainer {
   public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
   final static VisionSubsystem visionSubsystem = new VisionSubsystem();
   final static ShooterSubsystem shooterSubsytem = new ShooterSubsystem();
-
+  private static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  private static final AngleSubsystem angleSubsystem = new AngleSubsystem();
   private final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
+  
 
   private final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
   private final DriveForward2sCmd forward = new DriveForward2sCmd(driveSubsystem);
@@ -58,6 +66,10 @@ public class RobotContainer {
   private final PrepareLaunch prepareLaunch = new PrepareLaunch(shooterSubsytem);
   private final LaunchNote launchNote = new LaunchNote(shooterSubsytem);
 
+  private final IntakeCmd intakeCmd = new IntakeCmd(intakeSubsystem);
+
+  private final AngleUpManualCmd angleUpManualCmd = new AngleUpManualCmd(angleSubsystem);
+  private final AngleDownManualCmd angleDownManualCmd = new AngleDownManualCmd(angleSubsystem);
   
 
 
@@ -139,6 +151,11 @@ public class RobotContainer {
         Trigger rBumper = manette.rightBumper();
         Trigger lBumper = manette.leftBumper();
         Trigger aButton = manette.a();
+        Trigger bButton = manette.b();
+        Trigger xButton = manette.x();
+        Trigger UpButton = manette.povUp();
+        Trigger DownButton = manette.povDown();
+
         yButton.onTrue(new InstantCommand(() -> driveSubsystem.reverse()));
 
         rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp()));
@@ -146,9 +163,18 @@ public class RobotContainer {
 
         aButton.onTrue( 
           new PrepareLaunch(shooterSubsytem)
-          .withTimeout(1)
-          .andThen(new LaunchNote(shooterSubsytem))
-          .handleInterrupt(() -> shooterSubsytem.stop()));
+          .withTimeout(2)
+          .andThen(new LaunchNote(shooterSubsytem), new IntakeCmd(intakeSubsystem)));
+
+        bButton.whileTrue(new IntakeCmd(intakeSubsystem));
+
+        UpButton.whileTrue(new AngleUpManualCmd(angleSubsystem));
+        DownButton.whileTrue(new AngleDownManualCmd(angleSubsystem));
+
+
+        
+        
+
 
      
   

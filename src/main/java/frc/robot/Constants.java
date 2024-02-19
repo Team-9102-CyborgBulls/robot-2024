@@ -17,16 +17,16 @@ public final class Constants {
   public static final class DrivetrainConstants {
 
     public static final int m_MotorRightID = 1;
-    public static final int m_MotorRightFollowID = 2;
+    public static final int m_MotorRightFollowID = 3;
     public static final int m_MotorLeftID = 4;
-    public static final int m_MotorLeftFollowID = 3;
+    public static final int m_MotorLeftFollowID = 2;
 
     public static final int m_joystickPort = 0;
   }
   public static final class ShooterConstants {
 
-    public static final int m_launchWheelID = 5;
-    public static final int m_feedWheelID = 7;
+    public static final int m_launchWheelID = 7;
+    public static final int m_feedWheelID = 9;
     public static final int kLauncherCurrentLimit = 80;
     public static final int kFeedCurrentLimit = 80;
     public static final double kLauncherSpeed = 1.0;
@@ -38,7 +38,7 @@ public final class Constants {
   }
   public static final class AngleElevatorConstants {
 
-    public static final int m_angleMotorID = 9;
+    public static final int m_angleMotorID = 5;
   }
   public static class ElevatorConstants {
     public static final int kElevatorMotorID = 6;

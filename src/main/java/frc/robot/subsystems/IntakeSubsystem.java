@@ -13,7 +13,8 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem(){
         
      m_intakeMotor = new CANSparkMax(Constants.IntakeConstants.m_intakeMotorID, com.revrobotics.CANSparkLowLevel.MotorType.kBrushed);
-    
+     m_intakeMotor.enableVoltageCompensation(8);
+     m_intakeMotor.setInverted(true);
     }
 
     public void setIntakeMotor(double speed){
