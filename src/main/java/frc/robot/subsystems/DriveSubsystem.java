@@ -2,8 +2,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -20,6 +23,8 @@ public class DriveSubsystem extends SubsystemBase {
     WPI_TalonSRX m_MotorLeft = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftID);
     WPI_TalonSRX m_MotorLeftFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftFollowID);
     public static ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+
+    public static RelativeEncoder encoderDrive;
 
 
   public DriveSubsystem() {
@@ -46,6 +51,8 @@ public class DriveSubsystem extends SubsystemBase {
     m_MotorRightFollow.setSafetyEnabled(true);
     m_MotorLeft.setSafetyEnabled(true);
     m_MotorLeftFollow.setSafetyEnabled(true);
+
+    //encoderDrive = m_drive.getEncoder();
     }
 
     public void arcadeDrive(double fwd, double rot) {

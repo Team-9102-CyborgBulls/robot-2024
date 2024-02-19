@@ -10,6 +10,8 @@ import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
 import frc.robot.commands.All_AngleCmd.AngleUpManualCmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
+import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
+import frc.robot.commands.All_ElevatorCmd.ElevatorUpManualCmd;
 import frc.robot.commands.All_IntakeCmd.IntakeCmd;
 import frc.robot.commands.All_ShooterCmd.LaunchNote;
 import frc.robot.commands.All_ShooterCmd.PrepareLaunch;
@@ -53,7 +55,9 @@ public class RobotContainer {
 
   private final AngleUpManualCmd angleUpManualCmd = new AngleUpManualCmd(angleSubsystem);
   private final AngleDownManualCmd angleDownManualCmd = new AngleDownManualCmd(angleSubsystem);
-  
+
+  private final ElevatorUpManualCmd elevatorUpManualCmd = new ElevatorUpManualCmd(elevatorSubsystem);
+  private final ElevatorDownManualCmd elevatorDownManualCmd  = new ElevatorDownManualCmd(elevatorSubsystem);
 
     public static PhotonCamera camera = new PhotonCamera("Caméra 1");
     public static CommandXboxController manette = new CommandXboxController(0);
@@ -110,6 +114,8 @@ public class RobotContainer {
         Trigger xButton = manette.x();
         Trigger UpButton = manette.povUp();
         Trigger DownButton = manette.povDown();
+        Trigger LeftButton = manette.povLeft();
+        Trigger RightButton = manette.povRight();
 
         yButton.onTrue(new InstantCommand(() -> driveSubsystem.reverse()));
         rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp()));
@@ -117,7 +123,7 @@ public class RobotContainer {
 
         aButton.whileTrue( 
           new PrepareLaunch(shooterSubsytem)
-          .withTimeout(2)
+          .withTimeout(1)
           .andThen(new LaunchNote(shooterSubsytem))
           .withTimeout(3)
           .handleInterrupt(() -> shooterSubsytem.stop()));
@@ -126,6 +132,11 @@ public class RobotContainer {
 
         UpButton.whileTrue(new AngleUpManualCmd(angleSubsystem));
         DownButton.whileTrue(new AngleDownManualCmd(angleSubsystem));
+
+        LeftButton.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
+        RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem));
+
+
 
 
         

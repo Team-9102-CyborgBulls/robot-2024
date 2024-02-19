@@ -30,7 +30,7 @@ public class TurnToAngleCmd extends Command{
     double kP = 0.09;
     double currentPosition = DriveSubsystem.gyro.getAngle();
         // Find the heading error; setpoint is 90
-    error = 90 - currentPosition;
+    error = m_setpoint - currentPosition;
     double rightSpeed = kP * error;
     double leftSpeed = -kP * error;
     // Turns the robot to face the desired direction

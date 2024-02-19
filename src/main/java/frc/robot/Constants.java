@@ -29,8 +29,8 @@ public final class Constants {
     public static final int m_feedWheelID = 9;
     public static final int kLauncherCurrentLimit = 80;
     public static final int kFeedCurrentLimit = 80;
-    public static final double kLauncherSpeed = 1.0;
-    public static final double kLaunchFeederSpeed = 1.0;
+    public static final double kLauncherSpeed = 0.2;
+    public static final double kLaunchFeederSpeed = 0.2;
   }
   public static final class IntakeConstants {
 
