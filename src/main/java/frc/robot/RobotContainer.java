@@ -4,13 +4,8 @@
 
 package frc.robot;      
 
-
-
-
-
 import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
-import frc.robot.commands.TurnToAngle13Cmd;
-import frc.robot.commands.TurnToAngle90Cmd;
+import frc.robot.commands.TurnToAngleCmd;
 import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
 import frc.robot.commands.All_AngleCmd.AngleUpManualCmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
@@ -24,26 +19,15 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
-
 import org.photonvision.PhotonCamera;
-
-
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-//import edu.wpi.first.wpilibj.DoubleSolenoid;
-
 import edu.wpi.first.wpilibj.Timer;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-//import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-//import edu.wpi.first.wpilibj.PS4Controller.Button;
-//import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-//import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+
 
 
 public class RobotContainer {
@@ -54,14 +38,13 @@ public class RobotContainer {
   private static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private static final AngleSubsystem angleSubsystem = new AngleSubsystem();
-  private final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
   
-
+  private final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
   private final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
   private final DriveForward2sCmd forward = new DriveForward2sCmd(driveSubsystem);
-  private final TurnToAngle13Cmd turnToAngle13Cmd = new TurnToAngle13Cmd(driveSubsystem);
-  //public SendableChooser<Command> m_Chooser = new SendableChooser<Command>();
-  private final TurnToAngle90Cmd turnToAngle90Cmd = new TurnToAngle90Cmd(driveSubsystem);
+
+  private final TurnToAngleCmd turnToAngle13Cmd = new TurnToAngleCmd(driveSubsystem, 13);
+  private final TurnToAngleCmd turnToAngle90Cmd = new TurnToAngleCmd(driveSubsystem, 90);
 
   private final PrepareLaunch prepareLaunch = new PrepareLaunch(shooterSubsytem);
   private final LaunchNote launchNote = new LaunchNote(shooterSubsytem);
@@ -72,27 +55,12 @@ public class RobotContainer {
   private final AngleDownManualCmd angleDownManualCmd = new AngleDownManualCmd(angleSubsystem);
   
 
-
-
-
-  
-
-  public static PhotonCamera camera = new PhotonCamera("Caméra 1");
-  
-
-
-  public static CommandXboxController manette = new CommandXboxController(0);
-  //public static final Joystick m_joystick = new Joystick(0);
-
-  public static Timer m_timer = new Timer();
-
-   // A simple auto routine that drives forward a specified distance, and then stops.
-   
-   public static ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-
-
-
-   public Command getAutonomousCommand() {
+    public static PhotonCamera camera = new PhotonCamera("Caméra 1");
+    public static CommandXboxController manette = new CommandXboxController(0);
+    public static Timer m_timer = new Timer();
+    
+    
+  public Command getAutonomousCommand() {
 
     return new SequentialCommandGroup(turnToAngle90Cmd);
    
@@ -119,19 +87,6 @@ public class RobotContainer {
     configureButtonBindings();
 
     driveSubsystem.setDefaultCommand(driveCmd);
-    
-
-    // Add commands to the autonomous command chooser
-   /*  m_Chooser.setDefaultOption("backward", backward);
-    m_Chooser.addOption("forward", forward);
-  
-    // Put the chooser on the dashboard
-    SmartDashboard.putData(m_Chooser);*/
-
-    
-    
-
-    
   }
     // Configure the trigger bindings
      /**
@@ -157,14 +112,15 @@ public class RobotContainer {
         Trigger DownButton = manette.povDown();
 
         yButton.onTrue(new InstantCommand(() -> driveSubsystem.reverse()));
-
         rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp()));
         lBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedDown()));
 
-        aButton.onTrue( 
+        aButton.whileTrue( 
           new PrepareLaunch(shooterSubsytem)
           .withTimeout(2)
-          .andThen(new LaunchNote(shooterSubsytem), new IntakeCmd(intakeSubsystem)));
+          .andThen(new LaunchNote(shooterSubsytem))
+          .withTimeout(3)
+          .handleInterrupt(() -> shooterSubsytem.stop()));
 
         bButton.whileTrue(new IntakeCmd(intakeSubsystem));
 

@@ -8,32 +8,22 @@ public class LaunchNote extends Command {
   
     ShooterSubsystem m_launcher;
 
-  // CANLauncher m_launcher;
-
-  /** Creates a new LaunchNote. */
-  public LaunchNote(ShooterSubsystem launcher) {
-    // save the launcher system internally
-    m_launcher = launcher;
-
-    // indicate that this command requires the launcher system
+    public LaunchNote(ShooterSubsystem launcher) {
+    
+    this.m_launcher = launcher;
     addRequirements(m_launcher);
   }
 
-  // The initialize method is called when the command is initially scheduled.
+  
   @Override
   public void initialize() {
-    // Set the wheels to launching speed
+ 
     m_launcher.setLaunchWheel(Constants.ShooterConstants.kLauncherSpeed);
     m_launcher.setFeedWheel(Constants.ShooterConstants.kLaunchFeederSpeed);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    // There is nothing we need this command to do on each iteration. You could remove this method
-    // and the default blank method
-    // of the base class will run.
-  }
+  public void execute() {}
 
   // Returns true when the command should end.
   @Override

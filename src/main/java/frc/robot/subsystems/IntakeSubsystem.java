@@ -1,8 +1,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -18,7 +16,6 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void setIntakeMotor(double speed){
-
         m_intakeMotor.set(speed);
     }
 
@@ -26,4 +23,3 @@ public class IntakeSubsystem extends SubsystemBase {
         m_intakeMotor.set(0);
     }
 }  
-

@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.DriveSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -35,9 +36,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
    
-    Shuffleboard.getTab("Example tab").add(RobotContainer.gyro);
+    Shuffleboard.getTab("Example tab").add(DriveSubsystem.gyro);
     
-   RobotContainer.gyro.calibrate();
+   m_robotContainer.driveSubsystem.calibrateGyro();;
 
   }
 
@@ -78,7 +79,7 @@ public class Robot extends TimedRobot {
     }
 
     
-    RobotContainer.gyro.reset();
+    m_robotContainer.driveSubsystem.resetGyro();
 
   }
 
@@ -97,7 +98,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    RobotContainer.gyro.reset();
+    m_robotContainer.driveSubsystem.resetGyro();
   }
 
   /** This function is called periodically during operator control. */

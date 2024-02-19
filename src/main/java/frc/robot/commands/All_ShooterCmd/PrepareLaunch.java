@@ -1,41 +1,28 @@
 package frc.robot.commands.All_ShooterCmd;
 
-
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
 
-
-
 public class PrepareLaunch extends Command {
-   ShooterSubsystem m_launcher;
+   
+  ShooterSubsystem m_launcher;
 
-  // CANLauncher m_launcher;
-
-  /** Creates a new PrepareLaunch. */
   public PrepareLaunch(ShooterSubsystem launcher) {
-    // save the launcher system internally
-    m_launcher = launcher;
 
-    // indicate that this command requires the launcher system
+    this.m_launcher = launcher;
     addRequirements(m_launcher);
   }
 
-  // Called when the command is initially scheduled.
+ 
   @Override
   public void initialize() {
-    // Set launch wheel to speed, keep feed wheel at 0 to let launch wheel spin up.
     m_launcher.setLaunchWheel(Constants.ShooterConstants.kLauncherSpeed);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+ 
   @Override
-  public void execute() {
-    // There is nothing we need this command to do on each iteration. You could remove this method
-    // and the default blank method
-    // of the base class will run.
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

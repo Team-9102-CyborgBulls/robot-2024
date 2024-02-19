@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
-
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -10,33 +9,27 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 public class GettingInRangeCmd extends Command {
-      // Vision-alignment mode
-        // Query the latest result from PhotonVision
-    
+      
     DriveSubsystem driveSubsystem;
     VisionSubsystem visionSubsystem;
   
     public GettingInRangeCmd(DriveSubsystem drivesubsystem){
 
-        this.driveSubsystem = drivesubsystem;
-        
-       
-        addRequirements(driveSubsystem);
-
-    }
+      this.driveSubsystem = drivesubsystem;
+      addRequirements(driveSubsystem);
+  }
 
     @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {
      
     double forwardSpeed = 0;
-     double turnSpeed = 0;
+    double turnSpeed = 0;
     PhotonPipelineResult result = RobotContainer.camera.getLatestResult();
 
-        if (result.hasTargets()) {
+      if (result.hasTargets()) {
             // First calculate range
             double range =
                     PhotonUtils.calculateDistanceToTargetMeters(

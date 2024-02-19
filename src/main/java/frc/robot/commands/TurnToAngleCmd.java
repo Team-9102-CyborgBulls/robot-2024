@@ -4,13 +4,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class TurnToAngle90Cmd extends Command{
+public class TurnToAngleCmd extends Command{
     
     DriveSubsystem driveSubsystem;
     double error;
-    public TurnToAngle90Cmd(DriveSubsystem drivesubsystem){
+    double m_setpoint;
+    public TurnToAngleCmd(DriveSubsystem drivesubsystem, double setpoint){
 
         this.driveSubsystem = drivesubsystem;
+        this.m_setpoint = setpoint;
         
        
         addRequirements(driveSubsystem);
@@ -19,14 +21,14 @@ public class TurnToAngle90Cmd extends Command{
 
     @Override
     public void initialize() {
-       RobotContainer.gyro.reset();
+       DriveSubsystem.gyro.reset();
     }
   
     @Override
     public void execute() {
     
     double kP = 0.09;
-    double currentPosition = RobotContainer.gyro.getAngle();
+    double currentPosition = DriveSubsystem.gyro.getAngle();
         // Find the heading error; setpoint is 90
     error = 90 - currentPosition;
     double rightSpeed = kP * error;
