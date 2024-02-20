@@ -55,7 +55,7 @@ public class DriveForward2sCmd extends Command{
     
     System.out.println("c");
 
-      return  RobotContainer.m_timer.get() >= 2;
+      return  RobotContainer.m_timer.get() >= .6;
       
      
    

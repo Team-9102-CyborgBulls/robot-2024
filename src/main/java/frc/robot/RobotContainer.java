@@ -8,10 +8,15 @@ package frc.robot;
 
 
 
+
+import frc.robot.commands.NothingCmd;
 import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
 import frc.robot.subsystems.DriveSubsystem;
+
+import java.io.NotActiveException;
+
 //import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
@@ -40,8 +45,10 @@ public class RobotContainer {
 
   private final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
   private final DriveForward2sCmd forward = new DriveForward2sCmd(driveSubsystem);
+  private final frc.robot.commands.All_DriveCmd.WaitCmd Wait = new frc.robot.commands.All_DriveCmd.WaitCmd(driveSubsystem);
+  private final NothingCmd nothing = new NothingCmd(driveSubsystem);
 
-  public SendableChooser<Command> m_Chooser = new SendableChooser<Command>();
+  //    public SendableChooser<Command> m_Chooser = new SendableChooser<Command>();
 
   
 
@@ -66,7 +73,10 @@ public class RobotContainer {
 
    public Command getAutonomousCommand() {
 
-    return m_Chooser.getSelected();
+    //return m_Chooser.getSelected();
+
+    //mettre Wait avant backward et faire test
+    return new SequentialCommandGroup(backward,Wait,forward);
    }
     
   
@@ -80,11 +90,11 @@ public class RobotContainer {
     
 
     // Add commands to the autonomous command chooser
-    m_Chooser.setDefaultOption("backward", backward);
-    m_Chooser.addOption("forward", forward);
+    //    m_Chooser.setDefaultOption("backward", backward);
+    //    m_Chooser.addOption("forward", forward);
   
     // Put the chooser on the dashboard
-    SmartDashboard.putData(m_Chooser);
+    //    SmartDashboard.putData(m_Chooser);
 
     
     
