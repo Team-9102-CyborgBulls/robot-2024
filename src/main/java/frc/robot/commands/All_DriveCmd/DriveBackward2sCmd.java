@@ -29,7 +29,7 @@ public class DriveBackward2sCmd extends Command{
     System.out.println(RobotContainer.m_timer.get());
 
     double speed = 0.8;
-    driveSubsystem.tankDrive(speed,speed);
+    driveSubsystem.setDriveMotors(speed,0);
   }
 
   @Override

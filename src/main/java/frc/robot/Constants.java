@@ -56,7 +56,7 @@ public static final class AngleElevatorConstants {
     // Identifiant du moteur d'angle
     public static final int m_angleMotorID = 5;
 
-    public static final double kEncoderdistancePerRotation = 2*Math.PI*0.325;
+    public static final double kEncoderdistancePerRotation = 2*Math.PI*3.25; //en cm
 }
 
 public static class ElevatorConstants {

@@ -42,12 +42,12 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-        if(Math.abs(error) <= 30){    
-      return true;
-    }
-    else{
+       // if(Math.abs(error) <= 30){    
+      //return true;
+    //}
+    //else{
         return false;
         
-    }// La commande ne se termine jamais automatiquement
+    //}// La commande ne se termine jamais automatiquement
     }
 }

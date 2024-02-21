@@ -31,7 +31,7 @@ public class DriveForward2sCmd extends Command{
   
       double speed = -0.8;
      
-      driveSubsystem.tankDrive(speed,speed);
+      driveSubsystem.setDriveMotors(speed,0);
     }
   
     @Override
