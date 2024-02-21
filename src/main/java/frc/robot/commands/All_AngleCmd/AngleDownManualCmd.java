@@ -10,10 +10,10 @@ public class AngleDownManualCmd extends Command { // Déclaration de la classe A
     RobotContainer m_robotContainer;
     double targetHeight;
     double error; 
-    double heightToGo;
+    //double heightToGo;
 
 
-    public AngleDownManualCmd(AngleSubsystem angle, double heightToGo) { // Constructeur de la classe AngleDownManualCmd
+    public AngleDownManualCmd(AngleSubsystem angle) { // Constructeur de la classe AngleDownManualCmd
         this.m_angle = angle; // Initialisation de la variable m_angle avec la valeur passée en paramètre
         
         addRequirements(m_angle); // Ajout de la dépendance du sous-système angle

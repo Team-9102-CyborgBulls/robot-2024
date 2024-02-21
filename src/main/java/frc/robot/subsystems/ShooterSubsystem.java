@@ -1,6 +1,8 @@
 package frc.robot.subsystems; // Déclaration du package où se trouve la classe ShooterSubsystem
 
 import com.revrobotics.CANSparkMax; // Import des classes nécessaires
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,6 +21,20 @@ public class ShooterSubsystem extends SubsystemBase { // Déclaration de la clas
         m_launchWheel.setInverted(true); // Inversion du sens de rotation de la roue de lancement
         m_feedWheel.setInverted(true); // Inversion du sens de rotation de la roue d'alimentation
     }
+    public Command getIntakeCommand() {
+    // The startEnd helper method takes a method to call when the command is initialized and one to
+    // call when it ends
+    return this.startEnd(
+        // When the command is initialized, set the wheels to the intake speed values
+        () -> {
+          setFeedWheel(Constants.ShooterConstants.kSourceIntakeSpeed);
+          setLaunchWheel(Constants.ShooterConstants.kSourceIntakeSpeed);
+        },
+        // When the command stops, stop the wheels
+        () -> {
+          stop();
+        });
+  }
 
     // Méthode d'accès pour définir la vitesse (techniquement le pourcentage de sortie) de la roue de lancement
     public void setLaunchWheel(double speed) {

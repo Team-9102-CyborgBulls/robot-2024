@@ -11,10 +11,11 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
     double error; 
     double heightToGo;
     RobotContainer m_robotContainer;
+    double kP = 1/2095;
 
     public AngleUpManualCmd(AngleSubsystem anglesubsystem, double heightToGo) { // Constructeur de la classe AngleUpManualCmd
         this.m_angle = anglesubsystem;// Initialisation de la variable m_angle avec la valeur passée en paramètre
-        this.heightToGo = heightToGo
+        this.heightToGo = heightToGo;
         addRequirements(m_angle); // Ajout de la dépendance du sous-système anglesubsystem
     }
 
@@ -28,7 +29,7 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
     @Override
     public void execute() { // Méthode execute qui sera appelée périodiquement
 
-        double kP;
+     
         double currentHeight = m_robotContainer.analog.getValue();
         error = targetHeight - currentHeight;
         double speed = kP*error;
@@ -42,7 +43,7 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-        if(Math.abs(error) <= 30){    
+        if(Math.abs(error) <= 100){    
       return true;
     }
     else{

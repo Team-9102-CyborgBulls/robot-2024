@@ -27,15 +27,7 @@ public class VisionSubsystem extends SubsystemBase {
     public VisionSubsystem() {} // Constructeur de la classe VisionSubsystem
 
     @Override
-    public void periodic() {} // Cette méthode sera appelée une fois par exécution du planificateur
-
-public VisionSubsystem() {}    
-
-@Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    
-  }
+    public void periodic() {} // Cette méthode sera appelée une fois par exécution du planificateu
 
 
 
