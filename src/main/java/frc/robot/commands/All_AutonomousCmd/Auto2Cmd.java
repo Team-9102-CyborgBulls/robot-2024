@@ -15,7 +15,8 @@ public class Auto2Cmd extends SequentialCommandGroup {
     
         addCommands(new PrepareLaunchAuto(RobotContainer.shooterSubsytem));
         addCommands(new LaunchNoteAuto(RobotContainer.shooterSubsytem));
-
+        
+        //changer drive2sec et fordistance en fonction de ce qu'on veux faire
         addCommands(new DriveBackward2sCmd(RobotContainer.driveSubsystem));
         //addCommands(new DriveForDistanceCmd(1, -0.3));
 
