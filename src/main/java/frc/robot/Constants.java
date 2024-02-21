@@ -41,6 +41,10 @@ public static final class ShooterConstants {
     public static final double kLauncherSpeed = 0.2;
     // Vitesse de la 2nd roue du shooter
     public static final double kLaunchFeederSpeed = 0.5;
+    // Vitesse de la 1ère roue du shooter en reverse
+    public static final double kSourceIntakeSpeed = -0.2;
+    // Vitesse de la 2nd roue du shooter en reverse
+    public static final double kSourceIntakeFeederSpeed = -0.5;
 }
 
 public static final class IntakeConstants {
@@ -51,6 +55,8 @@ public static final class IntakeConstants {
 public static final class AngleElevatorConstants {
     // Identifiant du moteur d'angle
     public static final int m_angleMotorID = 5;
+
+    public static final double kEncoderdistancePerRotation = 2*Math.PI*0.325;
 }
 
 public static class ElevatorConstants {

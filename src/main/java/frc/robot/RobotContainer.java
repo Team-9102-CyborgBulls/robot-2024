@@ -19,6 +19,7 @@ import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
 
 import frc.robot.commands.All_ElevatorCmd.ElevatorUpManualCmd;
 import frc.robot.commands.All_IntakeCmd.IntakeCmdTeleop;
+import frc.robot.commands.All_IntakeCmd.ReverseIntakeCmd;
 import frc.robot.commands.All_ShooterCmd.LaunchNoteTeleop;
 import frc.robot.commands.All_ShooterCmd.PrepareLaunchTeleop;
 import frc.robot.subsystems.AngleSubsystem;
@@ -41,6 +42,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -80,6 +82,7 @@ public class RobotContainer {
 
     public static PhotonCamera camera = new PhotonCamera("Caméra 1");
    
+    public static CommandJoystick joystick = new CommandJoystick(1);
     public static CommandXboxController manette = new CommandXboxController(0);
     public static Timer m_timer = new Timer();
     public static AnalogInput analog = new AnalogInput(0);
@@ -93,40 +96,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
 
     return new Auto2Cmd();
-   
-   
-   
-   
-   /*  return new SequentialCommandGroup(
-
-  
-
-
-  public static XboxController manette = new XboxController(0);
-  //public static final Joystick m_joystick = new Joystick(0);
-
-  public static Timer m_timer = new Timer();
-
-   // A simple auto routine that drives forward a specified distance, and then stops.
-
-
-
-
-   public Command getAutonomousCommand() {
-
-    //return m_Chooser.getSelected();
-
-    //mettre Wait avant backward et faire test
-    return new SequentialCommandGroup(backward,Wait,forward);
-    
-      new RunCommand(()-> driveSubsystem.setDriveMotors(0,0))
-      .withTimeout(3)
-      .andThen(new TurnToAngleCmd(driveSubsystem))
-      .withTimeout(1)
-      .andThen(new DriveBackward2sCmd(driveSubsystem))
-      
-      .andThen(new RunCommand(() ->driveSubsystem.setDriveMotors(0,0)))
-    );*/
    }
     
   
@@ -175,10 +144,12 @@ public class RobotContainer {
         Trigger DownButton = manette.povDown();
         Trigger LeftButton = manette.povLeft();
         Trigger RightButton = manette.povRight();
+        Trigger Button3 = joystick.button(3);
+        Trigger Button4 = joystick.button(4);
 
         yButton.onTrue(new InstantCommand(() -> driveSubsystem.reverse())); // Mouvement inversé
-        rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp()));
-        lBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedDown()));
+        rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp())); // Vitesse augmenté
+        lBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedDown())); // vitesse baissé
 
         aButton.whileTrue( 
           new PrepareLaunchTeleop(shooterSubsytem)
@@ -193,5 +164,8 @@ public class RobotContainer {
         DownButton.whileTrue(new AngleDownManualCmd(angleSubsystem));
         LeftButton.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
         RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem));
+
+        Button3.whileTrue(new ReverseIntakeCmd(intakeSubsystem));
+        Button4.whileTrue(shooterSubsytem.getIntakeCommand());
     }
 }

@@ -61,8 +61,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Distance",m_robotContainer.driveSubsystem.getDistance());
-    SmartDashboard.putNumber("Angle", m_robotContainer.analog.getValue());
+   
     
   }
 
@@ -106,12 +105,15 @@ public class Robot extends TimedRobot {
     }
     m_robotContainer.driveSubsystem.resetGyro();
     m_robotContainer.driveSubsystem.resetPosition();
+    m_robotContainer.elevatorSubsystem.ElevatorEncoder.reset();
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-
+ SmartDashboard.putNumber("Distance",m_robotContainer.driveSubsystem.getDistance());
+    SmartDashboard.putNumber("Angle", m_robotContainer.analog.getValue());
+    SmartDashboard.putNumber("position chariot elevateur", m_robotContainer.elevatorSubsystem.ElevatorEncoder.getDistance());
    
   }
 
