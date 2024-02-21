@@ -21,20 +21,20 @@ public class ElevatorUpManualCmd extends Command {
   @Override
   public void initialize() {
 
-    m_elevator.setElevatorSpeed(0.125);
+    m_elevator.setElevatorSpeed(0.031);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    m_elevator.setElevatorSpeed(0.75);
+    m_elevator.setElevatorSpeed(0.19);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_elevator.setElevatorSpeed(0.125);
+    m_elevator.setElevatorSpeed(0.031);
   }
 
   // Returns true when the command should end.

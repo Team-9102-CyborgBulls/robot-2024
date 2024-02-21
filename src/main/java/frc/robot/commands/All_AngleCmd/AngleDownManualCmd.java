@@ -1,38 +1,36 @@
-package frc.robot.commands.All_AngleCmd;
+package frc.robot.commands.All_AngleCmd; // Déclaration du package où se trouve la classe AngleDownManualCmd
 
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command; // Import des classes nécessaires
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.AngleSubsystem;
 
-public class AngleDownManualCmd extends Command{
-    
-  AngleSubsystem m_angle;
+public class AngleDownManualCmd extends Command { // Déclaration de la classe AngleDownManualCmd qui étend la classe Command
 
-    public AngleDownManualCmd(AngleSubsystem angle){
-       
-      this.m_angle = angle;
-      addRequirements(m_angle);
+    AngleSubsystem m_angle; // Déclaration d'une variable m_angle de type AngleSubsystem
+
+    public AngleDownManualCmd(AngleSubsystem angle) { // Constructeur de la classe AngleDownManualCmd
+        this.m_angle = angle; // Initialisation de la variable m_angle avec la valeur passée en paramètre
+        addRequirements(m_angle); // Ajout de la dépendance du sous-système angle
     }
-    
-  @Override
-  public void initialize() {
-    RobotContainer.m_timer.reset();
-    RobotContainer.m_timer.start();
-  }
 
-  @Override
-  public void execute() {
-    m_angle.setAngleMotor(1);
-  }
+    @Override
+    public void initialize() { // Méthode d'initialisation
+        RobotContainer.m_timer.reset(); // Réinitialisation du timer
+        RobotContainer.m_timer.start(); // Démarrage du timer
+    }
 
-  @Override
-  public void end(boolean interrupted){
-    m_angle.stop();
-  }
-  
+    @Override
+    public void execute() { // Méthode execute qui sera appelée périodiquement
+        m_angle.setAngleMotor(1); // Appel de la méthode setAngleMotor du sous-système angle avec une valeur de 1
+    }
 
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    @Override
+    public void end(boolean interrupted) { // Méthode appelée une fois que la commande se termine ou est interrompue
+        m_angle.stop(); // Appel de la méthode stop du sous-système angle
+    }
+
+    @Override
+    public boolean isFinished() { // Méthode qui indique si la commande est terminée
+        return false; // La commande ne se termine jamais automatiquement
+    }
 }

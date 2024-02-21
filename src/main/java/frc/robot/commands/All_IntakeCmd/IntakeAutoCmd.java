@@ -1,13 +1,14 @@
 package frc.robot.commands.All_IntakeCmd;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeCmd extends Command {
-    
+public class IntakeAutoCmd extends Command {
+
     IntakeSubsystem m_intake;
 
-    public IntakeCmd(IntakeSubsystem intake){
+    public IntakeAutoCmd(IntakeSubsystem intake){
 
       this.m_intake = intake;
       addRequirements(m_intake);
@@ -16,6 +17,8 @@ public class IntakeCmd extends Command {
     @Override
   public void initialize() {
     m_intake.setIntakeMotor(0.0);
+    RobotContainer.m_timer.reset();
+    RobotContainer.m_timer.start();
 
   }
 
@@ -26,7 +29,12 @@ public class IntakeCmd extends Command {
 
   @Override
   public boolean isFinished() {
+    if(RobotContainer.m_timer.get() >= 3){
+      return true;
+  }
+  else{
     return false;
+  }
   }
 
   @Override
