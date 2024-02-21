@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Distance",m_robotContainer.driveSubsystem.getDistance());
-    
+    SmartDashboard.putNumber("Angle", m_robotContainer.analog.getValue());
     
   }
 
@@ -123,7 +123,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    
+  }
 
   /** This function is called once when the robot is first started up. */
   @Override

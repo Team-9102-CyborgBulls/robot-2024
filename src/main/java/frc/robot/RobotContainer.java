@@ -16,6 +16,7 @@ import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
 import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
 import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
+
 import frc.robot.commands.All_ElevatorCmd.ElevatorUpManualCmd;
 import frc.robot.commands.All_IntakeCmd.IntakeCmdTeleop;
 import frc.robot.commands.All_ShooterCmd.LaunchNoteTeleop;
@@ -35,6 +36,7 @@ import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -72,15 +74,24 @@ public class RobotContainer {
 
   public final ElevatorUpManualCmd elevatorUpManualCmd = new ElevatorUpManualCmd(elevatorSubsystem);
   public final ElevatorDownManualCmd elevatorDownManualCmd  = new ElevatorDownManualCmd(elevatorSubsystem);
+    
+ 
+    private final Auto1Cmd auto1 = new Auto1Cmd();
 
     public static PhotonCamera camera = new PhotonCamera("Caméra 1");
    
     public static CommandXboxController manette = new CommandXboxController(0);
     public static Timer m_timer = new Timer();
+    public static AnalogInput analog = new AnalogInput(0);
 
     
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
+    public RobotContainer() {
+        configureButtonBindings();
+        driveSubsystem.setDefaultCommand(driveCmd);
+        
+    }
 
     
     
