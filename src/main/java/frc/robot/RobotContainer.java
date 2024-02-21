@@ -4,72 +4,86 @@
 
 package frc.robot;      
 
-
-
-
-
-
 import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
+import frc.robot.commands.TurnToAngleCmd;
+import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
+import frc.robot.commands.All_AngleCmd.AngleUpManualCmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
+import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
+import frc.robot.commands.All_ElevatorCmd.ElevatorUpManualCmd;
+import frc.robot.commands.All_IntakeCmd.IntakeCmd;
+import frc.robot.commands.All_ShooterCmd.LaunchNote;
+import frc.robot.commands.All_ShooterCmd.PrepareLaunch;
+import frc.robot.subsystems.AngleSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 //import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
+import org.photonvision.PhotonCamera;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-//import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-//import edu.wpi.first.wpilibj.PS4Controller.Button;
-//import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-//import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+
+
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  final static DriveSubsystem driveSubsystem = new DriveSubsystem();
+  public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
   final static VisionSubsystem visionSubsystem = new VisionSubsystem();
-
-
-  private final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
+  final static ShooterSubsystem shooterSubsytem = new ShooterSubsystem();
+  private static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  private static final AngleSubsystem angleSubsystem = new AngleSubsystem();
   
+  private final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
   private final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
   private final DriveForward2sCmd forward = new DriveForward2sCmd(driveSubsystem);
 
-  public SendableChooser<Command> m_Chooser = new SendableChooser<Command>();
+  private final TurnToAngleCmd turnToAngle13Cmd = new TurnToAngleCmd(driveSubsystem, 13);
+  private final TurnToAngleCmd turnToAngle90Cmd = new TurnToAngleCmd(driveSubsystem, 90);
 
-  
+  private final PrepareLaunch prepareLaunch = new PrepareLaunch(shooterSubsytem);
+  private final LaunchNote launchNote = new LaunchNote(shooterSubsytem);
 
+  private final IntakeCmd intakeCmd = new IntakeCmd(intakeSubsystem);
 
+  private final AngleUpManualCmd angleUpManualCmd = new AngleUpManualCmd(angleSubsystem);
+  private final AngleDownManualCmd angleDownManualCmd = new AngleDownManualCmd(angleSubsystem);
 
+  private final ElevatorUpManualCmd elevatorUpManualCmd = new ElevatorUpManualCmd(elevatorSubsystem);
+  private final ElevatorDownManualCmd elevatorDownManualCmd  = new ElevatorDownManualCmd(elevatorSubsystem);
 
-  
+    public static PhotonCamera camera = new PhotonCamera("Caméra 1");
+    public static CommandXboxController manette = new CommandXboxController(0);
+    public static Timer m_timer = new Timer();
+    
+    
+  public Command getAutonomousCommand() {
 
+    return new SequentialCommandGroup(turnToAngle90Cmd);
+   
+   
+   
+   
+   /*  return new SequentialCommandGroup(
 
-  
-
-
-  public static XboxController manette = new XboxController(0);
-  //public static final Joystick m_joystick = new Joystick(0);
-
-  public static Timer m_timer = new Timer();
-
-   // A simple auto routine that drives forward a specified distance, and then stops.
-
-
-
-
-   public Command getAutonomousCommand() {
-
-    return m_Chooser.getSelected();
+      new RunCommand(()-> driveSubsystem.setDriveMotors(0,0))
+      .withTimeout(3)
+      .andThen(new TurnToAngleCmd(driveSubsystem))
+      .withTimeout(1)
+      .andThen(new DriveBackward2sCmd(driveSubsystem))
+      
+      .andThen(new RunCommand(() ->driveSubsystem.setDriveMotors(0,0)))
+    );*/
    }
     
   
@@ -80,19 +94,6 @@ public class RobotContainer {
     configureButtonBindings();
 
     driveSubsystem.setDefaultCommand(driveCmd);
-    
-
-    // Add commands to the autonomous command chooser
-    m_Chooser.setDefaultOption("backward", backward);
-    m_Chooser.addOption("forward", forward);
-  
-    // Put the chooser on the dashboard
-    SmartDashboard.putData(m_Chooser);
-
-    
-    
-
-    
   }
     // Configure the trigger bindings
      /**
@@ -108,22 +109,45 @@ public class RobotContainer {
 
     private void configureButtonBindings() {
       //mouvement inversée
-      new Trigger(() -> manette.getYButtonPressed()).onTrue(new InstantCommand(() -> driveSubsystem.reverse()));
-      //changement de vitesse
-          new Trigger(() -> manette.getRightBumperPressed()).onTrue(new InstantCommand(() -> driveSubsystem.speedUp()));
-          new Trigger(() -> manette.getLeftBumperPressed()).onTrue(new InstantCommand(() -> driveSubsystem.speedDown()));
-      }
+        Trigger yButton =  manette.y();
+        Trigger rBumper = manette.rightBumper();
+        Trigger lBumper = manette.leftBumper();
+        Trigger aButton = manette.a();
+        Trigger bButton = manette.b();
+        Trigger xButton = manette.x();
+        Trigger UpButton = manette.povUp();
+        Trigger DownButton = manette.povDown();
+        Trigger LeftButton = manette.povLeft();
+        Trigger RightButton = manette.povRight();
 
-      //Trigger yButton = new JoystickButton(manette, XboxController.Button.kY.value);
-     //yButton.whileTrue(reverseCmd);
+        yButton.onTrue(new InstantCommand(() -> driveSubsystem.reverse()));
+        rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp()));
+        lBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedDown()));
 
-    /*JoystickButton button6 = new JoystickButton(m_joystick, 6);
-    JoystickButton button5 = new JoystickButton(m_joystick, 5);
-    JoystickButton button1 = new JoystickButton(m_joystick, 1);
-    JoystickButton button3 = new JoystickButton(m_joystick, 3);
-    JoystickButton button4 = new JoystickButton(m_joystick, 4);
-    */  
-  }
+        aButton.whileTrue( 
+          new PrepareLaunch(shooterSubsytem)
+          .withTimeout(1)
+          .andThen(new LaunchNote(shooterSubsytem))
+          .withTimeout(3)
+          .handleInterrupt(() -> shooterSubsytem.stop()));
+
+        bButton.whileTrue(new IntakeCmd(intakeSubsystem));
+
+        UpButton.whileTrue(new AngleUpManualCmd(angleSubsystem));
+        DownButton.whileTrue(new AngleDownManualCmd(angleSubsystem));
+
+        LeftButton.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
+        RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem));
+
+
+
+
+        
+        
+
+
+     
+  
     
   
  /**
@@ -131,3 +155,5 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+  }
+}

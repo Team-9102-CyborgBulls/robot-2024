@@ -1,46 +1,34 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-//import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.RelativeEncoder;
 
-//import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-//import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-
-//import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-//import frc.robot.commands.DriveCmd;
-import frc.robot.RobotContainer;
+
  
 public class DriveSubsystem extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
+  
      public static DifferentialDrive m_drive;
      public double direction = 1.0;
      public double speed_changer = 0.6;
 
-
-    
-    
- 
     WPI_TalonSRX m_MotorRight = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightID);
     WPI_TalonSRX m_MotorRightFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightFollowID);
     WPI_TalonSRX m_MotorLeft = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftID);
     WPI_TalonSRX m_MotorLeftFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftFollowID);
-    
+    public static ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
-  
- 
+    public static RelativeEncoder encoderDrive;
 
-    public DriveSubsystem() {
+
+  public DriveSubsystem() {
     
-    
-   
     m_MotorRightFollow.follow(m_MotorRight);  
     m_MotorLeftFollow.follow(m_MotorRight);  
 
@@ -63,26 +51,23 @@ public class DriveSubsystem extends SubsystemBase {
     m_MotorRightFollow.setSafetyEnabled(true);
     m_MotorLeft.setSafetyEnabled(true);
     m_MotorLeftFollow.setSafetyEnabled(true);
-   
-    /*m_MotorRight.setExpiration(.00001);
-    m_MotorRightFollow.setExpiration(.00001);
-    m_MotorLeftFollow.setExpiration(.00001);
-    m_MotorLeft.setExpiration(.00001);*/
-    
-    
-    
 
+    //encoderDrive = m_drive.getEncoder();
     }
+
     public void arcadeDrive(double fwd, double rot) {
       m_drive.arcadeDrive(fwd, rot);
       m_drive.setMaxOutput(speed_changer*direction);
     }
+
     public void setMaxOutput(double speed_changer) {
       m_drive.setMaxOutput(speed_changer);
     }
+
     public void reverse(){
       direction = -direction;
     }
+
     public void speedUp(){
       if(speed_changer <= 0.8){
       speed_changer = speed_changer + 0.3;
@@ -93,24 +78,23 @@ public class DriveSubsystem extends SubsystemBase {
       speed_changer = speed_changer - 0.3;
       }
     }
+    public double getAngle(){
+      return gyro.getAngle();
+    }
+    public double getRate(){
+      return gyro.getRate();
+    }
+    public void resetGyro(){
+      gyro.reset();
+    } 
+    public void calibrateGyro(){
+      gyro.calibrate();
+    }
 
-    /*public CommandBase ExAuto(double speed){
-
-      return runOnce(
-      
-      run(()-> m_drive.arcadeDrive(speed, 0))
-
-      )
-    }*/
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    
-  }
+  public void periodic() {} // This method will be called once per scheduler run
 
   public void setDriveMotors(double forward, double turn){
-    
-    
     
     m_MotorRight.setInverted(true);
     m_MotorRightFollow.setInverted(true);
@@ -121,28 +105,14 @@ public class DriveSubsystem extends SubsystemBase {
     m_MotorLeft.configVoltageCompSaturation(11.0);
     m_MotorLeftFollow.configVoltageCompSaturation(11.0);
     
-    
-
     m_MotorRightFollow.follow(m_MotorRight);  
     m_MotorLeftFollow.follow(m_MotorLeft); 
      
     double left = forward - turn;
     double right = forward + turn;
 
-    m_MotorRight.set(TalonSRXControlMode.PercentOutput, left);
-    m_MotorLeft.set(TalonSRXControlMode.PercentOutput, right);
+    m_MotorRight.set(TalonSRXControlMode.PercentOutput, right);
+    m_MotorLeft.set(TalonSRXControlMode.PercentOutput, left);
   }
 
-  public void initDefaultCommand(){
-    
-  }
-
- 
-
-
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-  }
 }
