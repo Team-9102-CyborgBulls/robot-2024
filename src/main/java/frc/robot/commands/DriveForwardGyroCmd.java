@@ -1,17 +1,14 @@
-package frc.robot.commands;
+package frc.robot.commands; // Déclaration du package où se trouve la classe DriveForwardGyroCmd
 
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command; // Import des classes nécessaires
 import frc.robot.subsystems.DriveSubsystem;
 
-public class DriveForwardGyroCmd extends Command {
-  DriveSubsystem driveSubsystem;
+public class DriveForwardGyroCmd extends Command { // Déclaration de la classe DriveForwardGyroCmd qui étend la classe Command
 
-    public DriveForwardGyroCmd(DriveSubsystem drivesubsystem){
+    DriveSubsystem driveSubsystem; // Déclaration d'une variable driveSubsystem de type DriveSubsystem
 
-        this.driveSubsystem = drivesubsystem;
-        
-       
-        addRequirements(driveSubsystem);
-
-    }   
+    public DriveForwardGyroCmd(DriveSubsystem drivesubsystem) { // Constructeur de la classe DriveForwardGyroCmd
+        this.driveSubsystem = drivesubsystem; // Initialisation de la variable driveSubsystem avec la valeur passée en paramètre
+        addRequirements(driveSubsystem); // Ajout de la dépendance du sous-système driveSubsystem
+    }
 }

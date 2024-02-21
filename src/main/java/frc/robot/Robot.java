@@ -8,9 +8,11 @@ package frc.robot;
 
 
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DriveSubsystem;
@@ -36,10 +38,13 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
    
-    Shuffleboard.getTab("Example tab").add(DriveSubsystem.gyro);
+    SmartDashboard.putData(m_robotContainer.driveSubsystem.gyro);
     
-   m_robotContainer.driveSubsystem.calibrateGyro();;
-
+    
+   m_robotContainer.driveSubsystem.calibrateGyro();
+   m_robotContainer.driveSubsystem.setOffSetEncoder(0);
+   m_robotContainer.driveSubsystem.resetGyro();
+    UsbCamera camera = CameraServer.startAutomaticCapture();
   }
 
   /**
@@ -56,6 +61,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    SmartDashboard.putNumber("Distance",m_robotContainer.driveSubsystem.getDistance());
     
     
   }
@@ -99,6 +105,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     m_robotContainer.driveSubsystem.resetGyro();
+    m_robotContainer.driveSubsystem.resetPosition();
   }
 
   /** This function is called periodically during operator control. */
