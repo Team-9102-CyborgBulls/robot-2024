@@ -5,45 +5,20 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterSubsystem;
 
-<<<<<<< HEAD
-public class LaunchNoteAuto extends Command {
-  
-    ShooterSubsystem m_launcher;
-
-    public LaunchNoteAuto(ShooterSubsystem launcher) {
-    
-=======
-<<<<<<<< HEAD:src/main/java/frc/robot/commands/All_ShooterCmd/LaunchNoteTeleop.java
-public class LaunchNoteTeleop extends Command {
-  
-    ShooterSubsystem m_launcher;
-
-    public LaunchNoteTeleop(ShooterSubsystem launcher) {
-    
-========
 public class LaunchNoteAuto extends Command {
 
     ShooterSubsystem m_launcher;
 
     public LaunchNoteAuto(ShooterSubsystem launcher) {
 
->>>>>>>> 94036b86cd03d3b5626c29a19e60095fe18782b4:src/main/java/frc/robot/commands/All_ShooterCmd/LaunchNoteAuto.java
->>>>>>> 94036b86cd03d3b5626c29a19e60095fe18782b4
     this.m_launcher = launcher;
     addRequirements(m_launcher);
   }
 
-<<<<<<< HEAD
   
   @Override
   public void initialize() {
  
-=======
-
-  @Override
-  public void initialize() {
-
->>>>>>> 94036b86cd03d3b5626c29a19e60095fe18782b4
     m_launcher.setLaunchWheel(Constants.ShooterConstants.kLauncherSpeed);
     m_launcher.setFeedWheel(Constants.ShooterConstants.kLaunchFeederSpeed);
     RobotContainer.m_timer.reset();
@@ -72,8 +47,4 @@ public class LaunchNoteAuto extends Command {
     // Stop the wheels when the command ends.
     m_launcher.stop();
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 94036b86cd03d3b5626c29a19e60095fe18782b4

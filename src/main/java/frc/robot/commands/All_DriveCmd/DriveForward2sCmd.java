@@ -39,7 +39,7 @@ public class DriveForward2sCmd extends Command{
 
   @Override
   public boolean isFinished() {
-    return  RobotContainer.m_timer.get() >= 5;
+    return  RobotContainer.m_timer.get() >= 1.95;
   }
 }
 

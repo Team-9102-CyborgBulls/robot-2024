@@ -6,7 +6,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 
 // This command drives a specified number of meters
-public class DriveForDistanceCommand extends Command {
+public class DriveForDistanceCmd extends Command {
 
   DriveSubsystem m_DriveSubsystem;
   double initialDistance;
@@ -14,7 +14,7 @@ public class DriveForDistanceCommand extends Command {
   double percentPower;
 
   /** Creates a new DriveForDistanceCommand. */
-  public DriveForDistanceCommand(double distance, double percentPower) {
+  public DriveForDistanceCmd(double distance, double percentPower) {
     m_DriveSubsystem = RobotContainer.driveSubsystem;
     this.distance = distance;
     this.percentPower = percentPower;
