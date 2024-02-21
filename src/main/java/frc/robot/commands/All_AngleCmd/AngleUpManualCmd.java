@@ -9,30 +9,30 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
     AngleSubsystem m_angle; // Déclaration d'une variable m_angle de type AngleSubsystem
     double targetHeight;
     double error; 
-    double heightToGo;
+    //double heightToGo;
     RobotContainer m_robotContainer;
 
-    public AngleUpManualCmd(AngleSubsystem anglesubsystem, double heightToGo) { // Constructeur de la classe AngleUpManualCmd
+    public AngleUpManualCmd(AngleSubsystem anglesubsystem) { // Constructeur de la classe AngleUpManualCmd
         this.m_angle = anglesubsystem;// Initialisation de la variable m_angle avec la valeur passée en paramètre
-        this.heightToGo = heightToGo
+       // this.heightToGo = heightToGo
         addRequirements(m_angle); // Ajout de la dépendance du sous-système anglesubsystem
     }
 
     @Override
     public void initialize() {
 
-        m_robotContainer.analog.getValue();
-        this.targetHeight = heightToGo + m_robotContainer.analog.getValue();
+        //m_robotContainer.analog.getValue();
+       // this.targetHeight = heightToGo + m_robotContainer.analog.getValue();
     } // Méthode d'initialisation 
 
     @Override
     public void execute() { // Méthode execute qui sera appelée périodiquement
 
-        double kP;
-        double currentHeight = m_robotContainer.analog.getValue();
-        error = targetHeight - currentHeight;
-        double speed = kP*error;
-        m_angle.setAngleMotor(speed); // Appel de la méthode setAngleMotor du sous-système angle avec une valeur de -1 pour monter
+        //double kP;
+        //double currentHeight = m_robotContainer.analog.getValue();
+        //error = targetHeight - currentHeight;
+        //double speed = kP*error;
+        m_angle.setAngleMotor(-1); // Appel de la méthode setAngleMotor du sous-système angle avec une valeur de -1 pour monter
     }
 
     @Override
