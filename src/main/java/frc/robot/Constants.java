@@ -40,7 +40,7 @@ public static final class ShooterConstants {
     // Vitesse de la 1ère roue du shooter
     public static final double kLauncherSpeed = 0.2;
     // Vitesse de la 2nd roue du shooter
-    public static final double kLaunchFeederSpeed = 0.2;
+    public static final double kLaunchFeederSpeed = 0.5;
 }
 
 public static final class IntakeConstants {
