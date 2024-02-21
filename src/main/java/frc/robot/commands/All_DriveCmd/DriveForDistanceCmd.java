@@ -26,12 +26,13 @@ public class DriveForDistanceCmd extends Command {
   public void initialize() {
     initialDistance = m_DriveSubsystem.getDistance();
     System.out.println("INITIAL DISTANCE: " + initialDistance);
-    m_DriveSubsystem.setDriveMotors(percentPower, percentPower);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_DriveSubsystem.setDriveMotors(percentPower, percentPower);
     // Print statements for debugging
     System.out.println("GOAL DISTANCE: " + (distance + initialDistance));
     System.out.println("CURRENT DISTANCE: " + m_DriveSubsystem.getDistance());

@@ -113,10 +113,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void setDriveMotors(double forward, double turn){
     
-    m_MotorRight.setInverted(false);
-    m_MotorRightFollow.setInverted(false);
-    m_MotorLeft.setInverted(true);
-    m_MotorLeftFollow.setInverted(true);
+    m_MotorRight.setInverted(true);
+    m_MotorRightFollow.setInverted(true);
+    m_MotorLeft.setInverted(false);
+    m_MotorLeftFollow.setInverted(false);
     m_MotorRight.configVoltageCompSaturation(11.0);
     m_MotorRightFollow.configVoltageCompSaturation(11.0);
     m_MotorLeft.configVoltageCompSaturation(11.0);

@@ -28,7 +28,7 @@ public class DriveForward2sCmd extends Command{
   
     System.out.println(RobotContainer.m_timer.get());
 
-    double speed = 0.2;
+    double speed = 0.3;
     driveSubsystem.setDriveMotors(speed,0.0);
   }
 

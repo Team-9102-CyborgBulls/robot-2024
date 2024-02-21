@@ -13,6 +13,7 @@ import frc.robot.commands.All_AngleCmd.AngleUpManualCmd;
 import frc.robot.commands.All_AutonomousCmd.Auto2Cmd;
 import frc.robot.commands.All_AutonomousCmd.Auto1Cmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
+import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
 import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
 import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
 import frc.robot.commands.All_ElevatorCmd.ElevatorUpManualCmd;
@@ -53,6 +54,7 @@ public class RobotContainer {
   public final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
   public final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
   public final DriveForward2sCmd forward = new DriveForward2sCmd(driveSubsystem);
+  public final DriveForDistanceCmd driveForDistanceCmd = new DriveForDistanceCmd(1, 0.2);
   public final frc.robot.commands.All_DriveCmd.WaitCmd Wait = new frc.robot.commands.All_DriveCmd.WaitCmd(driveSubsystem);
   public final NothingCmd nothing = new NothingCmd(driveSubsystem);
 
