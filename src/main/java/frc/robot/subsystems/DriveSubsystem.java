@@ -30,8 +30,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DriveSubsystem() {
     
-    m_MotorRightFollow.follow(m_MotorRight);  
-    m_MotorLeftFollow.follow(m_MotorRight);  
+ 
 
     m_drive = new DifferentialDrive(m_MotorLeft,m_MotorRight);
     
@@ -60,6 +59,9 @@ public class DriveSubsystem extends SubsystemBase {
     public void arcadeDrive(double fwd, double rot) {
       m_drive.arcadeDrive(fwd, rot);
       m_drive.setMaxOutput(speed_changer*direction);
+    }
+    public void tankDrive(double left, double right){
+      m_drive.tankDrive(left, right);
     }
 
     public void setMaxOutput(double speed_changer) {
@@ -112,19 +114,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {} // This method will be called once per scheduler run
 
   public void setDriveMotors(double forward, double turn){
-    
-    m_MotorRight.setInverted(true);
-    m_MotorRightFollow.setInverted(true);
-    m_MotorLeft.setInverted(false);
-    m_MotorLeftFollow.setInverted(false);
-    m_MotorRight.configVoltageCompSaturation(11.0);
-    m_MotorRightFollow.configVoltageCompSaturation(11.0);
-    m_MotorLeft.configVoltageCompSaturation(11.0);
-    m_MotorLeftFollow.configVoltageCompSaturation(11.0);
-    
-    m_MotorRightFollow.follow(m_MotorRight);
-    m_MotorLeftFollow.follow(m_MotorLeft);
-     
+
     double left = forward - turn;
     double right = forward + turn;
 

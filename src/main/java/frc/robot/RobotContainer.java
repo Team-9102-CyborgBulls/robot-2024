@@ -6,7 +6,7 @@ package frc.robot;
 
 
 import frc.robot.commands.NothingCmd;
-import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
+import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
 import frc.robot.commands.TurnToAngleCmd;
 import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
 import frc.robot.commands.All_AngleCmd.AngleUpManualCmd;
@@ -14,7 +14,7 @@ import frc.robot.commands.All_AutonomousCmd.Auto2Cmd;
 import frc.robot.commands.All_AutonomousCmd.Auto1Cmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
-import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
+import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
 import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
 
 import frc.robot.commands.All_ElevatorCmd.ElevatorUpManualCmd;
@@ -54,8 +54,8 @@ public class RobotContainer {
   public static final AngleSubsystem angleSubsystem = new AngleSubsystem();
   
   public final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
-  public final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
-  public final DriveForward2sCmd forward = new DriveForward2sCmd(driveSubsystem);
+  public final DriveForward2sCmd backward = new DriveForward2sCmd(driveSubsystem);
+  public final DriveBackward2sCmd forward = new DriveBackward2sCmd(driveSubsystem);
   public final DriveForDistanceCmd driveForDistanceCmd = new DriveForDistanceCmd(1, 0.2);
   public final frc.robot.commands.All_DriveCmd.WaitCmd Wait = new frc.robot.commands.All_DriveCmd.WaitCmd(driveSubsystem);
   public final NothingCmd nothing = new NothingCmd(driveSubsystem);
