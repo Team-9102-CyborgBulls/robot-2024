@@ -6,6 +6,7 @@ import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,7 +25,7 @@ public class DriveSubsystem extends SubsystemBase {
     WPI_TalonSRX m_MotorLeftFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftFollowID);
     public static ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
-    public static RelativeEncoder encoderDrive;
+    public static DutyCycleEncoder encoderDrive = new DutyCycleEncoder(0);
 
 
   public DriveSubsystem() {
@@ -52,7 +53,8 @@ public class DriveSubsystem extends SubsystemBase {
     m_MotorLeft.setSafetyEnabled(true);
     m_MotorLeftFollow.setSafetyEnabled(true);
 
-    //encoderDrive = m_drive.getEncoder();
+    encoderDrive.reset();
+    encoderDrive.setDistancePerRotation(Constants.DrivetrainConstants.kEncoderdistancePerRotation);
     }
 
     public void arcadeDrive(double fwd, double rot) {
@@ -90,16 +92,31 @@ public class DriveSubsystem extends SubsystemBase {
     public void calibrateGyro(){
       gyro.calibrate();
     }
-
+    public double getPosition(){
+      return encoderDrive.get();
+    }
+    public void resetPosition(){
+      encoderDrive.reset();
+    }
+    public double getAbsolutePosition(){
+      return encoderDrive.getAbsolutePosition();
+    }
+    public void setOffSetEncoder(double offset){
+      encoderDrive.setPositionOffset(offset);
+    }
+    public double getDistance(){
+      return encoderDrive.getDistance();
+    }
+    
   @Override
   public void periodic() {} // This method will be called once per scheduler run
 
   public void setDriveMotors(double forward, double turn){
     
-    m_MotorRight.setInverted(true);
-    m_MotorRightFollow.setInverted(true);
-    m_MotorLeft.setInverted(false);
-    m_MotorLeftFollow.setInverted(false);
+    m_MotorRight.setInverted(false);
+    m_MotorRightFollow.setInverted(false);
+    m_MotorLeft.setInverted(true);
+    m_MotorLeftFollow.setInverted(true);
     m_MotorRight.configVoltageCompSaturation(11.0);
     m_MotorRightFollow.configVoltageCompSaturation(11.0);
     m_MotorLeft.configVoltageCompSaturation(11.0);
@@ -114,5 +131,20 @@ public class DriveSubsystem extends SubsystemBase {
     m_MotorRight.set(TalonSRXControlMode.PercentOutput, right);
     m_MotorLeft.set(TalonSRXControlMode.PercentOutput, left);
   }
+  public void stop(){
+      m_MotorRight.set(0.0);
+      m_MotorRightFollow.set(0.0);
+      m_MotorLeft.set(0.0);
+      m_MotorLeftFollow.set(0.0);
+  }
+  
+  public void drive(double leftPercentPower, double rightPercentPower) {
+    m_MotorLeft.set(leftPercentPower);
+    m_MotorLeftFollow.set(leftPercentPower);
+    m_MotorRight.set(rightPercentPower);
+    m_MotorRightFollow.set(rightPercentPower);
+  }
+
+  
 
 }

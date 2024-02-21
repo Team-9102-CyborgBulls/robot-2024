@@ -8,13 +8,14 @@ public class TurnToAngleCmd extends Command{
     
     DriveSubsystem driveSubsystem;
     double error;
-    double m_setpoint;
-    public TurnToAngleCmd(DriveSubsystem drivesubsystem, double setpoint){
+    double targetAngle;
+    double degreesToTurn;
+
+    public TurnToAngleCmd(DriveSubsystem drivesubsystem, double degreesToTurn){
 
         this.driveSubsystem = drivesubsystem;
-        this.m_setpoint = setpoint;
+        this.degreesToTurn = degreesToTurn;
         
-       
         addRequirements(driveSubsystem);
 
     }
@@ -22,33 +23,34 @@ public class TurnToAngleCmd extends Command{
     @Override
     public void initialize() {
        DriveSubsystem.gyro.reset();
+
+       this.targetAngle = degreesToTurn +  DriveSubsystem.gyro.getAngle();
     }
   
     @Override
     public void execute() {
     
-    double kP = 0.09;
+    double kP = 0.019;
+
     double currentPosition = DriveSubsystem.gyro.getAngle();
         // Find the heading error; setpoint is 90
-    error = m_setpoint - currentPosition;
-    double rightSpeed = kP * error;
-    double leftSpeed = -kP * error;
+    error = targetAngle - currentPosition;
+    double speed = kP * error;
+
     // Turns the robot to face the desired direction
     
-        if(rightSpeed >= 0.53 || leftSpeed>=0.53){
-        DriveSubsystem.m_drive.tankDrive(-0.53, 0.53);
-        }else{
-            DriveSubsystem.m_drive.tankDrive(-leftSpeed,-rightSpeed);
+        driveSubsystem.drive(speed,-speed);
 
-        }
+        
     System.out.println(currentPosition);
+    System.out.println(error);
 
     }
 
     @Override
     public void end(boolean interrupted){
        
-        DriveSubsystem.m_drive.tankDrive(0, 0);
+        //DriveSubsystem.m_drive.tankDrive(0, 0);
 
     }
     
@@ -56,7 +58,7 @@ public class TurnToAngleCmd extends Command{
     @Override
     public boolean isFinished() {
     
-    if(Math.abs(error) <= 10){    
+    if(Math.abs(error) <= 30){    
       return true;
     }
     else{

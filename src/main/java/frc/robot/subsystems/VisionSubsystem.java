@@ -1,7 +1,6 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems; // Déclaration du package où se trouve la classe VisionSubsystem
 
-import org.photonvision.PhotonCamera;
-
+import org.photonvision.PhotonCamera; // Import des classes nécessaires
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,8 +24,10 @@ public class VisionSubsystem extends SubsystemBase {
     final static double D_GAIN = 0.1;
     public static PIDController controller = new PIDController(P_GAIN, 0, D_GAIN);
 
-    
+    public VisionSubsystem() {} // Constructeur de la classe VisionSubsystem
 
+    @Override
+    public void periodic() {} // Cette méthode sera appelée une fois par exécution du planificateur
 
 public VisionSubsystem() {}    
 

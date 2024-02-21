@@ -15,32 +15,47 @@ package frc.robot;
 public final class Constants {
   
   public static final class DrivetrainConstants {
-
+    // Identifiant du moteur droit
     public static final int m_MotorRightID = 2;
+    // Identifiant du moteur droit suiveur
     public static final int m_MotorRightFollowID = 4;
+    // Identifiant du moteur gauche
     public static final int m_MotorLeftID = 3;
+    // Identifiant du moteur gauche suiveur
     public static final int m_MotorLeftFollowID = 1;
 
-    public static final int m_joystickPort = 0;
-  }
-  public static final class ShooterConstants {
-
-    public static final int m_launchWheelID = 7;
-    public static final int m_feedWheelID = 9;
-    public static final int kLauncherCurrentLimit = 80;
-    public static final int kFeedCurrentLimit = 80;
-    public static final double kLauncherSpeed = 0.2;
-    public static final double kLaunchFeederSpeed = 0.2;
-  }
-  public static final class IntakeConstants {
-
-    public static final int m_intakeMotorID = 8;
-  }
-  public static final class AngleElevatorConstants {
-
-    public static final int m_angleMotorID = 5;
-  }
-  public static class ElevatorConstants {
-    public static final int kElevatorMotorID = 6;
-  }
+    public static final double kEncoderdistancePerRotation = 2*Math.PI*0.0762;
+   
 }
+
+public static final class ShooterConstants {
+    // Identifiant de la roue de lancement
+    public static final int m_launchWheelID = 7;
+    // Identifiant de la roue d'alimentation
+    public static final int m_feedWheelID = 9;
+    // Limite de courant du launcher
+    public static final int kLauncherCurrentLimit = 80;
+    // Limite de courant du launcher
+    public static final int kFeedCurrentLimit = 80;
+    // Vitesse de la 1ère roue du shooter
+    public static final double kLauncherSpeed = 0.2;
+    // Vitesse de la 2nd roue du shooter
+    public static final double kLaunchFeederSpeed = 0.2;
+}
+
+public static final class IntakeConstants {
+    // Identifiant du moteur d'intake
+    public static final int m_intakeMotorID = 8;
+}
+
+public static final class AngleElevatorConstants {
+    // Identifiant du moteur d'angle
+    public static final int m_angleMotorID = 5;
+}
+
+public static class ElevatorConstants {
+    // Identifiant du moteur du chariot
+    public static final int kElevatorMotorID = 6;
+}
+}
+
