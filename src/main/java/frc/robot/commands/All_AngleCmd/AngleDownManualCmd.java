@@ -7,9 +7,15 @@ import frc.robot.subsystems.AngleSubsystem;
 public class AngleDownManualCmd extends Command { // Déclaration de la classe AngleDownManualCmd qui étend la classe Command
 
     AngleSubsystem m_angle; // Déclaration d'une variable m_angle de type AngleSubsystem
+    RobotContainer m_robotContainer;
+    double targetHeight;
+    double error; 
+    double heightToGo;
 
-    public AngleDownManualCmd(AngleSubsystem angle) { // Constructeur de la classe AngleDownManualCmd
+
+    public AngleDownManualCmd(AngleSubsystem angle, double heightToGo) { // Constructeur de la classe AngleDownManualCmd
         this.m_angle = angle; // Initialisation de la variable m_angle avec la valeur passée en paramètre
+        
         addRequirements(m_angle); // Ajout de la dépendance du sous-système angle
     }
 
@@ -31,6 +37,10 @@ public class AngleDownManualCmd extends Command { // Déclaration de la classe A
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-        return false; // La commande ne se termine jamais automatiquement
+        if(m_robotContainer.analog.getValue() <= 1600){
+            return true;
+        } else{
+            return false;
+        } // La commande ne se termine jamais automatiquement
     }
 }
