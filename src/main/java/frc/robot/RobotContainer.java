@@ -1,16 +1,24 @@
 package frc.robot;
 
-import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
+
+
+
+
+
+import frc.robot.commands.NothingCmd;
+import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
 import frc.robot.commands.TurnToAngleCmd;
 import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
 import frc.robot.commands.All_AngleCmd.AngleUpManualCmd;
+import frc.robot.commands.All_AutonomousCmd.Auto2Cmd;
 import frc.robot.commands.All_AutonomousCmd.Auto1Cmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
-import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
+import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
+import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
 import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
 
 import frc.robot.commands.All_ElevatorCmd.ElevatorUpManualCmd;
-import frc.robot.commands.All_IntakeCmd.IntakeTeleopCmd;
+import frc.robot.commands.All_IntakeCmd.IntakeCmdTeleop;
 import frc.robot.commands.All_IntakeCmd.ReverseIntakeCmd;
 import frc.robot.commands.All_ShooterCmd.LaunchNoteTeleop;
 import frc.robot.commands.All_ShooterCmd.PrepareLaunchTeleop;
@@ -37,13 +45,20 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
-    // Les sous-systèmes et les commandes du robot sont définis ici...
-    public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
-    public final static VisionSubsystem visionSubsystem = new VisionSubsystem();
-    public final static ShooterSubsystem shooterSubsytem = new ShooterSubsystem();
-    public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-    public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
-    public static final AngleSubsystem angleSubsystem = new AngleSubsystem();
+  // The robot's subsystems and commands are defined here...
+  public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
+  final static VisionSubsystem visionSubsystem = new VisionSubsystem();
+  public final static ShooterSubsystem shooterSubsytem = new ShooterSubsystem();
+  public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  public static final AngleSubsystem angleSubsystem = new AngleSubsystem();
+  
+  public final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
+  public final DriveForward2sCmd backward = new DriveForward2sCmd(driveSubsystem);
+  public final DriveBackward2sCmd forward = new DriveBackward2sCmd(driveSubsystem);
+  public final DriveForDistanceCmd driveForDistanceCmd = new DriveForDistanceCmd(1, 0.2);
+  public final frc.robot.commands.All_DriveCmd.WaitCmd Wait = new frc.robot.commands.All_DriveCmd.WaitCmd(driveSubsystem);
+  public final NothingCmd nothing = new NothingCmd(driveSubsystem);
 
     private final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
     private final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
@@ -62,34 +77,62 @@ public class RobotContainer {
 
     public static PhotonCamera camera = new PhotonCamera("Caméra 1");
    
+    public static CommandJoystick joystick = new CommandJoystick(1);
     public static CommandXboxController manette = new CommandXboxController(0);
     public static CommandJoystick joystick = new CommandJoystick(1);
      
     public static Timer m_timer = new Timer();
     public static AnalogInput analog = new AnalogInput(0);
 
-    public Command getAutonomousCommand() {
-        return new Auto1Cmd();
-    }
+    
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    public RobotContainer() {
-        configureButtonBindings();
-        driveSubsystem.setDefaultCommand(driveCmd);
-        
-    }
 
     
-    /**
-     * Utilisez cette méthode pour définir les associations de déclencheur -> commande. Les déclencheurs peuvent être créés via
-     * le constructeur {@link Trigger#Trigger(java.util.function.BooleanSupplier)} avec un prédicat arbitraire,
-     * ou via les fabriques nommées dans les sous-classes {@link CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-     * PS4} ou {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-     * joysticks}.
-     */
-    private void configureButtonBindings() {   // Configure les associations de boutons
-        
-        Trigger yButton = manette.y();
+    
+  public Command getAutonomousCommand() {
+
+    //return new Auto2Cmd();
+    return new DriveBackward2sCmd(driveSubsystem);
+   }
+    
+  
+  
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  public RobotContainer() {
+
+    configureButtonBindings();
+
+    driveSubsystem.setDefaultCommand(driveCmd);
+    
+
+    // Add commands to the autonomous command chooser
+    //    m_Chooser.setDefaultOption("backward", backward);
+    //    m_Chooser.addOption("forward", forward);
+  
+    // Put the chooser on the dashboard
+    //    SmartDashboard.putData(m_Chooser);
+
+    
+    
+
+    
+  }
+    // Configure the trigger bindings
+     /**
+   * Use this method to define your trigger->command mappings. Triggers can be created via the
+   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+   * predicate, or via the named factories in {@link
+   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
+   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+   * joysticks}.
+   */
+   
+
+    private void configureButtonBindings() {
+      //mouvement inversée
+        Trigger yButton =  manette.y();
         Trigger rBumper = manette.rightBumper();
         Trigger lBumper = manette.leftBumper();
         Trigger aButton = manette.a();
@@ -99,6 +142,8 @@ public class RobotContainer {
         Trigger DownButton = manette.povDown();
         Trigger LeftButton = manette.povLeft();
         Trigger RightButton = manette.povRight();
+        Trigger Button3 = joystick.button(3);
+        Trigger Button4 = joystick.button(4);
 
         Trigger Button3 = joystick.button(3);
         Trigger Button4 = joystick.button(4);
@@ -119,7 +164,7 @@ public class RobotContainer {
         LeftButton.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
         RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem));
 
-       Button3.whileTrue(new ReverseIntakeCmd(intakeSubsystem));
+        Button3.whileTrue(new ReverseIntakeCmd(intakeSubsystem));
         Button4.whileTrue(shooterSubsytem.getIntakeCommand());
     }
 }

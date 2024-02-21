@@ -6,7 +6,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 
 // This command drives a specified number of meters
-public class DriveForDistanceCommand extends Command {
+public class DriveForDistanceCmd extends Command {
 
   DriveSubsystem m_DriveSubsystem;
   double initialDistance;
@@ -14,7 +14,7 @@ public class DriveForDistanceCommand extends Command {
   double percentPower;
 
   /** Creates a new DriveForDistanceCommand. */
-  public DriveForDistanceCommand(double distance, double percentPower) {
+  public DriveForDistanceCmd(double distance, double percentPower) {
     m_DriveSubsystem = RobotContainer.driveSubsystem;
     this.distance = distance;
     this.percentPower = percentPower;
@@ -26,12 +26,13 @@ public class DriveForDistanceCommand extends Command {
   public void initialize() {
     initialDistance = m_DriveSubsystem.getDistance();
     System.out.println("INITIAL DISTANCE: " + initialDistance);
-    m_DriveSubsystem.setDriveMotors(percentPower, percentPower);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_DriveSubsystem.setDriveMotors(percentPower, percentPower);
     // Print statements for debugging
     System.out.println("GOAL DISTANCE: " + (distance + initialDistance));
     System.out.println("CURRENT DISTANCE: " + m_DriveSubsystem.getDistance());

@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class ReverseIntakeCmd extends Command {
+public class IntakeCmdTeleop extends Command {
     
     IntakeSubsystem m_intake;
 
-    public ReverseIntakeCmd(IntakeSubsystem intake){
+    public IntakeCmdTeleop(IntakeSubsystem intake){
 
       this.m_intake = intake;
       addRequirements(m_intake);
@@ -24,7 +24,7 @@ public class ReverseIntakeCmd extends Command {
 
   @Override
   public void execute() {
-    m_intake.setIntakeMotor(-0.75);
+    m_intake.setIntakeMotor(0.75);
   }
 
   @Override
@@ -41,7 +41,4 @@ public class ReverseIntakeCmd extends Command {
   public void end(boolean interrupted){
     m_intake.stop();
   }
-<<<<<<< HEAD
-}
-=======
 }

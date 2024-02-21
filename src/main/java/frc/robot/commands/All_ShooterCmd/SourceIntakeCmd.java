@@ -6,11 +6,11 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class LaunchNoteTeleop extends Command {
+public class SourceIntakeCmd extends Command {
   
     ShooterSubsystem m_launcher;
 
-    public LaunchNoteTeleop(ShooterSubsystem launcher) {
+    public SourceIntakeCmd(ShooterSubsystem launcher) {
 
 
     this.m_launcher = launcher;
@@ -21,8 +21,8 @@ public class LaunchNoteTeleop extends Command {
   @Override
   public void initialize() {
 
-    m_launcher.setLaunchWheel(Constants.ShooterConstants.kLauncherSpeed);
-    m_launcher.setFeedWheel(Constants.ShooterConstants.kLaunchFeederSpeed);
+    m_launcher.setLaunchWheel(Constants.ShooterConstants.kSourceIntakeSpeed);
+    m_launcher.setFeedWheel(Constants.ShooterConstants.kSourceIntakeSpeed);
     RobotContainer.m_timer.reset();
     RobotContainer.m_timer.start();
   }

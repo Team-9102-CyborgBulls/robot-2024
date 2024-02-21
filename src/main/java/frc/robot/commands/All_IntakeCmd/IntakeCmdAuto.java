@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeAutoCmd extends Command {
-
+public class IntakeCmdAuto extends Command {
+    
     IntakeSubsystem m_intake;
 
-    public IntakeAutoCmd(IntakeSubsystem intake){
+    public IntakeCmdAuto(IntakeSubsystem intake){
 
       this.m_intake = intake;
       addRequirements(m_intake);

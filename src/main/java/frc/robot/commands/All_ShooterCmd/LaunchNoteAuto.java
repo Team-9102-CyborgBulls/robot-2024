@@ -15,10 +15,10 @@ public class LaunchNoteAuto extends Command {
     addRequirements(m_launcher);
   }
 
-
+  
   @Override
   public void initialize() {
-
+ 
     m_launcher.setLaunchWheel(Constants.ShooterConstants.kLauncherSpeed);
     m_launcher.setFeedWheel(Constants.ShooterConstants.kLaunchFeederSpeed);
     RobotContainer.m_timer.reset();
