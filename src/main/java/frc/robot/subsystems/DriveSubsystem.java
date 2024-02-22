@@ -35,12 +35,12 @@ public class DriveSubsystem extends SubsystemBase {
     m_drive = new DifferentialDrive(m_MotorLeft,m_MotorRight);
     
     m_MotorRight.setInverted(false);
-    m_MotorRightFollow.setInverted(false);
-    m_MotorLeft.setInverted(true);
-    m_MotorLeftFollow.setInverted(true);
+    m_MotorRightFollow.setInverted(true);
+    m_MotorLeft.setInverted(false);
+    m_MotorLeftFollow.setInverted(false);
 
-    m_MotorRightFollow.follow(m_MotorRight);
-    m_MotorLeftFollow.follow(m_MotorLeft);
+    //m_MotorRightFollow.follow(m_MotorRight);
+    //m_MotorLeftFollow.follow(m_MotorLeft);
 
     m_MotorRight.configVoltageCompSaturation(11.0);
     m_MotorRightFollow.configVoltageCompSaturation(11.0);
@@ -120,6 +120,9 @@ public class DriveSubsystem extends SubsystemBase {
 
     m_MotorRight.set(TalonSRXControlMode.PercentOutput, right);
     m_MotorLeft.set(TalonSRXControlMode.PercentOutput, left);
+
+    m_MotorRightFollow.set(TalonSRXControlMode.PercentOutput, right);
+    m_MotorLeftFollow.set(TalonSRXControlMode.PercentOutput, left);
   }
   public void stop(){
       m_MotorRight.set(0.0);
