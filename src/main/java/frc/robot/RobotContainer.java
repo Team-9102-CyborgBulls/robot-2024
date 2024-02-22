@@ -71,10 +71,10 @@ public class RobotContainer {
 
   public final IntakeCmdTeleop intakeCmd = new IntakeCmdTeleop(intakeSubsystem);
 
-  public final AngleUpManualCmd angleUpManualCmd = new AngleUpManualCmd(angleSubsystem);
+  public final AngleUpManualCmd angleUpManualCmd = new AngleUpManualCmd(angleSubsystem, 4095);
   public final AngleDownManualCmd angleDownManualCmd = new AngleDownManualCmd(angleSubsystem);
 
-  public final ElevatorUpManualCmd elevatorUpManualCmd = new ElevatorUpManualCmd(elevatorSubsystem);
+  public final ElevatorUpManualCmd elevatorUpManualCmd = new ElevatorUpManualCmd(elevatorSubsystem, 20);
   public final ElevatorDownManualCmd elevatorDownManualCmd  = new ElevatorDownManualCmd(elevatorSubsystem);
     
  
@@ -147,6 +147,8 @@ public class RobotContainer {
         Trigger RightButton = manette.povRight();
         Trigger Button3 = joystick.button(3);
         Trigger Button4 = joystick.button(4);
+        Trigger Button5 = joystick.button(5);
+        Trigger Button6 = joystick.button(6);
 
         yButton.onTrue(new InstantCommand(() -> driveSubsystem.reverse())); // Mouvement inversé
         rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp())); // Vitesse augmenté
@@ -161,12 +163,14 @@ public class RobotContainer {
 
         bButton.whileTrue(new IntakeCmdTeleop(intakeSubsystem));
 
-        UpButton.whileTrue(new AngleUpManualCmd(angleSubsystem));
-        DownButton.whileTrue(new AngleDownManualCmd(angleSubsystem));
+        UpButton.onTrue(new AngleUpManualCmd(angleSubsystem,4095));
+        DownButton.onTrue(new AngleDownManualCmd(angleSubsystem));
         LeftButton.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
-        RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem));
+        RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem,20));
 
         Button3.whileTrue(new ReverseIntakeCmd(intakeSubsystem));
         Button4.whileTrue(shooterSubsytem.getIntakeCommand());
+        Button5.whileTrue(new TurnToAngleCmd(driveSubsystem, 13));
+        Button6.whileTrue(new TurnToAngleCmd(driveSubsystem, 90));
     }
 }

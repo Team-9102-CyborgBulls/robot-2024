@@ -9,29 +9,26 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
     AngleSubsystem m_angle; // Déclaration d'une variable m_angle de type AngleSubsystem
     double targetHeight;
     double error; 
-    //double heightToGo;
+    double heightToGo;
+    double kP = 0.00048;
     RobotContainer m_robotContainer;
 
-    public AngleUpManualCmd(AngleSubsystem anglesubsystem) { // Constructeur de la classe AngleUpManualCmd
+    public AngleUpManualCmd(AngleSubsystem anglesubsystem, double heightToGo) { // Constructeur de la classe AngleUpManualCmd
         this.m_angle = anglesubsystem;// Initialisation de la variable m_angle avec la valeur passée en paramètre
-       // this.heightToGo = heightToGo
+        this.heightToGo = heightToGo;
         addRequirements(m_angle); // Ajout de la dépendance du sous-système anglesubsystem
     }
 
     @Override
     public void initialize() {
 
-        //m_robotContainer.analog.getValue();
-       // this.targetHeight = heightToGo + m_robotContainer.analog.getValue();
+        m_robotContainer.analog.getValue();
+        this.targetHeight = heightToGo + m_robotContainer.analog.getValue();
     } // Méthode d'initialisation 
 
     @Override
     public void execute() { // Méthode execute qui sera appelée périodiquement
 
-        //double kP;
-        //double currentHeight = m_robotContainer.analog.getValue();
-        //error = targetHeight - currentHeight;
-        //double speed = kP*error;
         m_angle.setAngleMotor(-1); // Appel de la méthode setAngleMotor du sous-système angle avec une valeur de -1 pour monter
     }
 
@@ -42,12 +39,12 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-       // if(Math.abs(error) <= 30){    
-      //return true;
-    //}
-    //else{
+        if(m_robotContainer.analog.getValue() >=4095){    
+      return true;
+    }
+    else{
         return false;
         
-    //}// La commande ne se termine jamais automatiquement
+    }// La commande ne se termine jamais automatiquement
     }
 }
