@@ -15,20 +15,21 @@ public class Auto2Cmd extends SequentialCommandGroup {
     public Auto2Cmd(){
         addCommands(new PrepareLaunchAuto(RobotContainer.shooterSubsytem));
         //addCommands(new LaunchNoteAuto(RobotContainer.shooterSubsytem));
-        addCommands(new ParallelCommandGroup (new IntakeCmdAuto(RobotContainer.intakeSubsystem)), (new LaunchNoteAuto(RobotContainer.shooterSubsytem)));
+        addCommands(new AutoParallelCmd());
 
-        //changer drive2sec et fordistance en fonction de ce qu'on veux faire
-        addCommands(new DriveBackward2sCmd(RobotContainer.driveSubsystem));
-        //addCommands(new DriveForDistanceCmd(1, -0.3));
+        //changer drive2sec et fordistance en fonction de ce qu'on veux faire: 
+
+        //addCommands(new DriveBackward2sCmd(RobotContainer.driveSubsystem));
+        addCommands(new DriveForDistanceCmd(1, -0.3));
         
         addCommands(new IntakeCmdAuto(RobotContainer.intakeSubsystem));
 
-        addCommands(new DriveForward2sCmd(RobotContainer.driveSubsystem));
-        //addCommands(new DriveForDistanceCmd(1, 0.3));
+        //addCommands(new DriveForward2sCmd(RobotContainer.driveSubsystem));
+        addCommands(new DriveForDistanceCmd(-1, 0.3));
         
         addCommands(new PrepareLaunchAuto(RobotContainer.shooterSubsytem));
         //addCommands(new LaunchNoteAuto(RobotContainer.shooterSubsytem));
-        addCommands(new ParallelCommandGroup(new LaunchNoteAuto(RobotContainer.shooterSubsytem)), new IntakeCmdAuto(RobotContainer.intakeSubsystem));
+        addCommands(new AutoParallelCmd());
     }
     
 }
