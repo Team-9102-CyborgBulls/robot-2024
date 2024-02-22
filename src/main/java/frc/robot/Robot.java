@@ -8,6 +8,8 @@ package frc.robot;
 
 
 
+import java.lang.module.ModuleReader;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -88,6 +90,8 @@ public class Robot extends TimedRobot {
 
     
     m_robotContainer.driveSubsystem.resetGyro();
+
+    m_robotContainer.driveSubsystem.resetPosition();
 
   }
 

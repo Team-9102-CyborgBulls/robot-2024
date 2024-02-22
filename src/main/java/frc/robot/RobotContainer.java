@@ -11,6 +11,7 @@ import frc.robot.commands.TurnToAngleCmd;
 import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
 import frc.robot.commands.All_AngleCmd.AngleUpManualCmd;
 import frc.robot.commands.All_AutonomousCmd.Auto2Cmd;
+import frc.robot.commands.All_AutonomousCmd.AutoParallelCmd;
 import frc.robot.commands.All_AutonomousCmd.Auto1Cmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
