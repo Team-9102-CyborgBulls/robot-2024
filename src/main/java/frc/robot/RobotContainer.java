@@ -5,6 +5,7 @@ package frc.robot;
 
 
 
+import frc.robot.commands.DriveForwardGyroCmd;
 import frc.robot.commands.NothingCmd;
 import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
 import frc.robot.commands.TurnToAngleCmd;
@@ -100,7 +101,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
 
     //return new Auto2Cmd();
-    return new Auto3NotesCmd();
+    return new DriveForwardGyroCmd(driveSubsystem,10);
    }
     
   

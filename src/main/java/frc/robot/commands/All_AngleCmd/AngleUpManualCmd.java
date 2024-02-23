@@ -12,15 +12,11 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
     double heightToGo;
     double kP = 0.00048;
     RobotContainer m_robotContainer;
-    double kP = 1/2095;
+   
 
     public AngleUpManualCmd(AngleSubsystem anglesubsystem) { // Constructeur de la classe AngleUpManualCmd
         this.m_angle = anglesubsystem;// Initialisation de la variable m_angle avec la valeur passée en paramètre
-<<<<<<< HEAD
-        //this.heightToGo = heightToGo;
-=======
        
->>>>>>> 29cbd849e8e46ccec404052bc5aef9ee6a596ba0
         addRequirements(m_angle); // Ajout de la dépendance du sous-système anglesubsystem
     }
 
@@ -52,5 +48,4 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
         
     }// La commande ne se termine jamais automatiquement
     }
-}
 }

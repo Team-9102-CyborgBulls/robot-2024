@@ -46,23 +46,7 @@ public class DriveBackward2sCmd extends Command{
       return  RobotContainer.m_timer.get() >= 1.95;
     }
   }
-<<<<<<< HEAD
 
-  @Override
-  public void end(boolean interrupted) {
-    //driveSubsystem.setDriveMotors(0, 0);
-    driveSubsystem.arcadeDrive(0, 0);
-  }
 
-  @Override
-  public boolean isFinished() {
-    return  RobotContainer.m_timer.get() >= 1.95;
-  }
-}
 
-=======
-  
-  
-  
->>>>>>> 29cbd849e8e46ccec404052bc5aef9ee6a596ba0
 
