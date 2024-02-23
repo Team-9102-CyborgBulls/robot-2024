@@ -19,7 +19,7 @@ public class DriveSubsystem extends SubsystemBase {
      public double direction = 1.0;
      public double speed_changer = 0.6;
 
-    WPI_TalonSRX m_MotorRight = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightID);
+    public WPI_TalonSRX m_MotorRight = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightID);
     WPI_TalonSRX m_MotorRightFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorRightFollowID);
     WPI_TalonSRX m_MotorLeft = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftID);
     WPI_TalonSRX m_MotorLeftFollow = new WPI_TalonSRX(Constants.DrivetrainConstants.m_MotorLeftFollowID);
@@ -37,8 +37,8 @@ public class DriveSubsystem extends SubsystemBase {
     m_MotorLeft.setInverted(false);
     m_MotorLeftFollow.setInverted(false); 
 
-    m_MotorRightFollow.follow(m_MotorRight);
-    m_MotorLeftFollow.follow(m_MotorLeft);
+    //m_MotorRightFollow.follow(m_MotorRight);
+    //m_MotorLeftFollow.follow(m_MotorLeft);
 
     m_MotorRight.configVoltageCompSaturation(11.0);
     m_MotorRightFollow.configVoltageCompSaturation(11.0);
@@ -126,6 +126,9 @@ public class DriveSubsystem extends SubsystemBase {
 
     m_MotorRight.set(TalonSRXControlMode.PercentOutput, right);
     m_MotorLeft.set(TalonSRXControlMode.PercentOutput, left);
+
+    m_MotorRightFollow.set(TalonSRXControlMode.PercentOutput, right);
+    m_MotorLeftFollow.set(TalonSRXControlMode.PercentOutput, left);
   }
   public void stop(){
       m_MotorRight.set(0.0);
@@ -140,6 +143,26 @@ public class DriveSubsystem extends SubsystemBase {
     m_MotorRight.set(rightPercentPower);
     m_MotorRightFollow.set(rightPercentPower);
   }
+
+
+
+  public void driveRight(double speed){
+    m_MotorRight.set(speed);
+
+  }
+  public void driveLeft(double speed){
+    m_MotorLeft.set(speed);
+    
+  }
+  public void driveRightFollow(double speed){
+    m_MotorRightFollow.set(speed);
+    
+  }
+  public void driveLeftFollow(double speed){
+    m_MotorLeftFollow.set(speed);
+    
+  }
+
 
   
 

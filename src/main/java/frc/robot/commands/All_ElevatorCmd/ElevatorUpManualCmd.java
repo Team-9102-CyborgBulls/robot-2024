@@ -10,10 +10,14 @@ import frc.robot.subsystems.ElevatorSubsystem;
 public class ElevatorUpManualCmd extends Command {
   
   ElevatorSubsystem m_elevator;
+  double error;
+  double targetDistance;
+  double distanceToGo;
 
-  public ElevatorUpManualCmd(ElevatorSubsystem elevator) {
+  public ElevatorUpManualCmd(ElevatorSubsystem elevator, double distanceToGo) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_elevator = elevator;
+    this.distanceToGo = distanceToGo;
     addRequirements(m_elevator);
   }
 

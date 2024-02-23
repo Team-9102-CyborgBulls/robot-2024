@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
@@ -23,14 +24,16 @@ public class TurnToAngleCmd extends Command{
     @Override
     public void initialize() {
        DriveSubsystem.gyro.reset();
-
-       this.targetAngle = degreesToTurn +  DriveSubsystem.gyro.getAngle();
+       
+        this.targetAngle = degreesToTurn +  DriveSubsystem.gyro.getAngle();
+        SmartDashboard.putNumber("TargetAngle", targetAngle);
+       
     }
   
     @Override
     public void execute() {
     
-    double kP = 0.019;
+    double kP = 0.04;
 
     double currentPosition = DriveSubsystem.gyro.getAngle();
         // Find the heading error; setpoint is 90
@@ -38,19 +41,22 @@ public class TurnToAngleCmd extends Command{
     double speed = kP * error;
 
     // Turns the robot to face the desired direction
-    
-        driveSubsystem.drive(speed,-speed);
-
+    if(speed >= 0.5){
+        driveSubsystem.setDriveMotors(0,-0.3);
+    }else{
         
-    System.out.println(currentPosition);
-    System.out.println(error);
+        driveSubsystem.setDriveMotors(0,-speed);
+
+    }  
+    SmartDashboard.putNumber("Position gyro",currentPosition);
+    SmartDashboard.putNumber("Erreur gyro",error);
 
     }
 
     @Override
     public void end(boolean interrupted){
        
-        //DriveSubsystem.m_drive.tankDrive(0, 0);
+        driveSubsystem.setDriveMotors(0,0);
 
     }
     
@@ -58,7 +64,7 @@ public class TurnToAngleCmd extends Command{
     @Override
     public boolean isFinished() {
     
-    if(Math.abs(error) <= 30){    
+    if(Math.abs(error) <= 3){    
       return true;
     }
     else{
