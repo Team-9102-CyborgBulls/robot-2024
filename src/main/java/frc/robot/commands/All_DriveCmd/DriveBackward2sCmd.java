@@ -20,7 +20,8 @@ public class DriveBackward2sCmd extends Command{
     RobotContainer.m_timer.reset();   
     RobotContainer.m_timer.start(); 
 
-    driveSubsystem.setDriveMotors(0.0,0.0);
+    //driveSubsystem.setDriveMotors(0.0,0.0);
+    
   }
 
   @Override
@@ -34,7 +35,8 @@ public class DriveBackward2sCmd extends Command{
 
   @Override
   public void end(boolean interrupted) {
-    driveSubsystem.setDriveMotors(0, 0);
+    //driveSubsystem.setDriveMotors(0, 0);
+    driveSubsystem.arcadeDrive(0, 0);
   }
 
   @Override

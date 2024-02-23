@@ -15,11 +15,7 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
 
     public AngleUpManualCmd(AngleSubsystem anglesubsystem) { // Constructeur de la classe AngleUpManualCmd
         this.m_angle = anglesubsystem;// Initialisation de la variable m_angle avec la valeur passée en paramètre
-<<<<<<< HEAD
-        this.heightToGo = heightToGo;
-=======
-       // this.heightToGo = heightToGo
->>>>>>> bf91b9c76c63ba644b06a6a38a603fcd4db44b1c
+        //this.heightToGo = heightToGo;
         addRequirements(m_angle); // Ajout de la dépendance du sous-système anglesubsystem
     }
 
@@ -55,4 +51,5 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
         
     //}// La commande ne se termine jamais automatiquement
     }
+}
 }

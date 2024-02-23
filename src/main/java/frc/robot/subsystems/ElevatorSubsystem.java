@@ -11,7 +11,7 @@ public class ElevatorSubsystem extends SubsystemBase { // Déclaration de la cla
 
     CANSparkMax m_elevatorMotor; // Déclaration d'une variable m_elevatorMotor de type CANSparkMax pour le moteur de l'ascenseur
     //RelativeEncoder m_encoder; // Déclaration d'une variable m_encoder de type RelativeEncoder pour l'encodeur
-    DutyCycleEncoder ElevatorEncoder = new DutyCycleEncoder(1); //Rev Through Bore Encoder
+    public DutyCycleEncoder ElevatorEncoder = new DutyCycleEncoder(1); //Rev Through Bore Encoder
 
     public ElevatorSubsystem() { // Constructeur de la classe ElevatorSubsystem
         m_elevatorMotor = new CANSparkMax(Constants.ElevatorConstants.kElevatorMotorID, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless); // Initialisation du moteur de l'ascenseur avec l'ID et le type de moteur spécifiés dans Constants

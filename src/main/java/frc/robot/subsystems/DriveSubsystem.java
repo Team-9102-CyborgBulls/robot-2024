@@ -32,10 +32,10 @@ public class DriveSubsystem extends SubsystemBase {
 
     m_drive = new DifferentialDrive(m_MotorLeft,m_MotorRight);
     
-    m_MotorRight.setInverted(false);
-    m_MotorRightFollow.setInverted(false);
-    m_MotorLeft.setInverted(true);
-    m_MotorLeftFollow.setInverted(true);
+    m_MotorRight.setInverted(true);
+    m_MotorRightFollow.setInverted(true);
+    m_MotorLeft.setInverted(false);
+    m_MotorLeftFollow.setInverted(false); 
 
     m_MotorRightFollow.follow(m_MotorRight);
     m_MotorLeftFollow.follow(m_MotorLeft);
@@ -112,8 +112,15 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {} // This method will be called once per scheduler run
 
   public void setDriveMotors(double forward, double turn){
-    
-     
+    /*
+    m_MotorRight.setInverted(true);
+    m_MotorRightFollow.setInverted(true);
+    m_MotorLeft.setInverted(false);
+    m_MotorLeftFollow.setInverted(false);
+
+    m_MotorRightFollow.follow(m_MotorRight);
+    m_MotorLeftFollow.follow(m_MotorLeft);
+     */
     double left = forward - turn;
     double right = forward + turn;
 
@@ -123,8 +130,8 @@ public class DriveSubsystem extends SubsystemBase {
   public void stop(){
       m_MotorRight.set(0.0);
       m_MotorRightFollow.set(0.0);
-      m_MotorLeft.set(0.0);
-      m_MotorLeftFollow.set(0.0);
+      //m_MotorLeft.set(0.0);
+      //m_MotorLeftFollow.set(0.0);
   }
   
   public void drive(double leftPercentPower, double rightPercentPower) {

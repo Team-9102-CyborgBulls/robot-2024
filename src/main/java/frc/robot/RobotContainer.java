@@ -60,15 +60,12 @@ public class RobotContainer {
   public final frc.robot.commands.All_DriveCmd.WaitCmd Wait = new frc.robot.commands.All_DriveCmd.WaitCmd(driveSubsystem);
   public final NothingCmd nothing = new NothingCmd(driveSubsystem);
 
-    private final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
-    private final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
-    private final DriveForward2sCmd forward = new DriveForward2sCmd(driveSubsystem);
     private final TurnToAngleCmd turnToAngle13Cmd = new TurnToAngleCmd(driveSubsystem, 13);
     private final TurnToAngleCmd turnToAngle90Cmd = new TurnToAngleCmd(driveSubsystem, 90);
     private final PrepareLaunchTeleop prepareLaunch = new PrepareLaunchTeleop(shooterSubsytem);
     private final LaunchNoteTeleop launchNote = new LaunchNoteTeleop(shooterSubsytem);
-    private final IntakeTeleopCmd intakeCmd = new IntakeTeleopCmd(intakeSubsystem);
-    private final AngleUpManualCmd angleUpManualCmd = new AngleUpManualCmd(angleSubsystem,3500);
+    
+    private final AngleUpManualCmd angleUpManualCmd = new AngleUpManualCmd(angleSubsystem);
     private final AngleDownManualCmd angleDownManualCmd = new AngleDownManualCmd(angleSubsystem);
     private final ElevatorUpManualCmd elevatorUpManualCmd = new ElevatorUpManualCmd(elevatorSubsystem);
     private final ElevatorDownManualCmd elevatorDownManualCmd  = new ElevatorDownManualCmd(elevatorSubsystem);
@@ -79,7 +76,7 @@ public class RobotContainer {
    
     public static CommandJoystick joystick = new CommandJoystick(1);
     public static CommandXboxController manette = new CommandXboxController(0);
-    public static CommandJoystick joystick = new CommandJoystick(1);
+    
      
     public static Timer m_timer = new Timer();
     public static AnalogInput analog = new AnalogInput(0);
@@ -145,9 +142,6 @@ public class RobotContainer {
         Trigger Button3 = joystick.button(3);
         Trigger Button4 = joystick.button(4);
 
-        Trigger Button3 = joystick.button(3);
-        Trigger Button4 = joystick.button(4);
-
         yButton.onTrue(new InstantCommand(() -> driveSubsystem.reverse())); // Mouvement inversé
         rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp()));
         lBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedDown()));
@@ -158,8 +152,8 @@ public class RobotContainer {
             .withTimeout(3)
             .handleInterrupt(() -> shooterSubsytem.stop())
         );
-        bButton.whileTrue(new IntakeTeleopCmd(intakeSubsystem));
-        UpButton.whileTrue(new AngleUpManualCmd(angleSubsystem,3500));
+        bButton.whileTrue(new IntakeCmdTeleop(intakeSubsystem));
+        UpButton.whileTrue(new AngleUpManualCmd(angleSubsystem));
         DownButton.whileTrue(new AngleDownManualCmd(angleSubsystem));
         LeftButton.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
         RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem));

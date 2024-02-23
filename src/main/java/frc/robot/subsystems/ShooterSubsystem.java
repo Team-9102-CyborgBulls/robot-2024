@@ -36,20 +36,7 @@ public class ShooterSubsystem extends SubsystemBase { // Déclaration de la clas
         });
   }
 
-    public Command getIntakeCommand() {
-    // The startEnd helper method takes a method to call when the command is initialized and one to
-    // call when it ends
-    return this.startEnd(
-        // When the command is initialized, set the wheels to the intake speed values
-        () -> {
-          setFeedWheel(Constants.ShooterConstants.kSourceIntakeSpeed);
-          setLaunchWheel(Constants.ShooterConstants.kSourceIntakeSpeed);
-        },
-        // When the command stops, stop the wheels
-        () -> {
-          stop();
-        });
-  }
+
 
     // Méthode d'accès pour définir la vitesse (techniquement le pourcentage de sortie) de la roue de lancement
     public void setLaunchWheel(double speed) {

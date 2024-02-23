@@ -41,7 +41,5 @@ public class ReverseIntakeCmd extends Command {
   public void end(boolean interrupted){
     m_intake.stop();
   }
-<<<<<<< HEAD
-}
-=======
+
 }
