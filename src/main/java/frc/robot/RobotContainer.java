@@ -12,7 +12,7 @@ import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
 import frc.robot.commands.All_AngleCmd.AngleUpManualCmd;
 import frc.robot.commands.All_AutonomousCmd.Auto3NotesCmd;
 import frc.robot.commands.All_AutonomousCmd.AutoParallelCmd1;
-import frc.robot.commands.All_AutonomousCmd.Auto1Cmd;
+import frc.robot.commands.All_AutonomousCmd.Auto2NotesCmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
 import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
@@ -61,7 +61,7 @@ public class RobotContainer {
   public final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
   public final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
   public final DriveForward2sCmd forward = new DriveForward2sCmd(driveSubsystem);
-  public final DriveForDistanceCmd driveForDistanceCmd = new DriveForDistanceCmd(1, 0.2);
+  public final DriveForDistanceCmd driveForDistanceCmd = new DriveForDistanceCmd(1);
   public final frc.robot.commands.All_DriveCmd.WaitCmd Wait = new frc.robot.commands.All_DriveCmd.WaitCmd(driveSubsystem);
   public final NothingCmd nothing = new NothingCmd(driveSubsystem);
 
@@ -81,15 +81,17 @@ public class RobotContainer {
   public final ElevatorDownManualCmd elevatorDownManualCmd  = new ElevatorDownManualCmd(elevatorSubsystem);
     
  
-    private final Auto1Cmd auto1 = new Auto1Cmd();
+    private final Auto2NotesCmd auto1 = new Auto2NotesCmd();
 
     public static PhotonCamera camera = new PhotonCamera("Caméra 1");
    
     public static CommandJoystick joystick = new CommandJoystick(1);
     public static CommandXboxController manette = new CommandXboxController(0);
     public static Timer m_timer = new Timer();
-    public static AnalogInput analog = new AnalogInput(0);
+    public static AnalogInput Potentio = new AnalogInput(0);
+    public static AnalogInput analogNote = new AnalogInput(2);
     public static DigitalInput analogAngle = new DigitalInput(2);
+   
 
     
 
@@ -100,7 +102,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
 
     //return new Auto2Cmd();
-    return new Auto3NotesCmd();
+    //return new Auto2NotesCmd();
+    return new Auto2NotesCmd();
    }
     
   
@@ -153,6 +156,8 @@ public class RobotContainer {
         Trigger Button4 = joystick.button(4);
         Trigger Button5 = joystick.button(5);
         Trigger Button6 = joystick.button(6);
+        Trigger Button7m = manette.button(7);
+        Trigger Button8m = manette.button(8);
 
         yButton.onTrue(new InstantCommand(() -> driveSubsystem.reverse())); // Mouvement inversé
         rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp())); // Vitesse augmenté
@@ -167,8 +172,8 @@ public class RobotContainer {
 
         bButton.whileTrue(new IntakeCmdTeleop(intakeSubsystem));
 
-        UpButton.onTrue(new AngleUpManualCmd(angleSubsystem));
-        DownButton.onTrue(new AngleDownManualCmd(angleSubsystem));
+        UpButton.whileTrue(new AngleUpManualCmd(angleSubsystem));
+        DownButton.whileTrue(new AngleDownManualCmd(angleSubsystem));
         LeftButton.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
         RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem,20));
 
@@ -176,5 +181,14 @@ public class RobotContainer {
         Button4.whileTrue(shooterSubsytem.getIntakeCommand());
         Button5.whileTrue(new TurnToAngleCmd(driveSubsystem, 13));
         Button6.whileTrue(new TurnToAngleCmd(driveSubsystem, 90));
+
+        if (Button7m.getAsBoolean() == true){
+          Constants.ShooterConstants.kLauncherSpeed -=0.1;
+          Constants.ShooterConstants.kLaunchFeederSpeed -=0.1;
+        }
+         if (Button8m.getAsBoolean() == true){
+          Constants.ShooterConstants.kLauncherSpeed +=0.1;
+          Constants.ShooterConstants.kLaunchFeederSpeed +=0.1;
+        }
     }
 }

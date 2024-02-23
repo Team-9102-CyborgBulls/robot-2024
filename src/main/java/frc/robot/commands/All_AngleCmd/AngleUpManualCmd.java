@@ -22,7 +22,7 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
     @Override
     public void initialize() {
 
-        m_robotContainer.analog.getValue();
+        m_robotContainer.Potentio.getValue();
        
     } // Méthode d'initialisation 
 
@@ -39,10 +39,11 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-        if(m_robotContainer.analog.getValue() >=4095){    
+        if(m_robotContainer.Potentio.getValue() >=4095){    
       return true;
-    }
-    else{
+    }else if(m_robotContainer.Potentio.getValue() == 4040){
+        return true;
+    }else{
         return false;
         
     }// La commande ne se termine jamais automatiquement

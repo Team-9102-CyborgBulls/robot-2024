@@ -38,9 +38,9 @@ public static final class ShooterConstants {
     // Limite de courant du launcher
     public static final int kFeedCurrentLimit = 80;
     // Vitesse de la 1ère roue du shooter
-    public static final double kLauncherSpeed = 1;
+    public static  double kLauncherSpeed = 1;
     // Vitesse de la 2nd roue du shooter
-    public static final double kLaunchFeederSpeed = 1;
+    public static  double kLaunchFeederSpeed = 1;
     // Vitesse de la 1ère roue du shooter en reverse
     public static final double kSourceIntakeSpeed = -0.2;
     // Vitesse de la 2nd roue du shooter en reverse

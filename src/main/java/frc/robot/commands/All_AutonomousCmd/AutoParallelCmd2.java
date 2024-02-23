@@ -17,7 +17,7 @@ public class AutoParallelCmd2 extends ParallelCommandGroup {
   public AutoParallelCmd2() {
     
     addCommands(new AngleDownManualCmd(RobotContainer.angleSubsystem));
-    addCommands(new DriveForDistanceCmd(-1, 0.3));
+    addCommands(new DriveForDistanceCmd(1.4));
 
   }
 }

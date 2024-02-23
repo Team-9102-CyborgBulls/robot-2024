@@ -16,10 +16,10 @@ public class DriveForDistanceCmd extends Command {
   double kP;
 
   /** Creates a new DriveForDistanceCommand. */
-  public DriveForDistanceCmd(double distance, double percentPower) {
+  public DriveForDistanceCmd(double distance) {
     m_DriveSubsystem = RobotContainer.driveSubsystem;
     this.distance = distance;
-    this.percentPower = percentPower;
+    //this.percentPower = percentPower;
     addRequirements(m_DriveSubsystem);
   }
 
@@ -38,12 +38,20 @@ public class DriveForDistanceCmd extends Command {
   @Override
   public void execute() {
 
-    double kP = 0.7;
-    double currentPosition = m_DriveSubsystem.getDistance();
+    double kP = 0.5;
+    double currentPosition = -m_DriveSubsystem.getDistance();
     double error = targetDistance - currentPosition;
     double speed =  kP * error;
 
+    if(speed >= 0.3){
+
+      m_DriveSubsystem.setDriveMotors(0.3, 0);
+    }else if (speed <= -0.3){
+      m_DriveSubsystem.setDriveMotors(-0.3, 0);
+    }
+    else{
     m_DriveSubsystem.setDriveMotors(speed, 0);
+    }
     // Print statements for debugging
     System.out.println("GOAL DISTANCE: " + (distance + initialDistance));
     System.out.println("CURRENT DISTANCE: " + m_DriveSubsystem.getDistance());

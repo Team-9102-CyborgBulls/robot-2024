@@ -39,8 +39,10 @@ public class AngleDownManualCmd extends Command { // Déclaration de la classe A
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
         if(m_robotContainer.analogAngle.get() == true){
             return true;
-        } else{
-            return false;
+        } else if(m_robotContainer.Potentio.getValue() == 4080){
+            return true;
+        }else{
+            return false; 
         } // La commande ne se termine jamais automatiquement
     }
 }

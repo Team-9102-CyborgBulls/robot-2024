@@ -58,10 +58,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-     SmartDashboard.putNumber("Distance parcourue drivetrain",m_robotContainer.driveSubsystem.getDistance());
-    SmartDashboard.putNumber("tension Potentiomètre", m_robotContainer.analog.getValue());
+    SmartDashboard.putNumber("Distance parcourue drivetrain",-m_robotContainer.driveSubsystem.getDistance());
+    SmartDashboard.putNumber("tension Potentiomètre", m_robotContainer.Potentio.getValue());
     SmartDashboard.putBoolean("capteur fin de course", m_robotContainer.analogAngle.get());
     SmartDashboard.putNumber("position chariot elevateur", m_robotContainer.elevatorSubsystem.ElevatorEncoder.getDistance());
+    SmartDashboard.putNumber(" valeur Ultrason", m_robotContainer.analogNote.getValue());
+    SmartDashboard.putNumber("Shooter Value", Constants.ShooterConstants.kLauncherSpeed);
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -69,7 +71,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
    
     
-  }
+  } 
 
 
   /** This function is called once each time the robot enters Disabled mode. */
