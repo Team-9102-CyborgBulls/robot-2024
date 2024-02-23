@@ -10,8 +10,8 @@ import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
 import frc.robot.commands.TurnToAngleCmd;
 import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
 import frc.robot.commands.All_AngleCmd.AngleUpManualCmd;
-import frc.robot.commands.All_AutonomousCmd.Auto2Cmd;
-import frc.robot.commands.All_AutonomousCmd.AutoParallelCmd;
+import frc.robot.commands.All_AutonomousCmd.Auto3NotesCmd;
+import frc.robot.commands.All_AutonomousCmd.AutoParallelCmd1;
 import frc.robot.commands.All_AutonomousCmd.Auto1Cmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
@@ -39,6 +39,8 @@ import org.photonvision.PhotonCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -72,7 +74,7 @@ public class RobotContainer {
 
   public final IntakeCmdTeleop intakeCmd = new IntakeCmdTeleop(intakeSubsystem);
 
-  public final AngleUpManualCmd angleUpManualCmd = new AngleUpManualCmd(angleSubsystem, 4095);
+  public final AngleUpManualCmd angleUpManualCmd = new AngleUpManualCmd(angleSubsystem);
   public final AngleDownManualCmd angleDownManualCmd = new AngleDownManualCmd(angleSubsystem);
 
   public final ElevatorUpManualCmd elevatorUpManualCmd = new ElevatorUpManualCmd(elevatorSubsystem, 20);
@@ -87,6 +89,7 @@ public class RobotContainer {
     public static CommandXboxController manette = new CommandXboxController(0);
     public static Timer m_timer = new Timer();
     public static AnalogInput analog = new AnalogInput(0);
+    public static DigitalInput analogAngle = new DigitalInput(2);
 
     
 
@@ -97,7 +100,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
 
     //return new Auto2Cmd();
-    return new Auto2Cmd();
+    return new Auto3NotesCmd();
    }
     
   
@@ -164,7 +167,7 @@ public class RobotContainer {
 
         bButton.whileTrue(new IntakeCmdTeleop(intakeSubsystem));
 
-        UpButton.onTrue(new AngleUpManualCmd(angleSubsystem,4095));
+        UpButton.onTrue(new AngleUpManualCmd(angleSubsystem));
         DownButton.onTrue(new AngleDownManualCmd(angleSubsystem));
         LeftButton.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
         RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem,20));

@@ -10,8 +10,10 @@ public class DriveForDistanceCmd extends Command {
 
   DriveSubsystem m_DriveSubsystem;
   double initialDistance;
+  double targetDistance;
   double distance;
   double percentPower;
+  double kP;
 
   /** Creates a new DriveForDistanceCommand. */
   public DriveForDistanceCmd(double distance, double percentPower) {
@@ -24,16 +26,24 @@ public class DriveForDistanceCmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
     m_DriveSubsystem.resetPosition();
     initialDistance = m_DriveSubsystem.getDistance();
     System.out.println("INITIAL DISTANCE: " + initialDistance);
+    this.targetDistance = initialDistance + distance;
     
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_DriveSubsystem.setDriveMotors(percentPower, 0);
+
+    double kP = 0.7;
+    double currentPosition = m_DriveSubsystem.getDistance();
+    double error = targetDistance - currentPosition;
+    double speed =  kP * error;
+
+    m_DriveSubsystem.setDriveMotors(speed, 0);
     // Print statements for debugging
     System.out.println("GOAL DISTANCE: " + (distance + initialDistance));
     System.out.println("CURRENT DISTANCE: " + m_DriveSubsystem.getDistance());
@@ -56,5 +66,5 @@ public class DriveForDistanceCmd extends Command {
     }else{
       return false;
     }
-}
+  }
 }

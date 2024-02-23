@@ -60,6 +60,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
      SmartDashboard.putNumber("Distance parcourue drivetrain",m_robotContainer.driveSubsystem.getDistance());
     SmartDashboard.putNumber("tension Potentiomètre", m_robotContainer.analog.getValue());
+    SmartDashboard.putBoolean("capteur fin de course", m_robotContainer.analogAngle.get());
     SmartDashboard.putNumber("position chariot elevateur", m_robotContainer.elevatorSubsystem.ElevatorEncoder.getDistance());
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,

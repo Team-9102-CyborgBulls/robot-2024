@@ -6,9 +6,9 @@ import frc.robot.commands.All_IntakeCmd.IntakeCmdAuto;
 import frc.robot.commands.All_ShooterCmd.LaunchNoteAuto;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class AutoParallelCmd extends ParallelCommandGroup {
+public class AutoParallelCmd1 extends ParallelCommandGroup {
 
-    public AutoParallelCmd() {
+    public AutoParallelCmd1() {
 
         addCommands(new IntakeCmdAuto(RobotContainer.intakeSubsystem));
         addCommands(new LaunchNoteAuto(RobotContainer.shooterSubsytem));
