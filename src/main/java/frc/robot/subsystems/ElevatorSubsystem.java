@@ -18,7 +18,7 @@ public class ElevatorSubsystem extends SubsystemBase { // Déclaration de la cla
         //m_encoder = m_elevatorMotor.getEncoder(); // Initialisation de l'encodeur à partir du moteur de l'ascenseur
         ElevatorEncoder.setDistancePerRotation(Constants.AngleElevatorConstants.kEncoderdistancePerRotation);
         m_elevatorMotor.enableVoltageCompensation(8); // Activation de la compensation de tension pour le moteur de l'ascenseur
-        m_elevatorMotor.setIdleMode(IdleMode.kCoast); // Configuration du mode de repos du moteur de l'ascenseur en mode frein
+        m_elevatorMotor.setIdleMode(IdleMode.kBrake); // Configuration du mode de repos du moteur de l'ascenseur en mode frein
     }
 
     public void setElevatorSpeed(double speed) { // Méthode pour définir la vitesse de l'ascenseur

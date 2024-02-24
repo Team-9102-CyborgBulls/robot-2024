@@ -27,7 +27,7 @@ public class AngleDownManualCmd extends Command { // Déclaration de la classe A
 
     @Override
     public void execute() { // Méthode execute qui sera appelée périodiquement
-        m_angle.setAngleMotor(1); // Appel de la méthode setAngleMotor du sous-système angle avec une valeur de 1
+        m_angle.setAngleMotor(0.75); // Appel de la méthode setAngleMotor du sous-système angle avec une valeur de 1
     }
 
     @Override

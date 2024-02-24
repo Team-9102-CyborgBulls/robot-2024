@@ -30,7 +30,7 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
     @Override
     public void execute() { // Méthode execute qui sera appelée périodiquement
 
-        m_angle.setAngleMotor(-1); // Appel de la méthode setAngleMotor du sous-système angle avec une valeur de -1 pour monter
+        m_angle.setAngleMotor(-0.75); // Appel de la méthode setAngleMotor du sous-système angle avec une valeur de -1 pour monter
     }
 
     @Override
@@ -40,7 +40,7 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-        if(m_robotContainer.analog.getValue() >=4095){    
+        if(m_robotContainer.analog.getValue() >=4090){    
       return true;
     }
     else{

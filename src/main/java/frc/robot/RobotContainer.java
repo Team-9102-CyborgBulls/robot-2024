@@ -167,8 +167,8 @@ public class RobotContainer {
         );
         bButton.whileTrue(new IntakeCmdTeleop(intakeSubsystem));
 
-        UpButton.onTrue(new AngleUpManualCmd(angleSubsystem));
-        DownButton.onTrue(new AngleDownManualCmd(angleSubsystem));
+        UpButton.whileTrue(new AngleUpManualCmd(angleSubsystem));
+        DownButton.whileTrue(new AngleDownManualCmd(angleSubsystem));
         LeftButton.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
         RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem,20));
 
