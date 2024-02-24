@@ -8,20 +8,28 @@ package frc.robot;
 import frc.robot.commands.NothingCmd;
 import frc.robot.commands.All_DriveCmd.DriveBackward2sCmd;
 import frc.robot.commands.TurnToAngleCmd;
-import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
-import frc.robot.commands.All_AngleCmd.AngleUpManualCmd;
-import frc.robot.commands.All_AutonomousCmd.Auto3NotesCmd;
-import frc.robot.commands.All_AutonomousCmd.AutoParallelCmd1;
+import frc.robot.commands.All_AngleCmd.AngleDownBasCmd;
+import frc.robot.commands.All_AngleCmd.AngleDownChariotCmd;
+import frc.robot.commands.All_AngleCmd.AngleDownShootCmd;
+import frc.robot.commands.All_AngleCmd.AngleDownTeleopCmd;
+import frc.robot.commands.All_AngleCmd.AngleUpChariotCmd;
+import frc.robot.commands.All_AngleCmd.AngleUpIntakeCmd;
+import frc.robot.commands.All_AngleCmd.AngleUpShootCmd;
+import frc.robot.commands.All_AngleCmd.AngleUpTeleopCmd;
+import frc.robot.commands.All_AutonomousCmd.AutoParallelIntakeLaunch;
 import frc.robot.commands.All_AutonomousCmd.Auto2NotesCmd;
+import frc.robot.commands.All_AutonomousCmd.Auto2NotesGCmd;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
 import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
 import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
 
 import frc.robot.commands.All_ElevatorCmd.ElevatorUpManualCmd;
+import frc.robot.commands.All_IntakeCmd.IntakeCmdAuto;
 import frc.robot.commands.All_IntakeCmd.IntakeCmdTeleop;
 import frc.robot.commands.All_IntakeCmd.ReverseIntakeCmd;
 import frc.robot.commands.All_ShooterCmd.LaunchNoteTeleop;
+import frc.robot.commands.All_ShooterCmd.PrepareLaunchAuto;
 import frc.robot.commands.All_ShooterCmd.PrepareLaunchTeleop;
 import frc.robot.subsystems.AngleSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -74,10 +82,10 @@ public class RobotContainer {
 
   public final IntakeCmdTeleop intakeCmd = new IntakeCmdTeleop(intakeSubsystem);
 
-  public final AngleUpManualCmd angleUpManualCmd = new AngleUpManualCmd(angleSubsystem);
-  public final AngleDownManualCmd angleDownManualCmd = new AngleDownManualCmd(angleSubsystem);
+  public final AngleUpIntakeCmd angleUpManualCmd = new AngleUpIntakeCmd(angleSubsystem);
+  public final AngleDownBasCmd angleDownManualCmd = new AngleDownBasCmd(angleSubsystem);
 
-  public final ElevatorUpManualCmd elevatorUpManualCmd = new ElevatorUpManualCmd(elevatorSubsystem, 20);
+  public final ElevatorUpManualCmd elevatorUpManualCmd = new ElevatorUpManualCmd(elevatorSubsystem);
   public final ElevatorDownManualCmd elevatorDownManualCmd  = new ElevatorDownManualCmd(elevatorSubsystem);
     
  
@@ -89,7 +97,7 @@ public class RobotContainer {
     public static CommandXboxController manette = new CommandXboxController(0);
     public static Timer m_timer = new Timer();
     public static AnalogInput Potentio = new AnalogInput(0);
-    public static AnalogInput analogNote = new AnalogInput(2);
+    public static AnalogInput ultrason = new AnalogInput(2);
     public static DigitalInput analogAngle = new DigitalInput(2);
    
 
@@ -101,9 +109,8 @@ public class RobotContainer {
     
   public Command getAutonomousCommand() {
 
-    //return new Auto2Cmd();
-    //return new Auto2NotesCmd();
-    return new Auto2NotesCmd();
+    
+    return new Auto2NotesGCmd();
    }
     
   
@@ -163,32 +170,25 @@ public class RobotContainer {
         rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp())); // Vitesse augmenté
         lBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedDown())); // vitesse baissé
 
-        aButton.whileTrue( 
-          new PrepareLaunchTeleop(shooterSubsytem)
-          .withTimeout(1)
-          .andThen(new LaunchNoteTeleop(shooterSubsytem))
-          .withTimeout(3)
+        aButton.onTrue( 
+          new PrepareLaunchAuto(shooterSubsytem)
+          .andThen(new AutoParallelIntakeLaunch())
           .handleInterrupt(() -> shooterSubsytem.stop()));
-
+ 
         bButton.whileTrue(new IntakeCmdTeleop(intakeSubsystem));
 
-        UpButton.whileTrue(new AngleUpManualCmd(angleSubsystem));
-        DownButton.whileTrue(new AngleDownManualCmd(angleSubsystem));
+        UpButton.onTrue(new AngleUpTeleopCmd(angleSubsystem));
+
+        DownButton.onTrue(new AngleDownTeleopCmd(angleSubsystem));
+
         LeftButton.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
-        RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem,20));
+        RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem));
 
         Button3.whileTrue(new ReverseIntakeCmd(intakeSubsystem));
         Button4.whileTrue(shooterSubsytem.getIntakeCommand());
         Button5.whileTrue(new TurnToAngleCmd(driveSubsystem, 13));
         Button6.whileTrue(new TurnToAngleCmd(driveSubsystem, 90));
 
-        if (Button7m.getAsBoolean() == true){
-          Constants.ShooterConstants.kLauncherSpeed -=0.1;
-          Constants.ShooterConstants.kLaunchFeederSpeed -=0.1;
-        }
-         if (Button8m.getAsBoolean() == true){
-          Constants.ShooterConstants.kLauncherSpeed +=0.1;
-          Constants.ShooterConstants.kLaunchFeederSpeed +=0.1;
-        }
+        
     }
 }

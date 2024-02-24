@@ -33,7 +33,7 @@ public class LaunchNoteAuto extends Command {
   public boolean isFinished() {
     // Always return false so the command never ends on it's own. In this project we use the
     // scheduler to end the command when the button is released.
-    if(RobotContainer.m_timer.get() >= 3){
+    if(RobotContainer.m_timer.get() >= 0.3){
       return true;
   }
   else{

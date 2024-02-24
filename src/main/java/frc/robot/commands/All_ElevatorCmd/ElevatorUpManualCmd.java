@@ -5,6 +5,7 @@
 package frc.robot.commands.All_ElevatorCmd;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 public class ElevatorUpManualCmd extends Command {
@@ -13,11 +14,12 @@ public class ElevatorUpManualCmd extends Command {
   double error;
   double targetDistance;
   double distanceToGo;
+  RobotContainer m_robotContainer;
 
-  public ElevatorUpManualCmd(ElevatorSubsystem elevator, double distanceToGo) {
+  public ElevatorUpManualCmd(ElevatorSubsystem elevator) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_elevator = elevator;
-    this.distanceToGo = distanceToGo;
+    
     addRequirements(m_elevator);
   }
 
@@ -25,25 +27,29 @@ public class ElevatorUpManualCmd extends Command {
   @Override
   public void initialize() {
 
-    m_elevator.setElevatorSpeed(0.023); //0.027
+    m_elevator.setElevatorSpeed(0.0); //0.027
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    m_elevator.setElevatorSpeed(0.19);
+    m_elevator.setElevatorSpeed(0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_elevator.setElevatorSpeed(0.023); //
+    m_elevator.setElevatorSpeed(0.0); //
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(m_robotContainer.elevatorSubsystem.getElevatorValue() >= -1){
+      return true;
+    } else{
+      return false;
+    }
   }
 }

@@ -40,7 +40,7 @@ public class PrepareLaunchAuto extends Command {
   public boolean isFinished() {
     // Always return false so the command never ends on it's own. In this project we use a timeout
     // decorator on the command to end it.
-    if(RobotContainer.m_timer.get() >= 1){
+    if(RobotContainer.m_timer.get() >= 0.3){
         return true;
     }
     else{

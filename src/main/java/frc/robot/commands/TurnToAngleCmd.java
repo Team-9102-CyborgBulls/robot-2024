@@ -43,6 +43,8 @@ public class TurnToAngleCmd extends Command{
     // Turns the robot to face the desired direction
     if(speed >= 0.5){
         driveSubsystem.setDriveMotors(0,-0.3);
+    }else if(speed <= -0.5){
+         driveSubsystem.setDriveMotors(0,0.3);
     }else{
         
         driveSubsystem.setDriveMotors(0,-speed);

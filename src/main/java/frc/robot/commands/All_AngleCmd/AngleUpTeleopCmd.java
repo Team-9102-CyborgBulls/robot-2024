@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command; // Import des classes nécessaire
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.AngleSubsystem;
 
-public class AngleUpManualCmd extends Command { // Déclaration de la classe AngleUpManualCmd qui étend la classe Command
+public class AngleUpTeleopCmd extends Command { // Déclaration de la classe AngleUpManualCmd qui étend la classe Command
 
     AngleSubsystem m_angle; // Déclaration d'une variable m_angle de type AngleSubsystem
     double targetHeight;
@@ -13,7 +13,7 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
     double kP = 0.00048;
     RobotContainer m_robotContainer;
 
-    public AngleUpManualCmd(AngleSubsystem anglesubsystem) { // Constructeur de la classe AngleUpManualCmd
+    public AngleUpTeleopCmd(AngleSubsystem anglesubsystem) { // Constructeur de la classe AngleUpManualCmd
         this.m_angle = anglesubsystem;// Initialisation de la variable m_angle avec la valeur passée en paramètre
        
         addRequirements(m_angle); // Ajout de la dépendance du sous-système anglesubsystem
@@ -39,13 +39,18 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-        if(m_robotContainer.Potentio.getValue() >=4095){    
+    if(m_robotContainer.Potentio.getValue() >=4090){    
       return true;
-    }else if(m_robotContainer.Potentio.getValue() == 4040){
+    }
+    else if(m_robotContainer.Potentio.getValue() <= 4060 && m_robotContainer.Potentio.getValue() >= 4057){
         return true;
-    }else{
+    }
+    else if(m_robotContainer.Potentio.getValue() <= 3285 && m_robotContainer.Potentio.getValue() >= 3245){
+        return true;
+    }
+    else{
         return false;
         
-    }// La commande ne se termine jamais automatiquement
+    }
     }
 }

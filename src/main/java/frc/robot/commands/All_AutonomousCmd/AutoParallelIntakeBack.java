@@ -5,17 +5,22 @@
 package frc.robot.commands.All_AutonomousCmd;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
-import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
+import frc.robot.commands.All_AngleCmd.AngleDownBasCmd;
+import frc.robot.commands.All_AngleCmd.AngleUpIntakeCmd;
 import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
+import frc.robot.commands.All_IntakeCmd.IntakeCmdAuto;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoParallelCmd3 extends ParallelCommandGroup {
+public class AutoParallelIntakeBack extends ParallelCommandGroup {
   /** Creates a new AutoParallelCmd3. */
-  public AutoParallelCmd3() {
-    addCommands(new AngleDownManualCmd(RobotContainer.angleSubsystem));
-    addCommands(new DriveForDistanceCmd(1));
+  public AutoParallelIntakeBack(double distance) {
+
+    addCommands(new AngleUpIntakeCmd(RobotContainer.angleSubsystem));
+    addCommands(new IntakeCmdAuto(RobotContainer.intakeSubsystem));
+    addCommands(new DriveForDistanceCmd(distance));
   }
 }

@@ -6,18 +6,18 @@ package frc.robot.commands.All_AutonomousCmd;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.RobotContainer;
-import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
+import frc.robot.commands.All_AngleCmd.AngleDownBasCmd;
 import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoParallelCmd2 extends ParallelCommandGroup {
+public class AutoParallelDownDrive extends ParallelCommandGroup {
   /** Creates a new AutoParallelCmd2. */
-  public AutoParallelCmd2() {
+  public AutoParallelDownDrive() {
     
-    addCommands(new AngleDownManualCmd(RobotContainer.angleSubsystem));
-    addCommands(new DriveForDistanceCmd(1.4));
+    addCommands(new AngleDownBasCmd(RobotContainer.angleSubsystem));
+    addCommands(new DriveForDistanceCmd(1.2));
 
   }
 }

@@ -14,6 +14,8 @@ public class DriveForDistanceCmd extends Command {
   double distance;
   double percentPower;
   double kP;
+  double error;
+  public static boolean finCmd = false;
 
   /** Creates a new DriveForDistanceCommand. */
   public DriveForDistanceCmd(double distance) {
@@ -40,7 +42,7 @@ public class DriveForDistanceCmd extends Command {
 
     double kP = 0.5;
     double currentPosition = -m_DriveSubsystem.getDistance();
-    double error = targetDistance - currentPosition;
+    error = targetDistance - currentPosition;
     double speed =  kP * error;
 
     if(speed >= 0.3){
@@ -67,12 +69,31 @@ public class DriveForDistanceCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(distance >= 0){
+    
+    if(error >= 0 && error <= 0.2){
+      finCmd = true;
+      return true;
+      
+      
+    }
+    else if(error <= 0 && error >= -0.2){
+      finCmd = true;
+      return true;
+      
+    }
+    else{
+      return false;
+    }
+    
+    
+    
+    
+    /*if(distance >= 0){
       return m_DriveSubsystem.getDistance() >= initialDistance + distance; // End the command when we have reached our goal
     }else if(distance <= 0){
       return m_DriveSubsystem.getDistance() <= initialDistance + distance; // End the command when we have reached our goal
     }else{
       return false;
-    }
+    }*/
   }
 }

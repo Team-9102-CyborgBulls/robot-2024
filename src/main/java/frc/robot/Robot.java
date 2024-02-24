@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -42,6 +43,7 @@ public class Robot extends TimedRobot {
    
     SmartDashboard.putData(m_robotContainer.driveSubsystem.gyro);
     
+
     
    m_robotContainer.driveSubsystem.calibrateGyro();
    m_robotContainer.driveSubsystem.setOffSetEncoder(0);
@@ -61,9 +63,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Distance parcourue drivetrain",-m_robotContainer.driveSubsystem.getDistance());
     SmartDashboard.putNumber("tension Potentiomètre", m_robotContainer.Potentio.getValue());
     SmartDashboard.putBoolean("capteur fin de course", m_robotContainer.analogAngle.get());
-    SmartDashboard.putNumber("position chariot elevateur", m_robotContainer.elevatorSubsystem.ElevatorEncoder.getDistance());
-    SmartDashboard.putNumber(" valeur Ultrason", m_robotContainer.analogNote.getValue());
-    SmartDashboard.putNumber("Shooter Value", Constants.ShooterConstants.kLauncherSpeed);
+    SmartDashboard.putNumber("position chariot elevateur", m_robotContainer.elevatorSubsystem.getElevatorValue());
+    SmartDashboard.putNumber(" valeur Ultrason", m_robotContainer.ultrason.getValue());
+    SmartDashboard.putBoolean("fin DriveCmd", DriveForDistanceCmd.finCmd);
+  
+
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -93,8 +97,8 @@ public class Robot extends TimedRobot {
 
     
     m_robotContainer.driveSubsystem.resetGyro();
-
     m_robotContainer.driveSubsystem.resetPosition();
+    m_robotContainer.elevatorSubsystem.resetEncoderElevator();
 
   }
 
@@ -116,12 +120,19 @@ public class Robot extends TimedRobot {
     m_robotContainer.driveSubsystem.resetGyro();
     m_robotContainer.driveSubsystem.resetPosition();
     m_robotContainer.elevatorSubsystem.ElevatorEncoder.reset();
+
+  
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    /*if(m_robotContainer.ultrason.getValue() <= 200){
 
+      m_robotContainer.elevatorUpManualCmd.schedule();
+      m_robotContainer.angleDownManualCmd.schedule();*/
+
+    
    
   }
 
