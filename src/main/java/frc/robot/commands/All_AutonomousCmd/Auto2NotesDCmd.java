@@ -16,9 +16,9 @@ import frc.robot.commands.All_IntakeCmd.IntakeCmdRamassage;
 import frc.robot.commands.All_ShooterCmd.PrepareLaunchAuto;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class Auto2NotesGCmd extends SequentialCommandGroup{
+public class Auto2NotesDCmd extends SequentialCommandGroup{
     
-    public Auto2NotesGCmd(){
+    public Auto2NotesDCmd(){
          
         addCommands(new AngleUpShootCmd(RobotContainer.angleSubsystem));
         addCommands(new PrepareLaunchAuto(RobotContainer.shooterSubsytem));
@@ -29,7 +29,7 @@ public class Auto2NotesGCmd extends SequentialCommandGroup{
         
         addCommands(new DriveForDistanceCmd(-0.40));
 
-        addCommands(new AutoParallelTurnGAndDown());
+        addCommands(new AutoParallelTurnDAndDown());
 
         //addCommands(new TurnToAngleCmd(RobotContainer.driveSubsystem, 42.6)); // a définir
 
@@ -41,7 +41,7 @@ public class Auto2NotesGCmd extends SequentialCommandGroup{
 
        addCommands(new DriveForDistanceCmd(1.6));
 
-        addCommands(new TurnToAngleCmd(RobotContainer.driveSubsystem, -44));
+        addCommands(new TurnToAngleCmd(RobotContainer.driveSubsystem, 44));
 
         addCommands(new DriveForDistanceCmd(0.50));
         

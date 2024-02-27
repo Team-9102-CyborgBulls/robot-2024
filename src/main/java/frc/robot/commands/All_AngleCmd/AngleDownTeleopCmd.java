@@ -10,9 +10,7 @@ public class AngleDownTeleopCmd extends Command { // Déclaration de la classe A
     RobotContainer m_robotContainer;
     double targetHeight;
     double error; 
-    //double heightToGo;
-
-
+    
     public AngleDownTeleopCmd(AngleSubsystem angle) { // Constructeur de la classe AngleDownManualCmd
         this.m_angle = angle; // Initialisation de la variable m_angle avec la valeur passée en paramètre
         
@@ -41,10 +39,15 @@ public class AngleDownTeleopCmd extends Command { // Déclaration de la classe A
             return true;
     
         }else if(m_robotContainer.Potentio.getValue() <= 4060 && m_robotContainer.Potentio.getValue() >= 4058){
+            m_robotContainer.angleShoot = true; 
             return true;
+
         }else if(m_robotContainer.Potentio.getValue() <= 3285 && m_robotContainer.Potentio.getValue() >= 3245){
+            m_robotContainer.angleBumper = true; 
             return true;
         }else{
+            m_robotContainer.angleBumper = false; 
+            m_robotContainer.angleShoot = false; 
             return false; 
         } // La commande ne se termine jamais automatiquement
     }

@@ -45,11 +45,11 @@ public class DriveForDistanceCmd extends Command {
     error = targetDistance - currentPosition;
     double speed =  kP * error;
 
-    if(speed >= 0.3){
+    if(speed >= 0.6){
 
-      m_DriveSubsystem.setDriveMotors(0.3, 0);
-    }else if (speed <= -0.3){
-      m_DriveSubsystem.setDriveMotors(-0.3, 0);
+      m_DriveSubsystem.setDriveMotors(0.6, 0);
+    }else if (speed <= -0.5){
+      m_DriveSubsystem.setDriveMotors(-0.5, 0);
     }
     else{
     m_DriveSubsystem.setDriveMotors(speed, 0);

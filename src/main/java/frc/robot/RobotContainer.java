@@ -18,14 +18,16 @@ import frc.robot.commands.All_AngleCmd.AngleUpShootCmd;
 import frc.robot.commands.All_AngleCmd.AngleUpTeleopCmd;
 import frc.robot.commands.All_AutonomousCmd.AutoParallelIntakeLaunch;
 import frc.robot.commands.All_AutonomousCmd.Auto2NotesCmd;
+import frc.robot.commands.All_AutonomousCmd.Auto2NotesDCmd;
 import frc.robot.commands.All_AutonomousCmd.Auto2NotesGCmd;
+import frc.robot.commands.All_AutonomousCmd.AutoParalleAngleDownElevatorUp;
 import frc.robot.commands.All_DriveCmd.DriveCmd;
 import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
 import frc.robot.commands.All_DriveCmd.DriveForward2sCmd;
 import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
 
 import frc.robot.commands.All_ElevatorCmd.ElevatorUpManualCmd;
-import frc.robot.commands.All_IntakeCmd.IntakeCmdAuto;
+import frc.robot.commands.All_IntakeCmd.IntakeCmdRamassage;
 import frc.robot.commands.All_IntakeCmd.IntakeCmdTeleop;
 import frc.robot.commands.All_IntakeCmd.ReverseIntakeCmd;
 import frc.robot.commands.All_ShooterCmd.LaunchNoteTeleop;
@@ -100,6 +102,9 @@ public class RobotContainer {
     public static AnalogInput ultrason = new AnalogInput(2);
     public static DigitalInput analogAngle = new DigitalInput(2);
    
+    public static  boolean angleShoot = false;
+    public static boolean angleIntake = false;
+    public static boolean angleBumper = false;
 
     
 
@@ -110,7 +115,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
 
     
-    return new Auto2NotesGCmd();
+    return new Auto2NotesCmd();
    }
     
   
@@ -165,6 +170,9 @@ public class RobotContainer {
         Trigger Button6 = joystick.button(6);
         Trigger Button7m = manette.button(7);
         Trigger Button8m = manette.button(8);
+        Trigger Button12 = joystick.button(12);
+        Trigger Button11 = joystick.button(8);
+
 
         yButton.onTrue(new InstantCommand(() -> driveSubsystem.reverse())); // Mouvement inversé
         rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp())); // Vitesse augmenté
@@ -181,13 +189,16 @@ public class RobotContainer {
 
         DownButton.onTrue(new AngleDownTeleopCmd(angleSubsystem));
 
-        LeftButton.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
-        RightButton.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem));
+        LeftButton.onTrue(new ElevatorDownManualCmd(elevatorSubsystem));
+        RightButton.onTrue(new ElevatorUpManualCmd(elevatorSubsystem));
 
         Button3.whileTrue(new ReverseIntakeCmd(intakeSubsystem));
         Button4.whileTrue(shooterSubsytem.getIntakeCommand());
-        Button5.whileTrue(new TurnToAngleCmd(driveSubsystem, 13));
+       
         Button6.whileTrue(new TurnToAngleCmd(driveSubsystem, 90));
+
+        Button11.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
+        Button12.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem));
 
         
     }

@@ -22,12 +22,14 @@ public class ElevatorDownManualCmd extends Command {
   @Override
   public void initialize() {
     m_elevator.setElevatorSpeed(0.0); //0.027
+    m_robotContainer.m_timer.reset();
+    m_robotContainer.m_timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevator.setElevatorSpeed(-0.5);
+    m_elevator.setElevatorSpeed(-0.7);
   }
 
   // Called once the command ends or is interrupted.
@@ -39,9 +41,10 @@ public class ElevatorDownManualCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_robotContainer.elevatorSubsystem.getElevatorValue() <= -30){ // -28.5
+    if(m_robotContainer.elevatorSubsystem.getElevatorValue() <= -29 || m_robotContainer.m_timer.get() >= 1.8){ // -28.5
       return true;
-    } else{
+    }
+    else{
       return false;
     }
   }

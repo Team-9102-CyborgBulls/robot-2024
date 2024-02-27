@@ -12,6 +12,7 @@ public class AngleUpTeleopCmd extends Command { // Déclaration de la classe Ang
     double heightToGo;
     double kP = 0.00048;
     RobotContainer m_robotContainer;
+    
 
     public AngleUpTeleopCmd(AngleSubsystem anglesubsystem) { // Constructeur de la classe AngleUpManualCmd
         this.m_angle = anglesubsystem;// Initialisation de la variable m_angle avec la valeur passée en paramètre
@@ -39,16 +40,25 @@ public class AngleUpTeleopCmd extends Command { // Déclaration de la classe Ang
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-    if(m_robotContainer.Potentio.getValue() >=4090){    
+    if(m_robotContainer.Potentio.getValue() >=4090){  
+        
+      m_robotContainer.angleIntake = true; 
       return true;
     }
     else if(m_robotContainer.Potentio.getValue() <= 4060 && m_robotContainer.Potentio.getValue() >= 4057){
+
+        m_robotContainer.angleShoot = true;
         return true;
     }
     else if(m_robotContainer.Potentio.getValue() <= 3285 && m_robotContainer.Potentio.getValue() >= 3245){
+        m_robotContainer.angleBumper = true;
         return true;
     }
     else{
+        
+        m_robotContainer.angleBumper = false;
+        m_robotContainer.angleShoot = false;
+        m_robotContainer.angleIntake = false;
         return false;
         
     }

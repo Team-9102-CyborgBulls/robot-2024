@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorUpManualCmd extends Command {
+public class ElevatorUpAutoCmd extends Command {
   
   ElevatorSubsystem m_elevator;
   double error;
@@ -16,7 +16,7 @@ public class ElevatorUpManualCmd extends Command {
   double distanceToGo;
   RobotContainer m_robotContainer;
 
-  public ElevatorUpManualCmd(ElevatorSubsystem elevator) {
+  public ElevatorUpAutoCmd(ElevatorSubsystem elevator) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_elevator = elevator;
     
@@ -48,7 +48,7 @@ public class ElevatorUpManualCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_robotContainer.elevatorSubsystem.getElevatorValue() >= -1 ||m_robotContainer.m_timer.get() >= 1){
+    if(m_robotContainer.elevatorSubsystem.getElevatorValue() >= -1){
       return true;
     }else{
       return false;

@@ -12,7 +12,7 @@ import frc.robot.commands.All_AngleCmd.AngleUpShootCmd;
 import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
 import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
 import frc.robot.commands.All_ElevatorCmd.ElevatorUpManualCmd;
-import frc.robot.commands.All_IntakeCmd.IntakeCmdAuto;
+import frc.robot.commands.All_IntakeCmd.IntakeCmdRamassage;
 import frc.robot.commands.All_ShooterCmd.PrepareLaunchAuto;
 import frc.robot.subsystems.DriveSubsystem;
 
