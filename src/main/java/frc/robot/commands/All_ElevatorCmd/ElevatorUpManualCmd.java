@@ -48,7 +48,7 @@ public class ElevatorUpManualCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_robotContainer.elevatorSubsystem.getElevatorValue() >= -1 ||m_robotContainer.m_timer.get() >= 1){
+    if(m_robotContainer.elevatorSubsystem.getElevatorValue() >= -0.5){
       return true;
     }else{
       return false;

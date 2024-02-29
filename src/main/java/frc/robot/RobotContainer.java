@@ -52,6 +52,8 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -71,11 +73,11 @@ public class RobotContainer {
   public final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
   public final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
   public final DriveForward2sCmd forward = new DriveForward2sCmd(driveSubsystem);
-  public final DriveForDistanceCmd driveForDistanceCmd = new DriveForDistanceCmd(1);
+  public final DriveForDistanceCmd driveForDistance5 = new DriveForDistanceCmd(5);
   public final frc.robot.commands.All_DriveCmd.WaitCmd Wait = new frc.robot.commands.All_DriveCmd.WaitCmd(driveSubsystem);
   public final NothingCmd nothing = new NothingCmd(driveSubsystem);
 
-  //    public SendableChooser<Command> m_Chooser = new SendableChooser<Command>();
+  public SendableChooser<Command> m_Chooser = new SendableChooser<Command>();
   public final TurnToAngleCmd turnToAngle13Cmd = new TurnToAngleCmd(driveSubsystem, 13);
   public final TurnToAngleCmd turnToAngle90Cmd = new TurnToAngleCmd(driveSubsystem, 90);
 
@@ -91,7 +93,9 @@ public class RobotContainer {
   public final ElevatorDownManualCmd elevatorDownManualCmd  = new ElevatorDownManualCmd(elevatorSubsystem);
     
  
-    private final Auto2NotesCmd auto1 = new Auto2NotesCmd();
+  private final Auto2NotesCmd autoMiddle = new Auto2NotesCmd();
+  private final Auto2NotesDCmd autoRight = new Auto2NotesDCmd();
+  private final Auto2NotesGCmd autoLeft = new Auto2NotesGCmd();
 
     public static PhotonCamera camera = new PhotonCamera("Caméra 1");
    
@@ -99,12 +103,13 @@ public class RobotContainer {
     public static CommandXboxController manette = new CommandXboxController(0);
     public static Timer m_timer = new Timer();
     public static AnalogInput Potentio = new AnalogInput(0);
-    public static AnalogInput ultrason = new AnalogInput(2);
+    public static AnalogInput ultrason = new AnalogInput(1);
     public static DigitalInput analogAngle = new DigitalInput(2);
    
     public static  boolean angleShoot = false;
     public static boolean angleIntake = false;
     public static boolean angleBumper = false;
+    public static boolean angleLimit = false;
 
     
 
@@ -113,9 +118,8 @@ public class RobotContainer {
     
     
   public Command getAutonomousCommand() {
-
-    
-    return new Auto2NotesCmd();
+      
+    return m_Chooser.getSelected();
    }
     
   
@@ -129,11 +133,14 @@ public class RobotContainer {
     
 
     // Add commands to the autonomous command chooser
-    //    m_Chooser.setDefaultOption("backward", backward);
-    //    m_Chooser.addOption("forward", forward);
+    m_Chooser.setDefaultOption("Auto Middle", autoMiddle);
+    m_Chooser.addOption("Auto Left", autoLeft);
+    m_Chooser.addOption("Auto Right", autoRight);
+    m_Chooser.addOption("Backward",driveForDistance5);
+    m_Chooser.addOption("wait",nothing);
   
-    // Put the chooser on the dashboard
-    //    SmartDashboard.putData(m_Chooser);
+    //Put the chooser on the dashboard
+    SmartDashboard.putData(m_Chooser);
 
     
     
@@ -153,7 +160,7 @@ public class RobotContainer {
    
 
     private void configureButtonBindings() {
-      //mouvement inversée
+    
         Trigger yButton =  manette.y();
         Trigger rBumper = manette.rightBumper();
         Trigger lBumper = manette.leftBumper();
@@ -170,9 +177,15 @@ public class RobotContainer {
         Trigger Button6 = joystick.button(6);
         Trigger Button7m = manette.button(7);
         Trigger Button8m = manette.button(8);
+        Trigger Button7 = joystick.button(7);
+        Trigger Button8 = joystick.button(8);
+        Trigger Button9 = joystick.button(9);
+        Trigger Button10 = joystick.button(10);
+        Trigger Button11 = joystick.button(11);
         Trigger Button12 = joystick.button(12);
-        Trigger Button11 = joystick.button(8);
-
+        
+        
+        
 
         yButton.onTrue(new InstantCommand(() -> driveSubsystem.reverse())); // Mouvement inversé
         rBumper.onTrue(new InstantCommand(() -> driveSubsystem.speedUp())); // Vitesse augmenté
@@ -197,8 +210,14 @@ public class RobotContainer {
        
         Button6.whileTrue(new TurnToAngleCmd(driveSubsystem, 90));
 
-        Button11.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
-        Button12.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem));
+        Button9.whileTrue(new AngleUpIntakeCmd(angleSubsystem));
+        Button10.whileTrue(new AngleDownBasCmd(angleSubsystem));
+
+        Button11.onTrue(new AngleUpIntakeCmd(angleSubsystem));
+        Button12.onTrue(new AngleDownBasCmd(angleSubsystem));
+
+        Button7.whileTrue(new ElevatorDownManualCmd(elevatorSubsystem));
+        Button8.whileTrue(new ElevatorUpManualCmd(elevatorSubsystem));
 
         
     }

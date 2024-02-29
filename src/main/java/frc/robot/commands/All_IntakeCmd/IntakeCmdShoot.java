@@ -30,7 +30,7 @@ public class IntakeCmdShoot extends Command {
 
   @Override
   public boolean isFinished() {
-    if(RobotContainer.m_timer.get() >= 1){ //a définir
+    if(RobotContainer.m_timer.get() >= 1.5){ //a définir
       return true;
   }
   else{

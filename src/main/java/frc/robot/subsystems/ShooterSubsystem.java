@@ -18,6 +18,9 @@ public class ShooterSubsystem extends SubsystemBase { // Déclaration de la clas
         m_launchWheel.setSmartCurrentLimit(Constants.ShooterConstants.kLauncherCurrentLimit); // Configuration de la limite de courant pour la roue de lancement
         m_feedWheel.setSmartCurrentLimit(Constants.ShooterConstants.kFeedCurrentLimit); // Configuration de la limite de courant pour la roue d'alimentation
         
+        m_launchWheel.enableVoltageCompensation(12);
+        m_launchWheel.enableVoltageCompensation(12);
+        
         m_launchWheel.setInverted(true); // Inversion du sens de rotation de la roue de lancement
         m_feedWheel.setInverted(true); // Inversion du sens de rotation de la roue d'alimentation
     }
