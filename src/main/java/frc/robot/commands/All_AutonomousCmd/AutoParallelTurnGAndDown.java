@@ -6,18 +6,19 @@ package frc.robot.commands.All_AutonomousCmd;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.RobotContainer;
-import frc.robot.commands.All_AngleCmd.AngleDownManualCmd;
-import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
+import frc.robot.commands.TurnToAngleCmd;
+import frc.robot.commands.All_AngleCmd.AngleDownChariotCmd;
+import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoParallelCmd2 extends ParallelCommandGroup {
-  /** Creates a new AutoParallelCmd2. */
-  public AutoParallelCmd2() {
+public class AutoParallelTurnGAndDown extends ParallelCommandGroup {
+  /** Creates a new AutoParallelTurnAndDown. */
+  public AutoParallelTurnGAndDown() {
     
-    addCommands(new AngleDownManualCmd(RobotContainer.angleSubsystem));
-    addCommands(new DriveForDistanceCmd(0.3));
-
+    addCommands(new TurnToAngleCmd(RobotContainer.driveSubsystem, 52));
+    addCommands(new AngleDownChariotCmd(RobotContainer.angleSubsystem));
+    addCommands(new ElevatorDownManualCmd(RobotContainer.elevatorSubsystem));
   }
 }

@@ -28,4 +28,10 @@ public class ElevatorSubsystem extends SubsystemBase { // Déclaration de la cla
     public void stop() { // Méthode pour arrêter le moteur de l'ascenseur
         m_elevatorMotor.set(0); // Arrêt du moteur de l'ascenseur en mettant sa vitesse à 0
     }
+    public double getElevatorValue(){
+        return ElevatorEncoder.getDistance();
+    }
+    public void resetEncoderElevator(){
+        ElevatorEncoder.reset();
+    }
 }

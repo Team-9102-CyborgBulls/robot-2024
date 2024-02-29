@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command; // Import des classes nécessaire
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.AngleSubsystem;
 
-public class AngleDownManualCmd extends Command { // Déclaration de la classe AngleDownManualCmd qui étend la classe Command
+public class AngleDownBasCmd extends Command { // Déclaration de la classe AngleDownManualCmd qui étend la classe Command
 
     AngleSubsystem m_angle; // Déclaration d'une variable m_angle de type AngleSubsystem
     RobotContainer m_robotContainer;
@@ -13,7 +13,7 @@ public class AngleDownManualCmd extends Command { // Déclaration de la classe A
     //double heightToGo;
 
 
-    public AngleDownManualCmd(AngleSubsystem angle) { // Constructeur de la classe AngleDownManualCmd
+    public AngleDownBasCmd(AngleSubsystem angle) { // Constructeur de la classe AngleDownManualCmd
         this.m_angle = angle; // Initialisation de la variable m_angle avec la valeur passée en paramètre
         
         addRequirements(m_angle); // Ajout de la dépendance du sous-système angle
@@ -37,10 +37,11 @@ public class AngleDownManualCmd extends Command { // Déclaration de la classe A
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-        if(m_robotContainer.analogAngle.get() == true){
+        if(m_robotContainer.Potentio.getValue() <= 1500){
             return true;
-        } else{
-            return false;
+       
+        }else{
+            return false; 
         } // La commande ne se termine jamais automatiquement
     }
 }

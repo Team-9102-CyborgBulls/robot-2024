@@ -29,16 +29,15 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   public DriveSubsystem() {
-
-    m_drive = new DifferentialDrive(m_MotorLeft,m_MotorRight);
+  
     
     m_MotorRight.setInverted(true);
     m_MotorRightFollow.setInverted(true);
     m_MotorLeft.setInverted(false);
     m_MotorLeftFollow.setInverted(false); 
 
-    //m_MotorRightFollow.follow(m_MotorRight);
-    //m_MotorLeftFollow.follow(m_MotorLeft);
+    m_MotorRightFollow.follow(m_MotorRight);
+    m_MotorLeftFollow.follow(m_MotorLeft);
 
     m_MotorRight.configVoltageCompSaturation(11.0);
     m_MotorRightFollow.configVoltageCompSaturation(11.0);
@@ -52,11 +51,17 @@ public class DriveSubsystem extends SubsystemBase {
 
     encoderDrive.reset();
     encoderDrive.setDistancePerRotation(Constants.DrivetrainConstants.kEncoderdistancePerRotation);
+    
+    m_drive = new DifferentialDrive(m_MotorLeft,m_MotorRight);
+   
+
     }
 
     public void arcadeDrive(double fwd, double rot) {
-      m_drive.arcadeDrive(fwd, rot);
-      m_drive.setMaxOutput(speed_changer*direction);
+      m_drive.arcadeDrive(fwd*direction, rot);
+      m_drive.setMaxOutput(speed_changer);
+       m_MotorRightFollow.follow(m_MotorRight);
+      m_MotorLeftFollow.follow(m_MotorLeft);
     }
     public void tankDrive(double left, double right){
       m_drive.tankDrive(left, right);
@@ -107,6 +112,7 @@ public class DriveSubsystem extends SubsystemBase {
     public double getDistance(){
       return encoderDrive.getDistance();
     }
+    
     
   @Override
   public void periodic() {} // This method will be called once per scheduler run

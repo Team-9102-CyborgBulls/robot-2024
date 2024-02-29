@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command; // Import des classes nécessaire
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.AngleSubsystem;
 
-public class AngleUpManualCmd extends Command { // Déclaration de la classe AngleUpManualCmd qui étend la classe Command
+public class AngleUpTeleopCmd extends Command { // Déclaration de la classe AngleUpManualCmd qui étend la classe Command
 
     AngleSubsystem m_angle; // Déclaration d'une variable m_angle de type AngleSubsystem
     double targetHeight;
@@ -12,9 +12,9 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
     double heightToGo;
     double kP = 0.00048;
     RobotContainer m_robotContainer;
-   
+    
 
-    public AngleUpManualCmd(AngleSubsystem anglesubsystem) { // Constructeur de la classe AngleUpManualCmd
+    public AngleUpTeleopCmd(AngleSubsystem anglesubsystem) { // Constructeur de la classe AngleUpManualCmd
         this.m_angle = anglesubsystem;// Initialisation de la variable m_angle avec la valeur passée en paramètre
        
         addRequirements(m_angle); // Ajout de la dépendance du sous-système anglesubsystem
@@ -23,14 +23,14 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
     @Override
     public void initialize() {
 
-        m_robotContainer.analog.getValue();
+        m_robotContainer.Potentio.getValue();
        
     } // Méthode d'initialisation 
 
     @Override
     public void execute() { // Méthode execute qui sera appelée périodiquement
 
-        m_angle.setAngleMotor(-0.75); // Appel de la méthode setAngleMotor du sous-système angle avec une valeur de -1 pour monter
+        m_angle.setAngleMotor(-1); // Appel de la méthode setAngleMotor du sous-système angle avec une valeur de -1 pour monter
     }
 
     @Override
@@ -40,12 +40,27 @@ public class AngleUpManualCmd extends Command { // Déclaration de la classe Ang
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-        if(m_robotContainer.analog.getValue() >=4090){    
+    if(m_robotContainer.Potentio.getValue() >=4090){  
+        
+      m_robotContainer.angleIntake = true; 
       return true;
     }
+    else if(m_robotContainer.Potentio.getValue() <= 4060 && m_robotContainer.Potentio.getValue() >= 4057){
+
+        m_robotContainer.angleShoot = true;
+        return true;
+    }
+    else if(m_robotContainer.Potentio.getValue() <= 3285 && m_robotContainer.Potentio.getValue() >= 3245){
+        m_robotContainer.angleBumper = true;
+        return true;
+    }
     else{
+        
+        m_robotContainer.angleBumper = false;
+        m_robotContainer.angleShoot = false;
+        m_robotContainer.angleIntake = false;
         return false;
         
-    }// La commande ne se termine jamais automatiquement
+    }
     }
 }

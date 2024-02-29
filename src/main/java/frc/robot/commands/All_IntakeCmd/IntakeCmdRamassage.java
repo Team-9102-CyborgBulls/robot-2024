@@ -1,14 +1,15 @@
 package frc.robot.commands.All_IntakeCmd;
 
+import edu.wpi.first.hal.simulation.RoboRioDataJNI;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeCmdAuto extends Command {
+public class IntakeCmdRamassage extends Command {
     
     IntakeSubsystem m_intake;
 
-    public IntakeCmdAuto(IntakeSubsystem intake){
+    public IntakeCmdRamassage(IntakeSubsystem intake){
 
       this.m_intake = intake;
       addRequirements(m_intake);
@@ -16,7 +17,7 @@ public class IntakeCmdAuto extends Command {
 
     @Override
   public void initialize() {
-    m_intake.setIntakeMotor(0.0);
+    
     RobotContainer.m_timer.reset();
     RobotContainer.m_timer.start();
 
@@ -29,7 +30,7 @@ public class IntakeCmdAuto extends Command {
 
   @Override
   public boolean isFinished() {
-    if(RobotContainer.m_timer.get() >= 3){
+    if(RobotContainer.m_timer.get() >= 2){ //a définir
       return true;
   }
   else{

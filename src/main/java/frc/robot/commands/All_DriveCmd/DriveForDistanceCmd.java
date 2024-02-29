@@ -16,12 +16,13 @@ public class DriveForDistanceCmd extends Command {
   double percentPower;
   double kP;
   double error;
-  double startAngle; // our starting gyroscope heading
+  public static boolean finCmd = false;
 
   /** Creates a new DriveForDistanceCommand. */
   public DriveForDistanceCmd(double distance) {
     m_DriveSubsystem = RobotContainer.driveSubsystem;
     this.distance = distance;
+    //this.percentPower = percentPower;
     addRequirements(m_DriveSubsystem);
   }
 
@@ -46,37 +47,16 @@ public class DriveForDistanceCmd extends Command {
     double currentPosition = -m_DriveSubsystem.getDistance();
     error = targetDistance - currentPosition;
     double speed =  kP * error;
-    System.out.println(speed);
-    double error_turn = startAngle - m_DriveSubsystem.getAngle(); // Correction needed for robot angle (our starting angle, since we would like to drive straight)
-    SmartDashboard.putNumber("erreur",error_turn);
-    System.out.println(error_turn);
-    double turn = error_turn * 0.015;
-    SmartDashboard.putNumber("turn",turn);
-    System.out.println(turn);
 
-    if(speed >= 0.2){
-      speed = 0.2;
-    }
-    else if (speed <= -0.2){
-      speed = -0.2;
-    }
-    else if(speed >= 0){
-      turn = -turn;
-    }
-    else if (speed <0){
-      turn = turn;
-    }
-    else if (turn >= 0.2){
-      turn = 0.2;
-    }
-    else if(turn <= -0.2){
-      turn = -0.2;
-    }
-    
-    m_DriveSubsystem.setDriveMotors(speed,turn);
-    
+    if(speed >= 0.6){
 
-    //m_DriveSubsystem.setDriveMotors(speed, 0);
+      m_DriveSubsystem.setDriveMotors(0.6, 0);
+    }else if (speed <= -0.5){
+      m_DriveSubsystem.setDriveMotors(-0.5, 0);
+    }
+    else{
+    m_DriveSubsystem.setDriveMotors(speed, 0);
+    }
     // Print statements for debugging
     System.out.println("GOAL DISTANCE: " + (distance + initialDistance));
     System.out.println("CURRENT DISTANCE: " + m_DriveSubsystem.getDistance());
@@ -92,12 +72,31 @@ public class DriveForDistanceCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(error >= 0 && error <= 0.2){
-      return true; // End the command when we have reached our goal
-    }else if(error <= 0 && error >= -0.2){
-      return true; // End the command when we have reached our goal
-    }else{
+    
+    if(error >= 0 && error <= 0.3){
+      finCmd = true;
+      return true;
+      
+      
+    }
+    else if(error <= 0 && error >= -0.3){
+      finCmd = true;
+      return true;
+      
+    }
+    else{
       return false;
     }
+    
+    
+    
+    
+    /*if(distance >= 0){
+      return m_DriveSubsystem.getDistance() >= initialDistance + distance; // End the command when we have reached our goal
+    }else if(distance <= 0){
+      return m_DriveSubsystem.getDistance() <= initialDistance + distance; // End the command when we have reached our goal
+    }else{
+      return false;
+    }*/
   }
 }

@@ -17,6 +17,9 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.All_AngleCmd.AngleDownTeleopCmd;
+import frc.robot.commands.All_AngleCmd.AngleUpTeleopCmd;
+import frc.robot.commands.All_DriveCmd.DriveForDistanceCmd;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -42,6 +45,7 @@ public class Robot extends TimedRobot {
    
     SmartDashboard.putData(m_robotContainer.driveSubsystem.gyro);
     
+
     
    m_robotContainer.driveSubsystem.calibrateGyro();
    m_robotContainer.driveSubsystem.setOffSetEncoder(0);
@@ -58,20 +62,25 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-     SmartDashboard.putNumber("Distance parcourue drivetrain",m_robotContainer.driveSubsystem.getDistance());
-    SmartDashboard.putNumber("tension Potentiomètre", m_robotContainer.analog.getValue());
+    SmartDashboard.putNumber("Distance parcourue drivetrain",-m_robotContainer.driveSubsystem.getDistance());
+    SmartDashboard.putNumber("tension Potentiomètre", m_robotContainer.Potentio.getValue());
     SmartDashboard.putBoolean("capteur fin de course", m_robotContainer.analogAngle.get());
-    SmartDashboard.putNumber("position chariot elevateur", m_robotContainer.elevatorSubsystem.ElevatorEncoder.getDistance());
+    SmartDashboard.putNumber("position chariot elevateur", m_robotContainer.elevatorSubsystem.getElevatorValue());
+    // SmartDashboard.putNumber(" valeur Ultrason", m_robotContainer.ultrason.getValue());
+    //SmartDashboard.putBoolean("fin DriveCmd", DriveForDistanceCmd.finCmd);
+  
+    SmartDashboard.putBoolean("Angle Bumper", m_robotContainer.angleBumper);
+    SmartDashboard.putBoolean("Angle Shoot", m_robotContainer.angleShoot);
+    SmartDashboard.putBoolean("Angle Intake", m_robotContainer.angleIntake);
+
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+   
     
-    SmartDashboard.putNumber("gyro rate", m_robotContainer.driveSubsystem.getRate());
-    SmartDashboard.putNumber("gyro angle",m_robotContainer.driveSubsystem.getAngle());
-    SmartDashboard.putNumber("ultrason",m_robotContainer.ultrasonicSensor.getValue());
-  }
+  } 
 
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -93,8 +102,8 @@ public class Robot extends TimedRobot {
 
     
     m_robotContainer.driveSubsystem.resetGyro();
-
     m_robotContainer.driveSubsystem.resetPosition();
+    m_robotContainer.elevatorSubsystem.resetEncoderElevator();
 
   }
 
@@ -113,15 +122,22 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_robotContainer.driveSubsystem.resetGyro();
-    m_robotContainer.driveSubsystem.resetPosition();
-    m_robotContainer.elevatorSubsystem.ElevatorEncoder.reset();
+    //m_robotContainer.driveSubsystem.resetGyro();
+    //m_robotContainer.driveSubsystem.resetPosition();
+    //m_robotContainer.elevatorSubsystem.ElevatorEncoder.reset();
+
+  
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    /*if(m_robotContainer.ultrason.getValue() <= 200){
 
+      m_robotContainer.elevatorUpManualCmd.schedule();
+      m_robotContainer.angleDownManualCmd.schedule();*/
+
+    
    
   }
 

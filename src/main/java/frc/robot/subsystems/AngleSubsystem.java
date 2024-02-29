@@ -2,6 +2,8 @@ package frc.robot.subsystems; // Déclaration du package où se trouve la classe
 
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkMax; // Import des classes nécessaires
+import com.revrobotics.CANSparkBase.IdleMode;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -12,7 +14,7 @@ public class AngleSubsystem extends SubsystemBase { // Déclaration de la classe
     public AngleSubsystem() { // Constructeur de la classe AngleSubsystem
         m_angleMotor = new CANSparkMax(Constants.AngleElevatorConstants.m_angleMotorID, com.revrobotics.CANSparkLowLevel.MotorType.kBrushed); // Initialisation du moteur d'angle avec l'ID et le type de moteur spécifiés dans Constants
         m_angleMotor.setInverted(true); // Configuration de la direction du moteur d'angle
-        m_angleMotor.enableVoltageCompensation(12); // Activation de la compensation de tension pour le moteur d'angle
+        m_angleMotor.enableVoltageCompensation(9); // Activation de la compensation de tension pour le moteur d'angle
         m_angleMotor.setIdleMode(IdleMode.kBrake);
     }
 

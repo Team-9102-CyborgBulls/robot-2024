@@ -1,4 +1,4 @@
-package frc.robot.commands.All_AutonomousCmd;
+/*package frc.robot.commands.All_AutonomousCmd;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -18,12 +18,12 @@ public class Auto3NotesCmd extends SequentialCommandGroup {
     public Auto3NotesCmd(){
         addCommands(new PrepareLaunchAuto(RobotContainer.shooterSubsytem));
         //addCommands(new LaunchNoteAuto(RobotContainer.shooterSubsytem));
-        addCommands(new AutoParallelCmd1()); // IntakeCmd and LaunchNote
+        addCommands(new AutoParallelIntakeLaunch()); // IntakeCmd and LaunchNote
 
         //changer drive2sec et fordistance en fonction de ce qu'on veux faire: 
 
         //addCommands(new DriveBackward2sCmd(RobotContainer.driveSubsystem));
-        addCommands(new DriveForDistanceCmd(-0.3));
+        addCommands(new DriveForDistanceCmd(1));
 
         addCommands(new AngleUpManualCmd(RobotContainer.angleSubsystem));
         
@@ -34,9 +34,9 @@ public class Auto3NotesCmd extends SequentialCommandGroup {
         
         addCommands(new PrepareLaunchAuto(RobotContainer.shooterSubsytem));
         //addCommands(new LaunchNoteAuto(RobotContainer.shooterSubsytem));
-        addCommands(new AutoParallelCmd1());
+        addCommands(new AutoParallelIntakeLaunch());
 
-        addCommands(new DriveForDistanceCmd(-0.3));
+        addCommands(new DriveForDistanceCmd(1));
 
         addCommands(new TurnToAngleCmd(RobotContainer.driveSubsystem,90));
 
@@ -50,10 +50,10 @@ public class Auto3NotesCmd extends SequentialCommandGroup {
 
         addCommands(new PrepareLaunchAuto(RobotContainer.shooterSubsytem));
         
-        addCommands(new AutoParallelCmd1());
+        addCommands(new AutoParallelIntakeLaunch());
 
 
     }
     
 }
-//you shall not pass
+//you shall not pass*/

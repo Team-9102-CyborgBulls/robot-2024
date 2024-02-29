@@ -1,12 +1,15 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
     CANSparkMax m_intakeMotor;
+    
     
     public IntakeSubsystem(){
         
