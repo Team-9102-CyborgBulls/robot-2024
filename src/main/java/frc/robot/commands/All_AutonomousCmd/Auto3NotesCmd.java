@@ -23,7 +23,7 @@ public class Auto3NotesCmd extends SequentialCommandGroup {
         //changer drive2sec et fordistance en fonction de ce qu'on veux faire: 
 
         //addCommands(new DriveBackward2sCmd(RobotContainer.driveSubsystem));
-        addCommands(new DriveForDistanceCmd(1, -0.3));
+        addCommands(new DriveForDistanceCmd(-0.3));
 
         addCommands(new AngleUpManualCmd(RobotContainer.angleSubsystem));
         
@@ -36,7 +36,7 @@ public class Auto3NotesCmd extends SequentialCommandGroup {
         //addCommands(new LaunchNoteAuto(RobotContainer.shooterSubsytem));
         addCommands(new AutoParallelCmd1());
 
-        addCommands(new DriveForDistanceCmd(1,-0.3));
+        addCommands(new DriveForDistanceCmd(-0.3));
 
         addCommands(new TurnToAngleCmd(RobotContainer.driveSubsystem,90));
 

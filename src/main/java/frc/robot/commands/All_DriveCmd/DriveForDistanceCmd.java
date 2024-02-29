@@ -1,5 +1,6 @@
 package frc.robot.commands.All_DriveCmd;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -14,12 +15,13 @@ public class DriveForDistanceCmd extends Command {
   double distance;
   double percentPower;
   double kP;
+  double error;
+  double startAngle; // our starting gyroscope heading
 
   /** Creates a new DriveForDistanceCommand. */
-  public DriveForDistanceCmd(double distance, double percentPower) {
+  public DriveForDistanceCmd(double distance) {
     m_DriveSubsystem = RobotContainer.driveSubsystem;
     this.distance = distance;
-    this.percentPower = percentPower;
     addRequirements(m_DriveSubsystem);
   }
 
@@ -29,6 +31,8 @@ public class DriveForDistanceCmd extends Command {
     
     m_DriveSubsystem.resetPosition();
     initialDistance = m_DriveSubsystem.getDistance();
+    m_DriveSubsystem.resetGyro();
+    this.startAngle = m_DriveSubsystem.getAngle();
     System.out.println("INITIAL DISTANCE: " + initialDistance);
     this.targetDistance = initialDistance + distance;
     
@@ -38,12 +42,41 @@ public class DriveForDistanceCmd extends Command {
   @Override
   public void execute() {
 
-    double kP = 0.7;
-    double currentPosition = m_DriveSubsystem.getDistance();
-    double error = targetDistance - currentPosition;
+    double kP = 0.5;
+    double currentPosition = -m_DriveSubsystem.getDistance();
+    error = targetDistance - currentPosition;
     double speed =  kP * error;
+    System.out.println(speed);
+    double error_turn = startAngle - m_DriveSubsystem.getAngle(); // Correction needed for robot angle (our starting angle, since we would like to drive straight)
+    SmartDashboard.putNumber("erreur",error_turn);
+    System.out.println(error_turn);
+    double turn = error_turn * 0.015;
+    SmartDashboard.putNumber("turn",turn);
+    System.out.println(turn);
 
-    m_DriveSubsystem.setDriveMotors(speed, 0);
+    if(speed >= 0.2){
+      speed = 0.2;
+    }
+    else if (speed <= -0.2){
+      speed = -0.2;
+    }
+    else if(speed >= 0){
+      turn = -turn;
+    }
+    else if (speed <0){
+      turn = turn;
+    }
+    else if (turn >= 0.2){
+      turn = 0.2;
+    }
+    else if(turn <= -0.2){
+      turn = -0.2;
+    }
+    
+    m_DriveSubsystem.setDriveMotors(speed,turn);
+    
+
+    //m_DriveSubsystem.setDriveMotors(speed, 0);
     // Print statements for debugging
     System.out.println("GOAL DISTANCE: " + (distance + initialDistance));
     System.out.println("CURRENT DISTANCE: " + m_DriveSubsystem.getDistance());
@@ -59,10 +92,10 @@ public class DriveForDistanceCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(distance >= 0){
-      return m_DriveSubsystem.getDistance() >= initialDistance + distance; // End the command when we have reached our goal
-    }else if(distance <= 0){
-      return m_DriveSubsystem.getDistance() <= initialDistance + distance; // End the command when we have reached our goal
+    if(error >= 0 && error <= 0.2){
+      return true; // End the command when we have reached our goal
+    }else if(error <= 0 && error >= -0.2){
+      return true; // End the command when we have reached our goal
     }else{
       return false;
     }

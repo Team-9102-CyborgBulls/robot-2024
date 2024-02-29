@@ -70,6 +70,7 @@ public class Robot extends TimedRobot {
     
     SmartDashboard.putNumber("gyro rate", m_robotContainer.driveSubsystem.getRate());
     SmartDashboard.putNumber("gyro angle",m_robotContainer.driveSubsystem.getAngle());
+    SmartDashboard.putNumber("ultrason",m_robotContainer.ultrasonicSensor.getValue());
   }
 
 

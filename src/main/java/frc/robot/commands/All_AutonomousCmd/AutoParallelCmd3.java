@@ -16,6 +16,6 @@ public class AutoParallelCmd3 extends ParallelCommandGroup {
   /** Creates a new AutoParallelCmd3. */
   public AutoParallelCmd3() {
     addCommands(new AngleDownManualCmd(RobotContainer.angleSubsystem));
-    addCommands(new DriveForDistanceCmd(1, 0.3));
+    addCommands(new DriveForDistanceCmd(0.3));
   }
 }

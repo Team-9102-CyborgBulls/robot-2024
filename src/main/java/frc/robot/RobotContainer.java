@@ -60,7 +60,7 @@ public class RobotContainer {
   public final DriveCmd driveCmd = new DriveCmd(driveSubsystem);
   public final DriveBackward2sCmd backward = new DriveBackward2sCmd(driveSubsystem);
   public final DriveForward2sCmd forward = new DriveForward2sCmd(driveSubsystem);
-  public final DriveForDistanceCmd driveForDistanceCmd = new DriveForDistanceCmd(1, 0.2);
+  public final DriveForDistanceCmd driveForDistanceCmd = new DriveForDistanceCmd(0.2);
   public final frc.robot.commands.All_DriveCmd.WaitCmd Wait = new frc.robot.commands.All_DriveCmd.WaitCmd(driveSubsystem);
   public final NothingCmd nothing = new NothingCmd(driveSubsystem);
 
@@ -78,6 +78,8 @@ public class RobotContainer {
 
   public final ElevatorUpManualCmd elevatorUpManualCmd = new ElevatorUpManualCmd(elevatorSubsystem, 20);
   public final ElevatorDownManualCmd elevatorDownManualCmd  = new ElevatorDownManualCmd(elevatorSubsystem);
+
+  public AnalogInput ultrasonicSensor = new AnalogInput(1);
     
  
     private final Auto1Cmd auto1 = new Auto1Cmd();
@@ -101,7 +103,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
 
     //return new Auto2Cmd();
-    return new DriveForwardGyroCmd(driveSubsystem,10);
+    return new DriveForDistanceCmd(4);
    }
     
   
