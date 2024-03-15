@@ -25,7 +25,7 @@ public class ShooterSubsystem extends SubsystemBase { // Déclaration de la clas
         m_feedWheel.setInverted(true); // Inversion du sens de rotation de la roue d'alimentation
     }
 
-    public Command getIntakeCommand() {
+    public Command reverseShootCommand() {
     // The startEnd helper method takes a method to call when the command is initialized and one to
     // call when it ends
     return this.startEnd(

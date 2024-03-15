@@ -41,7 +41,7 @@ public class ElevatorDownAutoCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_robotContainer.m_timer.get() >= 1.8){ // -28.5
+    if(m_robotContainer.m_timer.get() >= 1.70){ // -28.5  m_robotContainer.elevatorSubsystem.getElevatorValue() <= -28
       return true;
     }
     else{

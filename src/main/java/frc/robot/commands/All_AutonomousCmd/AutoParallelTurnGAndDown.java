@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.TurnToAngleCmd;
 import frc.robot.commands.All_AngleCmd.AngleDownChariotCmd;
+import frc.robot.commands.All_ElevatorCmd.ElevatorDownAutoCmd;
 import frc.robot.commands.All_ElevatorCmd.ElevatorDownManualCmd;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,8 +18,8 @@ public class AutoParallelTurnGAndDown extends ParallelCommandGroup {
   /** Creates a new AutoParallelTurnAndDown. */
   public AutoParallelTurnGAndDown() {
     
-    addCommands(new TurnToAngleCmd(RobotContainer.driveSubsystem, 52));
+    addCommands(new TurnToAngleCmd(RobotContainer.driveSubsystem, 50));
     addCommands(new AngleDownChariotCmd(RobotContainer.angleSubsystem));
-    addCommands(new ElevatorDownManualCmd(RobotContainer.elevatorSubsystem));
+    addCommands(new ElevatorDownAutoCmd(RobotContainer.elevatorSubsystem));
   }
 }

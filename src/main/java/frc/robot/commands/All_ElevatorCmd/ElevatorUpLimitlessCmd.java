@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorUpManualCmd extends Command {
+public class ElevatorUpLimitlessCmd extends Command {
   
   ElevatorSubsystem m_elevator;
   double error;
@@ -16,7 +16,7 @@ public class ElevatorUpManualCmd extends Command {
   double distanceToGo;
   RobotContainer m_robotContainer;
 
-  public ElevatorUpManualCmd(ElevatorSubsystem elevator) {
+  public ElevatorUpLimitlessCmd(ElevatorSubsystem elevator) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_elevator = elevator;
     
@@ -28,30 +28,27 @@ public class ElevatorUpManualCmd extends Command {
   public void initialize() {
 
     m_elevator.setElevatorSpeed(0.0); //0.027
-    m_robotContainer.m_timer.reset();
-    m_robotContainer.m_timer.start();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    m_elevator.setElevatorSpeed(0.6);
+    m_elevator.setElevatorSpeed(0.3);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_elevator.setElevatorSpeed(0.0); //
+     m_elevator.setElevatorSpeed(0.0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_robotContainer.elevatorSubsystem.getElevatorValue() >= -1){
-      return true;
-    }else{
+   
       return false;
-    }
+    
   }
 }

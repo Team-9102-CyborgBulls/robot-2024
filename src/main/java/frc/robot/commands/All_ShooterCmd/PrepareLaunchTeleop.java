@@ -2,6 +2,7 @@ package frc.robot.commands.All_ShooterCmd;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class PrepareLaunchTeleop extends Command {
@@ -33,9 +34,12 @@ public class PrepareLaunchTeleop extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // Always return false so the command never ends on it's own. In this project we use a timeout
-    // decorator on the command to end it.
-    return false;
+    if(RobotContainer.m_timer.get() >= 0.75){
+        return true;
+    }
+    else{
+      return false;
+    }
   }
 }
 

@@ -35,20 +35,20 @@ public class AngleDownTeleopCmd extends Command { // Déclaration de la classe A
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-        if(m_robotContainer.Potentio.getValue() <= 1500){
-
-            m_robotContainer.angleLimit = true;
+        if(m_robotContainer.analogAngle.get() == true){
+         
             return true;
     
-        }else if(m_robotContainer.Potentio.getValue() <= 4060 && m_robotContainer.Potentio.getValue() >= 4058){
+        }else if(m_robotContainer.Potentio.getValue() <= 4060 && m_robotContainer.Potentio.getValue() >= 4059){
             m_robotContainer.angleShoot = true; 
             return true;
 
-        }else if(m_robotContainer.Potentio.getValue() <= 3285 && m_robotContainer.Potentio.getValue() >= 3245){
-            m_robotContainer.angleBumper = true; 
-            return true;
-        }else{
-            m_robotContainer.angleBumper = false; 
+        }//else if(m_robotContainer.Potentio.getValue() <= 3285 && m_robotContainer.Potentio.getValue() >= 3245){
+            //m_robotContainer.angleBumper = true; 
+            //return true;
+       // }
+        else{
+        
             m_robotContainer.angleShoot = false; 
             m_robotContainer.angleLimit = false;
             m_robotContainer.angleIntake = false;

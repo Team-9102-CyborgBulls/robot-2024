@@ -37,9 +37,9 @@ public class Auto2NotesDCmd extends SequentialCommandGroup{
 
         //addCommands(new ElevatorDownManualCmd(RobotContainer.elevatorSubsystem));
         
-        addCommands(new AutoParallelIntakeBack(-1.5));
+        addCommands(new AutoParallelIntakeBack(-1.65));
 
-       addCommands(new DriveForDistanceCmd(1.5));
+       addCommands(new DriveForDistanceCmd(1.65));
 
         addCommands(new TurnToAngleCmd(RobotContainer.driveSubsystem, 30));
 

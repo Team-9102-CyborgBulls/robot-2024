@@ -29,9 +29,9 @@ public class DriveBackward2sCmd extends Command{
     
       System.out.println(RobotContainer.m_timer.get());
   
-      double speed = -0.3;
+      double speed = -0.2;
      
-      driveSubsystem.setDriveMotors(speed,0);
+      driveSubsystem.setDriveMotors(speed,0); // shooter vers notre driverstation
     }
   
     @Override

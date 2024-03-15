@@ -37,7 +37,7 @@ public class AngleDownBasCmd extends Command { // Déclaration de la classe Angl
 
     @Override
     public boolean isFinished() { // Méthode qui indique si la commande est terminée
-        if(m_robotContainer.Potentio.getValue() <= 1500){
+        if(m_robotContainer.analogAngle.get() == true){
             return true;
        
         }else{

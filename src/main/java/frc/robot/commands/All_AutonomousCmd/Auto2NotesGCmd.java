@@ -27,7 +27,7 @@ public class Auto2NotesGCmd extends SequentialCommandGroup{
 
         //changer drive2sec et fordistance en fonction de ce qu'on veux faire:
         
-        addCommands(new DriveForDistanceCmd(-0.40));
+        addCommands(new DriveForDistanceCmd(-0.50));
 
         addCommands(new AutoParallelTurnGAndDown());
 
@@ -37,13 +37,13 @@ public class Auto2NotesGCmd extends SequentialCommandGroup{
 
         //addCommands(new ElevatorDownManualCmd(RobotContainer.elevatorSubsystem));
         
-        addCommands(new AutoParallelIntakeBack(-1.5));
+        addCommands(new AutoParallelIntakeBack(-1.65));
 
-       addCommands(new DriveForDistanceCmd(1.6));
+       addCommands(new DriveForDistanceCmd(1.65));
 
-        addCommands(new TurnToAngleCmd(RobotContainer.driveSubsystem, -44));
+        addCommands(new TurnToAngleCmd(RobotContainer.driveSubsystem, -30));
 
-        addCommands(new DriveForDistanceCmd(0.50));
+        addCommands(new DriveForDistanceCmd(0.60));
         
         //addCommands(new AngleDownChariotCmd(RobotContainer.angleSubsystem));
         //addCommands(new ElevatorUpManualCmd(RobotContainer.elevatorSubsystem));

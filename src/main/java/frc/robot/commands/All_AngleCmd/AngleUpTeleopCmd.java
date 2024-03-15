@@ -50,10 +50,10 @@ public class AngleUpTeleopCmd extends Command { // Déclaration de la classe Ang
         m_robotContainer.angleShoot = true;
         return true;
     }
-    else if(m_robotContainer.Potentio.getValue() <= 3285 && m_robotContainer.Potentio.getValue() >= 3245){
-        m_robotContainer.angleBumper = true;
-        return true;
-    }
+    //else if(m_robotContainer.Potentio.getValue() <= 3285 && m_robotContainer.Potentio.getValue() >= 3245){
+        //m_robotContainer.angleBumper = true;
+        //return true;
+    // }
     else{
         
         m_robotContainer.angleBumper = false;

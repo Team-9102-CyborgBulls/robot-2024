@@ -72,6 +72,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Angle Bumper", m_robotContainer.angleBumper);
     SmartDashboard.putBoolean("Angle Shoot", m_robotContainer.angleShoot);
     SmartDashboard.putBoolean("Angle Intake", m_robotContainer.angleIntake);
+    //SmartDashboard.putBoolean("Angle Bas", m_robotContainer.angleLimit);
 
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
@@ -124,7 +125,7 @@ public class Robot extends TimedRobot {
     }
     //m_robotContainer.driveSubsystem.resetGyro();
     //m_robotContainer.driveSubsystem.resetPosition();
-    //m_robotContainer.elevatorSubsystem.ElevatorEncoder.reset();
+    m_robotContainer.elevatorSubsystem.ElevatorEncoder.reset();
 
   
   }
